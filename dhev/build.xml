@@ -6,8 +6,9 @@
 	<property name="lib" location="lib" />
 	<property name="dist" location="dist" />
 	<property name="build" location="build" />
-	
+
 	<property name="application.name" value="${ant.project.name}" />
+	<property name="application.version" value="0.1" />
 	<property name="application.jar" value="${application.name}.jar" />
 
 	<path id="build.lib.path">
@@ -35,6 +36,10 @@
 
 	<target name="build-jar" depends="compile">
 		<jar destfile="${dist}/${application.jar}" basedir="${build}">
+			<manifest>
+				<attribute name="Application-Name" value="${application.name}" />
+				<attribute name="Application-Version" value="${application.version}" />
+			</manifest>
 		</jar>
 	</target>
 
