@@ -1,0 +1,41 @@
+<project name="dhev" default="">
+
+	<property file="build.properties" />
+
+	<property name="src" location="src" />
+	<property name="lib" location="lib" />
+	<property name="dist" location="dist" />
+	<property name="build" location="build" />
+	
+	<property name="application.name" value="${ant.project.name}" />
+	<property name="application.jar" value="${application.name}.jar" />
+
+	<path id="build.lib.path">
+		<fileset dir="${lib}" includes="**/*.jar" />
+		<fileset dir="${jboss.dir}/server/${jboss.server}/lib" includes="**/*.jar" />
+		<fileset dir="${jboss.dir}/lib" includes="**/*.jar" />
+	</path>
+
+	<target name="clean" description="Cleans up the build environment">
+		<delete includeemptydirs="true" dir="${build}" />
+		<delete includeemptydirs="true" dir="${dist}" />
+	</target>
+
+	<target name="init" depends="clean">
+		<mkdir dir="${dist}" />
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac destdir="${build}" nowarn="false" debug="true" optimize="true" verbose="false" fork="true" failonerror="true">
+			<src path="${src}" />
+			<classpath refid="build.lib.path" />
+		</javac>
+	</target>
+
+	<target name="build-jar" depends="compile">
+		<jar destfile="${dist}/${application.jar}" basedir="${build}">
+		</jar>
+	</target>
+
+</project>
