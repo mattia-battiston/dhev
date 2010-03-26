@@ -1,4 +1,4 @@
-<project name="dhev" default="">
+<project name="dhev" default="build-jar">
 
 	<property file="build.properties" />
 
@@ -21,7 +21,7 @@
 		<delete includeemptydirs="true" dir="${dist}" />
 	</target>
 
-	<target name="init" depends="clean">
+	<target name="init">
 		<mkdir dir="${dist}" />
 		<mkdir dir="${build}" />
 	</target>
