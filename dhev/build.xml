@@ -1,5 +1,7 @@
 <project name="dhev" default="build-jar">
 
+	<!-- ***************************************************************************** -->
+
 	<property file="build.properties" />
 
 	<property name="src" location="src" />
@@ -11,11 +13,20 @@
 	<property name="application.version" value="0.1" />
 	<property name="application.jar" value="${application.name}.jar" />
 
+	<!-- ***************************************************************************** -->
+
 	<path id="build.lib.path">
 		<fileset dir="${lib}" includes="**/*.jar" />
+	</path>
+
+	<path id="server.runtime.path">
 		<fileset dir="${jboss.dir}/server/${jboss.server}/lib" includes="**/*.jar" />
 		<fileset dir="${jboss.dir}/lib" includes="**/*.jar" />
 	</path>
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="build.lib.path" />
+
+	<!-- ***************************************************************************** -->
 
 	<target name="clean" description="Cleans up the build environment">
 		<delete includeemptydirs="true" dir="${build}" />
@@ -27,10 +38,11 @@
 		<mkdir dir="${build}" />
 	</target>
 
-	<target name="compile" depends="init">
+	<target name="compile" depends="init, check-properties-are-set">
 		<javac destdir="${build}" nowarn="false" debug="true" optimize="true" verbose="false" fork="true" failonerror="true">
 			<src path="${src}" />
 			<classpath refid="build.lib.path" />
+			<classpath refid="server.runtime.path" />
 		</javac>
 	</target>
 
@@ -42,5 +54,54 @@
 			</manifest>
 		</jar>
 	</target>
+
+	<!-- ***************************************************************************** -->
+
+	<target name="check-properties-are-set">
+		<if>
+			<not>
+				<isset property="jboss.dir" />
+			</not>
+			<then>
+				<echo message="Please set the jboss.dir property; e.g.: jboss.dir = C:/jboss-4.2.1.GA" />
+				<property name="should-fail" value="true" />
+			</then>
+		</if>
+		<if>
+			<not>
+				<isset property="jboss.server" />
+			</not>
+			<then>
+				<echo message="Please set the jboss.server property; e.g.: jboss.server = default" />
+				<property name="should-fail" value="true" />
+			</then>
+		</if>
+		<if>
+			<not>
+				<isset property="jboss.host.name" />
+			</not>
+			<then>
+				<echo message="Please set the jboss.host.name property; e.g.: jboss.host.name = localhost" />
+				<property name="should-fail" value="true" />
+			</then>
+		</if>
+		<if>
+			<not>
+				<isset property="jboss.host.port" />
+			</not>
+			<then>
+				<echo message="Please set the jboss.host.port property; e.g.: jboss.host.port = 8080" />
+				<property name="should-fail" value="true" />
+			</then>
+		</if>
+
+		<if>
+			<equals arg1="${should-fail}" arg2="true" />
+			<then>
+				<fail message="some properties are missing" />
+			</then>
+		</if>
+	</target>
+
 
 </project>
