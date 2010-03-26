@@ -6,16 +6,17 @@
 	<page view-id="/register.xhtml" login-required="false">
 		<navigation>
 			<rule if-outcome="success">
-				<redirect view-id="/listUser.xhtml"></redirect>
+				<redirect view-id="/register.xhtml">
+					<message severity="info">#{messages['userRegistered']}</message>
+				</redirect>
+			</rule>
+			<rule if-outcome="configurationUpdated">
+				<redirect view-id="/register.xhtml">
+					<message severity="info">#{messages['configurationUpdated']}</message>
+				</redirect>
 			</rule>
 		</navigation>
 	</page>
-
-	<exception class="org.jboss.seam.security.NotLoggedInException">
-		<redirect view-id="/error.xhtml">
-			<message severity="warn">#{messages['dhev.notLoggedIn']}</message>
-		</redirect>
-	</exception>
 
 	<exception>
 		<redirect view-id="/error.xhtml">

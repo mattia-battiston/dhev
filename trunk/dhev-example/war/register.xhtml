@@ -7,25 +7,51 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
    <head>
-      <title>Register New User</title>
+      <title>DHEV Example</title>
+      
+      <style>
+		.errorMessage{
+			color: red;
+		}
+		
+		.infoMessage{
+			color: blue;
+		}
+	  </style>
    </head>
    <body>
 
-	<h1>Register a new user!</h1>
+	<div style="width: 100%; text-align: center;">
+	<h1>DHEV - Dynamic Hibernate EL Validator</h1>
+	<h3>Example Application</h3>
+	</div>
+	
+	<br/>
+	
+	<h:messages globalOnly="true" infoClass="infoMessage"/>
 	
 	<f:view>
          <h:form id="registration">
          	<s:validateAll>
-         	<h:panelGrid columns="2">
-	            Name: <h:inputText id="name" value="#{user.name}" required="true"/>
-	            Surname: <h:inputText id="surname" value="#{user.surname}" required="true"/>
-	            Username: <h:inputText id="username" value="#{user.userName}" required="true"/>
-	            Age: <h:inputText id="age" value="#{user.age}" required="true"/>
+         	<h:panelGrid columns="3">
+	            Name: <h:inputText id="name" value="#{user.name}" required="true"/> <h:message for="name" errorClass="errorMessage" />
+	            Surname: <h:inputText id="surname" value="#{user.surname}" required="true"/> <h:message for="surname" errorClass="errorMessage" />
+	            Username: <h:inputText id="username" value="#{user.userName}" required="true"/> <h:message for="username" errorClass="errorMessage" />
+	            Age: <h:inputText id="age" value="#{user.age}" required="true"/> <h:message for="age" errorClass="errorMessage" />
 				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
             </h:panelGrid>
             </s:validateAll>
          </h:form>
-         <h:messages />
+         
+         <br/>
+         
+         <h:form id="configuration">
+         	Application Configuration
+         	<h:panelGrid columns="2">
+         		Min age: <h:inputText id="minAge" value="#{systemConfiguration.minAge}" required="true"/>
+         		<h:commandButton id="updateConfiguration" action="#{systemConfiguration.updateConfiguration}" value="Update Configuration" />
+         	</h:panelGrid>
+         </h:form>
       </f:view>
 
    </body>
