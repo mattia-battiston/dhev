@@ -36,7 +36,7 @@
 
 	<!-- ***************************************************************************** -->
 
-	<target name="init" depends="clean">
+	<target name="init">
 
 		<mkdir dir="${dist}" />
 		<mkdir dir="${build}" />
