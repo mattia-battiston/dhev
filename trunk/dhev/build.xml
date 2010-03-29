@@ -16,6 +16,7 @@
 
 	<property name="application.name" value="${ant.project.name}" />
 	<property name="application.jar" value="${application.name}.jar" />
+	<property name="application-src.jar" value="${application.name}-src.jar" />
 
 	<!-- ***************************************************************************** -->
 
@@ -29,6 +30,7 @@
 	<target name="clean" description="Cleans up the build environment">
 		<delete includeemptydirs="true" dir="${build}" />
 		<delete includeemptydirs="true" dir="${dist}" />
+		<delete includeemptydirs="true" dir="${test-report}" />
 	</target>
 
 	<target name="init">
@@ -55,13 +57,13 @@
 		</jar>
 	</target>
 
-	<target name="build" depends="run-tests, build-jar" description="runs the unit tests and creates the distribution jar">
-		<if>
-			<equals arg1="${should-fail}" arg2="true" />
-			<then>
-				<fail message="Unit tests failed"/>
-			</then>
-		</if>
+	<target name="build-jar-src" depends="init" description="creates a jar with all the source files">
+		<jar destfile="${dist}/${application-src.jar}" basedir="${src}">
+			<manifest>
+				<attribute name="Application-Name" value="${application.name}" />
+				<attribute name="Application-Version" value="${application.version}" />
+			</manifest>
+		</jar>
 	</target>
 
 	<!-- ***************************************************************************** -->
@@ -106,6 +108,17 @@
 		</junitreport>
 
 		<echo message="Checkout junit tests execution report at ${test-report-html}/index.html" />
+	</target>
+
+	<!-- ***************************************************************************** -->
+
+	<target name="build" depends="run-tests, build-jar, build-jar-src" description="runs the unit tests and creates the distribution jar">
+		<if>
+			<equals arg1="${should-fail}" arg2="true" />
+			<then>
+				<fail message="Unit tests failed" />
+			</then>
+		</if>
 	</target>
 
 </project>
