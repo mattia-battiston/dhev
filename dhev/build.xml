@@ -24,6 +24,7 @@
 		<fileset dir="${lib}" includes="**/*.jar" />
 	</path>
 
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="build.lib.path" />
 	<!-- ***************************************************************************** -->
 
 	<target name="clean" description="Cleans up the build environment">
@@ -46,7 +47,7 @@
 		</javac>
 	</target>
 
-	<target name="build-jar" depends="compile">
+	<target name="build-jar" depends="compile" description="creates the main jar">
 		<jar destfile="${dist}/${application.jar}" basedir="${build-src}">
 			<manifest>
 				<attribute name="Application-Name" value="${application.name}" />
@@ -54,8 +55,14 @@
 			</manifest>
 		</jar>
 	</target>
-	
+
 	<target name="build" depends="run-tests, build-jar" description="runs the unit tests and creates the distribution jar">
+		<if>
+			<equals arg1="${should-fail}" arg2="true" />
+			<then>
+				<fail message="Unit tests failed"/>
+			</then>
+		</if>
 	</target>
 
 	<!-- ***************************************************************************** -->
@@ -72,11 +79,11 @@
 
 	<target name="run-tests" depends="compile-test" description="runs the unit tests">
 
-		<delete dir="${test-report}"/>
-		<mkdir dir="${test-report}"/>
-		<mkdir dir="${test-report-html}"/>
+		<delete dir="${test-report}" />
+		<mkdir dir="${test-report}" />
+		<mkdir dir="${test-report-html}" />
 
-		<junit printsummary="yes">
+		<junit printsummary="yes" errorproperty="should-fail">
 			<classpath>
 				<path refid="build.lib.path" />
 				<pathelement location="${build-src}" />
@@ -98,7 +105,7 @@
 			</fileset>
 			<report format="frames" todir="${test-report-html}" />
 		</junitreport>
-		
+
 		<echo message="Checkout junit tests execution report at ${test-report-html}/index.html" />
 	</target>
 
