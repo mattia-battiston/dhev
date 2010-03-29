@@ -19,8 +19,6 @@
 		<fileset dir="${lib}" includes="**/*.jar" />
 	</path>
 
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="build.lib.path" />
-
 	<!-- ***************************************************************************** -->
 
 	<target name="clean" description="Cleans up the build environment">
