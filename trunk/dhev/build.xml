@@ -2,7 +2,7 @@
 
 	<!-- ***************************************************************************** -->
 
-	<property file="build.properties" />
+	<property file="version.properties" />
 
 	<property name="src" location="src" />
 	<property name="test" location="test" />
@@ -15,7 +15,6 @@
 	<property name="build-test" location="${build}/test" />
 
 	<property name="application.name" value="${ant.project.name}" />
-	<property name="application.version" value="0.1" />
 	<property name="application.jar" value="${application.name}.jar" />
 
 	<!-- ***************************************************************************** -->
