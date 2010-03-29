@@ -5,9 +5,14 @@
 	<property file="build.properties" />
 
 	<property name="src" location="src" />
+	<property name="test" location="test" />
+	<property name="test-report" location="test-report" />
+	<property name="test-report-html" location="${test-report}/html" />
 	<property name="lib" location="lib" />
 	<property name="dist" location="dist" />
 	<property name="build" location="build" />
+	<property name="build-src" location="${build}/src" />
+	<property name="build-test" location="${build}/test" />
 
 	<property name="application.name" value="${ant.project.name}" />
 	<property name="application.version" value="0.1" />
@@ -29,22 +34,72 @@
 	<target name="init">
 		<mkdir dir="${dist}" />
 		<mkdir dir="${build}" />
+		<mkdir dir="${build-src}" />
+		<mkdir dir="${build-test}" />
+		<mkdir dir="${test-report}" />
 	</target>
 
 	<target name="compile" depends="init">
-		<javac destdir="${build}" nowarn="false" debug="true" optimize="true" verbose="false" fork="true" failonerror="true">
+		<javac destdir="${build-src}" nowarn="false" debug="true" optimize="true" verbose="false" fork="true" failonerror="true">
 			<src path="${src}" />
 			<classpath refid="build.lib.path" />
 		</javac>
 	</target>
 
 	<target name="build-jar" depends="compile">
-		<jar destfile="${dist}/${application.jar}" basedir="${build}">
+		<jar destfile="${dist}/${application.jar}" basedir="${build-src}">
 			<manifest>
 				<attribute name="Application-Name" value="${application.name}" />
 				<attribute name="Application-Version" value="${application.version}" />
 			</manifest>
 		</jar>
+	</target>
+	
+	<target name="build" depends="run-tests, build-jar">
+	</target>
+
+	<!-- ***************************************************************************** -->
+
+	<target name="compile-test" depends="compile">
+		<javac destdir="${build-test}" nowarn="false" debug="true" optimize="true" verbose="false" fork="true" failonerror="true">
+			<src path="${test}" />
+			<classpath>
+				<path refid="build.lib.path" />
+				<pathelement location="${build-src}" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="run-tests" depends="compile-test">
+
+		<delete dir="${test-report}"/>
+		<mkdir dir="${test-report}"/>
+		<mkdir dir="${test-report-html}"/>
+
+		<junit printsummary="yes">
+			<classpath>
+				<path refid="build.lib.path" />
+				<pathelement location="${build-src}" />
+				<pathelement location="${build-test}" />
+			</classpath>
+
+			<formatter type="xml" />
+
+			<batchtest fork="yes" todir="${test-report}">
+				<fileset dir="${test}">
+					<include name="**/*Test*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<junitreport todir="${test-report-html}">
+			<fileset dir="${test-report}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${test-report-html}" />
+		</junitreport>
+		
+		<echo message="Checkout junit tests execution report at ${test-report-html}/index.html" />
 	</target>
 
 </project>
