@@ -112,7 +112,15 @@
 
 	<!-- ***************************************************************************** -->
 
-	<target name="build" depends="run-tests, build-jar, build-jar-src" description="runs the unit tests and creates the distribution jar">
+	<target name="build" depends="run-tests, build-jar, build-jar-src" description="runs the unit tests and creates the distribution zip file">
+		<zip destfile="${dist}/${application.name}-${application.version}.zip">
+			<zipfileset dir="${src}" prefix="src" />
+			<zipfileset dir="${test}" prefix="test" />
+			<zipfileset dir="${test-report}" prefix="test-report" />
+			<zipfileset dir="${dist}" prefix="build" includes="*.jar" />
+			<zipfileset dir="${lib}" prefix="lib" />
+		</zip>
+
 		<if>
 			<equals arg1="${should-fail}" arg2="true" />
 			<then>
