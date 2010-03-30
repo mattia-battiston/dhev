@@ -1,4 +1,4 @@
-<project name="dhev-example" default="deploy">
+<project name="dhev-example" default="build-ear">
 
 	<property file="build.properties" />
 
