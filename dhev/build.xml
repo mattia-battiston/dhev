@@ -15,8 +15,6 @@
 	<property name="build-test" location="${build}/test" />
 
 	<property name="application.name" value="${ant.project.name}" />
-	<property name="application.jar" value="${application.name}.jar" />
-	<property name="application-src.jar" value="${application.name}-src.jar" />
 
 	<!-- ***************************************************************************** -->
 
@@ -49,7 +47,7 @@
 	</target>
 
 	<target name="build-jar" depends="compile" description="creates the main jar">
-		<jar destfile="${dist}/${application.jar}" basedir="${build-src}">
+		<jar destfile="${dist}/${application.name}-${application.version}.jar" basedir="${build-src}">
 			<manifest>
 				<attribute name="Application-Name" value="${application.name}" />
 				<attribute name="Application-Version" value="${application.version}" />
@@ -58,7 +56,7 @@
 	</target>
 
 	<target name="build-jar-src" depends="init" description="creates a jar with all the source files">
-		<jar destfile="${dist}/${application-src.jar}" basedir="${src}">
+		<jar destfile="${dist}/${application.name}-src-${application.version}.jar" basedir="${src}">
 			<manifest>
 				<attribute name="Application-Name" value="${application.name}" />
 				<attribute name="Application-Version" value="${application.version}" />
@@ -113,11 +111,11 @@
 	<!-- ***************************************************************************** -->
 
 	<target name="build" depends="run-tests, build-jar, build-jar-src" description="runs the unit tests and creates the distribution zip file">
-		<zip destfile="${dist}/${application.name}-${application.version}.zip">
+		<zip destfile="${dist}/${application.name}-all-${application.version}.zip">
 			<zipfileset dir="${src}" prefix="src" />
 			<zipfileset dir="${test}" prefix="test" />
 			<zipfileset dir="${test-report}" prefix="test-report" />
-			<zipfileset dir="${dist}" prefix="build" includes="*.jar" />
+			<zipfileset dir="${dist}" includes="*.jar" />
 			<zipfileset dir="${lib}" prefix="lib" />
 		</zip>
 
