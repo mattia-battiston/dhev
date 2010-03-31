@@ -33,11 +33,6 @@
 		<delete includeemptydirs="true" dir="${test-report}" />
 	</target>
 
-	<target name="clean-dist">
-		<delete includeemptydirs="true" dir="${dist}" />
-		<mkdir dir="${dist}" />
-	</target>
-
 	<target name="init">
 		<mkdir dir="${dist}" />
 		<mkdir dir="${build}" />
@@ -53,7 +48,7 @@
 		</javac>
 	</target>
 
-	<target name="build-jar" depends="clean-dist,compile" description="creates the main jar">
+	<target name="build-jar" depends="compile" description="creates the main jar">
 		<jar destfile="${dist}/${application.jar}" basedir="${build-src}">
 			<manifest>
 				<attribute name="Application-Name" value="${application.name}" />
@@ -62,7 +57,7 @@
 		</jar>
 	</target>
 
-	<target name="build-jar-src" depends="init,clean-dist" description="creates a jar with all the source files">
+	<target name="build-jar-src" depends="init" description="creates a jar with all the source files">
 		<jar destfile="${dist}/${application.jar-src}" basedir="${src}">
 			<manifest>
 				<attribute name="Application-Name" value="${application.name}" />
@@ -121,8 +116,7 @@
 		
 		<echo message="building example ear"/>
 
-		<delete file="../DHEV-Example/lib/ear/lib/dhev.jar" />
-		<copy file="${dist}/${application.jar}" tofile="../DHEV-Example/lib/ear/lib/dhev.jar"></copy>
+		<copy file="${dist}/${application.jar}" tofile="../DHEV-Example/lib/ear/lib/dhev.jar" ></copy>
 
 		<ant antfile="../DHEV-Example/build.xml" taskname="build-ear" target="build-ear" inheritall="false"></ant>
 		
