@@ -14,6 +14,7 @@ import org.hibernate.validator.Max;
 import org.jboss.seam.annotations.Name;
 
 import com.dhev.MinEL;
+import com.dhev.MinLengthEL;
 
 @Name("user")
 @Entity
@@ -43,6 +44,10 @@ public class User implements Serializable {
 	@Max(20)
 	@MinEL(value = "#{systemConfiguration.minAge}", includeLimit = true, message = "{validator.minAge}")
 	private Integer age;// TODO: min is 18
+
+	@Column
+	@MinLengthEL(value = "#{systemConfiguration.minLengthZip}")
+	private String zip;
 
 	public String getName() {
 		return name;
@@ -74,6 +79,14 @@ public class User implements Serializable {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 
 }

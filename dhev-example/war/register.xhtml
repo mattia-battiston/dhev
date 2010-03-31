@@ -38,6 +38,7 @@
 	            Surname: <h:inputText id="surname" value="#{user.surname}" required="true"/> <h:message for="surname" errorClass="errorMessage" />
 	            Username: <h:inputText id="username" value="#{user.userName}" required="true"/> <h:message for="username" errorClass="errorMessage" />
 	            Age: <h:inputText id="age" value="#{user.age}" required="true"/> <h:message for="age" errorClass="errorMessage" />
+	            Zip: <h:inputText id="zip" value="#{user.zip}" required="true"/> <h:message for="zip" errorClass="errorMessage" />
 				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
             </h:panelGrid>
             </s:validateAll>
@@ -49,6 +50,7 @@
          	Application Configuration
          	<h:panelGrid columns="2">
          		Min age: <h:inputText id="minAge" value="#{systemConfiguration.minAge}" required="true"/>
+         		Min length zip: <h:inputText id="minLengthZip" value="#{systemConfiguration.minLengthZip}" required="true"/>
          		<h:commandButton id="updateConfiguration" action="#{systemConfiguration.updateConfiguration}" value="Update Configuration" />
          	</h:panelGrid>
          </h:form>
