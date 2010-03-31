@@ -11,10 +11,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.validator.Max;
+import org.hibernate.validator.Pattern;
 import org.jboss.seam.annotations.Name;
 
 import com.dhev.MinEL;
 import com.dhev.MinLengthEL;
+import com.dhev.validator.RangeEL;
 
 @Name("user")
 @Entity
@@ -46,8 +48,13 @@ public class User implements Serializable {
 	private Integer age;// TODO: min is 18
 
 	@Column
+	@Pattern(regex = "sdfsdf")
 	@MinLengthEL(value = "#{systemConfiguration.minLengthZip}")
 	private String zip;
+
+	@Column
+	@RangeEL(min = "#{systemConfiguration.minRating}", max = "#{systemConfiguration.maxRating}")
+	private Integer rating;
 
 	public String getName() {
 		return name;
@@ -87,6 +94,14 @@ public class User implements Serializable {
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+
+	public Integer getRating() {
+		return rating;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
 	}
 
 }

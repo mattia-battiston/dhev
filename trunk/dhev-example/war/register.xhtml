@@ -39,6 +39,7 @@
 	            Username: <h:inputText id="username" value="#{user.userName}" required="true"/> <h:message for="username" errorClass="errorMessage" />
 	            Age: <h:inputText id="age" value="#{user.age}" required="true"/> <h:message for="age" errorClass="errorMessage" />
 	            Zip: <h:inputText id="zip" value="#{user.zip}" required="true"/> <h:message for="zip" errorClass="errorMessage" />
+	            Rating: <h:inputText id="rating" value="#{user.rating}" required="true"/> <h:message for="rating" errorClass="errorMessage" />
 				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
             </h:panelGrid>
             </s:validateAll>
@@ -51,6 +52,8 @@
          	<h:panelGrid columns="2">
          		Min age: <h:inputText id="minAge" value="#{systemConfiguration.minAge}" required="true"/>
          		Min length zip: <h:inputText id="minLengthZip" value="#{systemConfiguration.minLengthZip}" required="true"/>
+         		Min rating: <h:inputText id="minRating" value="#{systemConfiguration.minRating}" required="true"/>
+         		Max rating: <h:inputText id="maxRating" value="#{systemConfiguration.maxRating}" required="true"/>
          		<h:commandButton id="updateConfiguration" action="#{systemConfiguration.updateConfiguration}" value="Update Configuration" />
          	</h:panelGrid>
          </h:form>
