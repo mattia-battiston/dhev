@@ -25,8 +25,6 @@
 		<fileset dir="${lib}" includes="**/*.jar" />
 	</path>
 
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="build.lib.path" />
-
 	<!-- ***************************************************************************** -->
 
 	<target name="clean" description="Cleans up the build environment">
@@ -35,8 +33,15 @@
 	</target>
 
 	<!-- ***************************************************************************** -->
+	<target name="check-properties-are-set">
+		<fail unless="jboss.dir" message="Please set the jboss.dir property, e.g.: jboss.dir = C:/jboss-4.2.1.GA"/>
+		<fail unless="jboss.server" message="Please set the jboss.server property, e.g.: jboss.server = default"/>
+	</target>
 
-	<target name="init">
+	<!-- ***************************************************************************** -->
+
+
+	<target name="init" depends="check-properties-are-set">
 		<mkdir dir="${dist}" />
 		<mkdir dir="${build}" />
 		<mkdir dir="${build.src-main}" />
@@ -46,7 +51,7 @@
 	<!-- ***************************************************************************** -->
 
 	<target name="compile" depends="init">
-		<javac destdir="${build.src-main}" nowarn="false" debug="true" optimize="true" verbose="false" fork="true" failonerror="true">
+		<javac destdir="${build.src-main}" nowarn="false" debug="true" optimize="true" verbose="false" failonerror="true">
 			<src path="${src-main}" />
 			<classpath refid="build.lib.path" />
 		</javac>
@@ -112,27 +117,5 @@
 	</target>
 
 	<target name="deploy" depends="deploy-datasource, deploy-ear" description="Deploys the application and the datasource configuration to jboss instance" />
-
-	<!-- ***************************************************************************** -->
-
-	<target name="check-properties-are-set">
-		<if>
-			<not>
-				<isset property="jboss.dir">
-				</isset>
-			</not>
-			<then>
-				<fail message="Please set property jboss.dir in your build.properties file, e.g.: jboss.dir=C:/Development/jboss-4.2.1.GA/jboss-4.2.1.GA" />
-			</then>
-		</if>
-		<if>
-			<not>
-				<isset property="jboss.server"/>
-			</not>
-			<then>
-				<fail message="Please set property jboss.server in your build.properties file, e.g.: jboss.server=default" />
-			</then>
-		</if>
-	</target>
 
 </project>
