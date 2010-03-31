@@ -16,10 +16,10 @@ public class MaxLengthELImpl implements Validator<MaxLengthEL> {
 		if (param == null)
 			return true;
 
-		Long maxLength = (Long) expressionLanguageUtils
+		Number maxLength = (Number) expressionLanguageUtils
 				.evaluateEl(maxLengthExpression);
 
-		return ((String) param).length() <= maxLength;
+		return ((String) param).length() <= maxLength.longValue();
 	}
 
 	public void setExpressionLanguageUtils(
