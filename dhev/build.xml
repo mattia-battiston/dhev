@@ -40,7 +40,7 @@
 	</target>
 
 	<target name="compile" depends="init">
-		<javac destdir="${build-src}" nowarn="false" debug="true" optimize="true" verbose="false" fork="true" failonerror="true">
+		<javac destdir="${build-src}" nowarn="false" debug="true" optimize="true" failonerror="true">
 			<src path="${src}" />
 			<classpath refid="build.lib.path" />
 		</javac>
@@ -67,7 +67,7 @@
 	<!-- ***************************************************************************** -->
 
 	<target name="compile-test" depends="compile">
-		<javac destdir="${build-test}" nowarn="false" debug="true" optimize="true" verbose="false" fork="true" failonerror="true">
+		<javac destdir="${build-test}" nowarn="false" debug="true" optimize="true" verbose="false" failonerror="true">
 			<src path="${test}" />
 			<classpath>
 				<path refid="build.lib.path" />
