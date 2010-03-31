@@ -15,6 +15,8 @@
 	<property name="build-test" location="${build}/test" />
 
 	<property name="application.name" value="${ant.project.name}" />
+	<property name="application.jar" value="${application.name}-${application.version}.jar" />
+	<property name="application.jar-src" value="${application.name}-src-${application.version}.jar" />
 
 	<!-- ***************************************************************************** -->
 
@@ -29,6 +31,11 @@
 		<delete includeemptydirs="true" dir="${build}" />
 		<delete includeemptydirs="true" dir="${dist}" />
 		<delete includeemptydirs="true" dir="${test-report}" />
+	</target>
+
+	<target name="clean-dist">
+		<delete includeemptydirs="true" dir="${dist}" />
+		<mkdir dir="${dist}" />
 	</target>
 
 	<target name="init">
@@ -46,8 +53,8 @@
 		</javac>
 	</target>
 
-	<target name="build-jar" depends="compile" description="creates the main jar">
-		<jar destfile="${dist}/${application.name}-${application.version}.jar" basedir="${build-src}">
+	<target name="build-jar" depends="clean-dist,compile" description="creates the main jar">
+		<jar destfile="${dist}/${application.jar}" basedir="${build-src}">
 			<manifest>
 				<attribute name="Application-Name" value="${application.name}" />
 				<attribute name="Application-Version" value="${application.version}" />
@@ -55,8 +62,8 @@
 		</jar>
 	</target>
 
-	<target name="build-jar-src" depends="init" description="creates a jar with all the source files">
-		<jar destfile="${dist}/${application.name}-src-${application.version}.jar" basedir="${src}">
+	<target name="build-jar-src" depends="init,clean-dist" description="creates a jar with all the source files">
+		<jar destfile="${dist}/${application.jar-src}" basedir="${src}">
 			<manifest>
 				<attribute name="Application-Name" value="${application.name}" />
 				<attribute name="Application-Version" value="${application.version}" />
@@ -110,12 +117,30 @@
 
 	<!-- ***************************************************************************** -->
 
-	<target name="build" depends="run-tests, build-jar, build-jar-src" description="runs the unit tests and creates the distribution zip file">
+	<target name="build-example" depends="build-jar" description="invokes to ant build of the example project and includes the resultant ear in the dist">
+		
+		<echo message="building example ear"/>
+
+		<delete file="../DHEV-Example/lib/ear/lib/dhev.jar" />
+		<copy file="${dist}/${application.jar}" tofile="../DHEV-Example/lib/ear/lib/dhev.jar"></copy>
+
+		<ant antfile="../DHEV-Example/build.xml" taskname="build-ear" target="build-ear" inheritall="false"></ant>
+		
+		<copy tofile="${dist}/dhev-example-${application.version}.ear">
+			<fileset dir="../DHEV-Example/dist" includes="*.ear"/>
+		</copy>
+		
+	</target>
+
+
+	<!-- ***************************************************************************** -->
+
+	<target name="build" depends="run-tests, build-jar, build-jar-src, build-example" description="runs the unit tests and creates the distribution zip file">
 		<zip destfile="${dist}/${application.name}-all-${application.version}.zip">
 			<zipfileset dir="${src}" prefix="src" />
 			<zipfileset dir="${test}" prefix="test" />
 			<zipfileset dir="${test-report}" prefix="test-report" />
-			<zipfileset dir="${dist}" includes="*.jar" />
+			<zipfileset dir="${dist}" includes="*.jar,*.ear" />
 			<zipfileset dir="${lib}" prefix="lib" />
 		</zip>
 
