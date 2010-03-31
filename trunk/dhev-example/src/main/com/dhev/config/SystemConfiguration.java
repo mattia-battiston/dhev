@@ -9,6 +9,7 @@ import org.jboss.seam.annotations.Scope;
 public class SystemConfiguration {
 
 	private Integer minAge = 18;
+	private Integer minLengthZip = 5;
 
 	public Integer getMinAge() {
 		return minAge;
@@ -16,6 +17,14 @@ public class SystemConfiguration {
 
 	public void setMinAge(Integer minAge) {
 		this.minAge = minAge;
+	}
+
+	public Integer getMinLengthZip() {
+		return minLengthZip;
+	}
+
+	public void setMinLengthZip(Integer minLengthZip) {
+		this.minLengthZip = minLengthZip;
 	}
 
 	public String updateConfiguration() {
