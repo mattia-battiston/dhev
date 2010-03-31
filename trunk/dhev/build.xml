@@ -134,7 +134,7 @@
 			<zipfileset dir="${src}" prefix="src" />
 			<zipfileset dir="${test}" prefix="test" />
 			<zipfileset dir="${test-report}" prefix="test-report" />
-			<zipfileset dir="${dist}" includes="*.jar,*.ear" />
+			<zipfileset dir="${dist}" includes="*${application.version}.jar,*${application.version}.ear" />
 			<zipfileset dir="${lib}" prefix="lib" />
 		</zip>
 
