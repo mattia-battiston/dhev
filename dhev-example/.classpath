@@ -3,9 +3,9 @@
 	<classpathentry kind="src" path="src/main"/>
 	<classpathentry kind="src" path="src/test"/>
 	<classpathentry kind="lib" path="lib/ear/jboss-seam.jar"/>
-	<classpathentry kind="lib" path="lib/ear/lib/dhev.jar"/>
 	<classpathentry kind="lib" path="lib/ext/javaee.jar"/>
 	<classpathentry kind="lib" path="lib/ext/hibernate-annotations.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/ear/lib/dhev-0.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
