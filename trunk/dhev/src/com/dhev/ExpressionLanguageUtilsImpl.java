@@ -1,10 +1,9 @@
 package com.dhev;
 
 import javax.el.ELContext;
+import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
-
-import org.jboss.seam.el.SeamExpressionFactory;
 
 public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 
@@ -12,12 +11,11 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ELContext elCtx = context.getELContext();
 
-		SeamExpressionFactory factory = ((SeamExpressionFactory) context
-				.getApplication().getExpressionFactory());
+		ExpressionFactory factory = context.getApplication()
+				.getExpressionFactory();
 
 		ValueExpression valExpr = factory.createValueExpression(elCtx,
 				expression, Object.class);
 		return valExpr.getValue(elCtx);
 	}
-
 }

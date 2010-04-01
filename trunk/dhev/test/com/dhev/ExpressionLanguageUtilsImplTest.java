@@ -1,17 +1,16 @@
 package com.dhev;
 
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 import javax.el.ELContext;
+import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 
-import org.jboss.seam.el.SeamExpressionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +35,7 @@ public class ExpressionLanguageUtilsImplTest {
 	private Application mockApplication;
 
 	@Mock
-	private SeamExpressionFactory seamExpressionFactory;
+	private ExpressionFactory expressionFactory;
 
 	@Mock
 	private ValueExpression mockValueExpression;
@@ -55,9 +54,9 @@ public class ExpressionLanguageUtilsImplTest {
 		when(mockFacesContext.getELContext()).thenReturn(mockELContext);
 		when(mockFacesContext.getApplication()).thenReturn(mockApplication);
 		when(mockApplication.getExpressionFactory()).thenReturn(
-				seamExpressionFactory);
+				expressionFactory);
 		when(
-				seamExpressionFactory.createValueExpression(mockELContext,
+				expressionFactory.createValueExpression(mockELContext,
 						expression, Object.class)).thenReturn(
 				mockValueExpression);
 		when(mockValueExpression.getValue(mockELContext)).thenReturn(2l);
