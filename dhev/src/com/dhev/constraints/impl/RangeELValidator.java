@@ -1,4 +1,4 @@
-package com.dhev.validator.impl;
+package com.dhev.constraints.impl;
 
 import java.lang.annotation.Annotation;
 
@@ -8,7 +8,7 @@ import org.hibernate.validator.Validator;
 
 import com.dhev.ExpressionLanguageUtils;
 import com.dhev.ExpressionLanguageUtilsImpl;
-import com.dhev.validator.RangeEL;
+import com.dhev.constraints.RangeEL;
 
 public class RangeELValidator implements Validator<RangeEL> {
 
