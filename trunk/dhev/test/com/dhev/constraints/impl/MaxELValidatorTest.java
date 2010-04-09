@@ -58,6 +58,13 @@ public class MaxELValidatorTest {
 	}
 
 	@Test
+	public void isValidReturnsTrueIfNumberPassedIsLessThanMaxAndIncludeLimitIsSetToFalse() {
+		initializeMaxElImpl(false);
+
+		assertThat(maxELImpl.isValid(9l), is(true));
+	}
+
+	@Test
 	public void isValidCallsEvaluateElWithRightParam() {
 		String expression = "#{testMaxExpression}";
 		when(mockExpressionLanguageUtils.evaluateEl(expression))
