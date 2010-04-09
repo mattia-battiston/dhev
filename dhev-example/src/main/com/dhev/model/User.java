@@ -10,13 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.validator.Max;
 import org.hibernate.validator.Pattern;
 import org.jboss.seam.annotations.Name;
 
 import com.dhev.MinEL;
 import com.dhev.MinLengthEL;
-import com.dhev.validator.RangeEL;
+import com.dhev.constraints.MaxEL;
+import com.dhev.constraints.RangeEL;
 
 @Name("user")
 @Entity
@@ -43,7 +43,7 @@ public class User implements Serializable {
 	private String userName;// TODO: minLenght is 5
 
 	@Column
-	@Max(20)
+	@MaxEL(value = "#{systemConfiguration.maxAge}")
 	@MinEL(value = "#{systemConfiguration.minAge}", includeLimit = true, message = "{validator.minAge}")
 	private Integer age;// TODO: min is 18
 

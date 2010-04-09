@@ -1,5 +1,4 @@
-package com.dhev;
-
+package com.dhev.constraints.impl;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -12,9 +11,12 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class MaxELImplTest {
+import com.dhev.ExpressionLanguageUtils;
+import com.dhev.constraints.MaxEL;
 
-	private final MaxELImpl maxELImpl = new MaxELImpl();
+public class MaxELValidatorTest {
+
+	private final MaxELValidator maxELImpl = new MaxELValidator();
 
 	@Mock
 	private MaxEL mockMaxElAnnotation;
@@ -56,11 +58,6 @@ public class MaxELImplTest {
 	}
 
 	@Test
-	public void isValidReturnsTrueIfValueIsDouble() {
-		assertThat(maxELImpl.isValid(10.1), is(false));
-	}
-
-	@Test
 	public void isValidCallsEvaluateElWithRightParam() {
 		String expression = "#{testMaxExpression}";
 		when(mockExpressionLanguageUtils.evaluateEl(expression))
@@ -73,14 +70,14 @@ public class MaxELImplTest {
 		verify(mockExpressionLanguageUtils).evaluateEl(expression);
 	}
 
-	private void initializeMaxElImpl(boolean includeLimit) {
-		when(mockMaxElAnnotation.includeLimit()).thenReturn(includeLimit);
-		maxELImpl.initialize(mockMaxElAnnotation);
-	}
-
 	@Test
 	public void isValidReturnsTrueIfParamIsNull() {
 		assertThat(maxELImpl.isValid(null), is(true));
 
+	}
+
+	private void initializeMaxElImpl(boolean includeLimit) {
+		when(mockMaxElAnnotation.includeLimit()).thenReturn(includeLimit);
+		maxELImpl.initialize(mockMaxElAnnotation);
 	}
 }
