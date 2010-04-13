@@ -13,9 +13,9 @@ import javax.persistence.Table;
 import org.hibernate.validator.Pattern;
 import org.jboss.seam.annotations.Name;
 
-import com.dhev.MinEL;
-import com.dhev.MinLengthEL;
 import com.dhev.constraints.MaxEL;
+import com.dhev.constraints.MinEL;
+import com.dhev.constraints.MinLengthEL;
 import com.dhev.constraints.RangeEL;
 
 @Name("user")

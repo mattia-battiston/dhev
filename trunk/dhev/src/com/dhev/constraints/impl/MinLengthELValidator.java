@@ -1,8 +1,12 @@
-package com.dhev;
+package com.dhev.constraints.impl;
 
 import org.hibernate.validator.Validator;
 
-public class MinLengthELImpl implements Validator<MinLengthEL> {
+import com.dhev.ExpressionLanguageUtils;
+import com.dhev.ExpressionLanguageUtilsImpl;
+import com.dhev.constraints.MinLengthEL;
+
+public class MinLengthELValidator implements Validator<MinLengthEL> {
 
 	private String minLengthExpression;
 

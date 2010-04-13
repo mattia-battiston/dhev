@@ -1,4 +1,4 @@
-package com.dhev;
+package com.dhev.constraints.impl;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -10,9 +10,13 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class MinLengthELImplTest {
+import com.dhev.ExpressionLanguageUtils;
+import com.dhev.constraints.MinLengthEL;
+import com.dhev.constraints.impl.MinLengthELValidator;
 
-	private MinLengthELImpl minLengthELImpl = new MinLengthELImpl();
+public class MinLengthELValidatorTest {
+
+	private MinLengthELValidator minLengthELImpl = new MinLengthELValidator();
 
 	@Mock
 	private MinLengthEL minLengthEL;
