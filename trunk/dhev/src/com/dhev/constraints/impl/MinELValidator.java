@@ -1,5 +1,9 @@
 package com.dhev.constraints.impl;
 
+import java.lang.annotation.Annotation;
+
+import org.hibernate.validator.Min;
+import org.hibernate.validator.MinValidator;
 import org.hibernate.validator.Validator;
 
 import com.dhev.ExpressionLanguageUtils;
@@ -23,17 +27,44 @@ public class MinELValidator implements Validator<MinEL> {
 		if (param == null)
 			return true;
 
-		Long min = expressionLanguageUtils.getLong(minExpression);
+		Long minValue = expressionLanguageUtils.getLong(minExpression);
+		if (!includeLimit)
+			minValue++;
 
-		if (includeLimit)
-			return min.compareTo(((Number) param).longValue()) <= 0;
-		else
-			return min.compareTo(((Number) param).longValue()) < 0;
+		Min min = new MinImpl(minValue);
+		MinValidator validator = new MinValidator();
+		validator.initialize(min);
+
+		return validator.isValid(param);
 	}
 
 	public void setExpressionLanguageUtils(
 			ExpressionLanguageUtils expressionLanguageUtils) {
 		this.expressionLanguageUtils = expressionLanguageUtils;
+	}
+
+	private class MinImpl implements Min {
+
+		private final Long min;
+
+		public MinImpl(Long min) {
+			this.min = min;
+		}
+
+		public long value() {
+			return min;
+		}
+
+		public String message() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public Class<? extends Annotation> annotationType() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 }
