@@ -1,5 +1,9 @@
 package com.dhev.constraints.impl;
 
+import java.lang.annotation.Annotation;
+
+import org.hibernate.validator.Max;
+import org.hibernate.validator.MaxValidator;
 import org.hibernate.validator.Validator;
 
 import com.dhev.ExpressionLanguageUtils;
@@ -10,31 +14,58 @@ public class MaxELValidator implements Validator<MaxEL> {
 
 	private boolean includeLimit;
 
-	private String maxExpression;
+	private String maxEL;
 
 	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
 
 	public void initialize(MaxEL annotation) {
-		maxExpression = annotation.value();
+		maxEL = annotation.value();
 		includeLimit = annotation.includeLimit();
+	}
+
+	public void setExpressionLanguageUtils(
+			ExpressionLanguageUtils expressionLanguageUtils) {
+		this.expressionLanguageUtils = expressionLanguageUtils;
 	}
 
 	public boolean isValid(Object param) {
 		if (param == null)
 			return true;
 
-		Long max = ((Number) expressionLanguageUtils.evaluateEl(maxExpression))
+		Long maxValue = ((Number) expressionLanguageUtils.evaluateEl(maxEL))
 				.longValue();
+		if (!includeLimit)
+			maxValue--;
 
-		if (includeLimit)
-			return max.compareTo(((Number) param).longValue()) >= 0;
-		else
-			return max.compareTo(((Number) param).longValue()) > 0;
+		Max max = new MaxImpl(maxValue);
+		MaxValidator validator = new MaxValidator();
+		validator.initialize(max);
+
+		return validator.isValid(param);
 	}
 
-	public void setExpressionLanguageUtils(
-			ExpressionLanguageUtils expressionLanguageUtils) {
-		this.expressionLanguageUtils = expressionLanguageUtils;
+	private class MaxImpl implements Max {
+
+		private final Number max;
+
+		public MaxImpl(Number max) {
+			this.max = max;
+		}
+
+		public long value() {
+			return max.longValue();
+		}
+
+		public String message() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public Class<? extends Annotation> annotationType() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 }
