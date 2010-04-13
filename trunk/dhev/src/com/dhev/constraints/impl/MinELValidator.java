@@ -1,8 +1,12 @@
-package com.dhev;
+package com.dhev.constraints.impl;
 
 import org.hibernate.validator.Validator;
 
-public class MinELImpl implements Validator<MinEL> {
+import com.dhev.ExpressionLanguageUtils;
+import com.dhev.ExpressionLanguageUtilsImpl;
+import com.dhev.constraints.MinEL;
+
+public class MinELValidator implements Validator<MinEL> {
 
 	private String minExpression;
 	private boolean includeLimit;
@@ -19,12 +23,13 @@ public class MinELImpl implements Validator<MinEL> {
 		if (param == null)
 			return true;
 
-		Number min = (Number) expressionLanguageUtils.evaluateEl(minExpression);
+		Long min = ((Number) expressionLanguageUtils.evaluateEl(minExpression))
+				.longValue();
 
 		if (includeLimit)
-			return ((Number) param).doubleValue() >= min.doubleValue();
+			return min.compareTo(((Number) param).longValue()) <= 0;
 		else
-			return ((Number) param).doubleValue() > min.doubleValue();
+			return min.compareTo(((Number) param).longValue()) < 0;
 	}
 
 	public void setExpressionLanguageUtils(
