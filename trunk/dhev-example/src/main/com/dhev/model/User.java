@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.validator.Pattern;
 import org.jboss.seam.annotations.Name;
 
 import com.dhev.constraints.MaxEL;
@@ -48,7 +47,7 @@ public class User implements Serializable {
 	private Integer age;// TODO: min is 18
 
 	@Column
-	@Pattern(regex = "sdfsdf")
+	// @Pattern(regex = "sdfsdf")
 	@MinLengthEL(value = "#{systemConfiguration.minLengthZip}")
 	private String zip;
 

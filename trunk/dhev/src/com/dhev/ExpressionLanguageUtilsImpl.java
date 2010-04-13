@@ -23,4 +23,8 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 	public Long getLong(String expression) {
 		return evaluateEl(expression, Number.class).longValue();
 	}
+
+	public Integer getInteger(String expression) {
+		return evaluateEl(expression, Number.class).intValue();
+	}
 }
