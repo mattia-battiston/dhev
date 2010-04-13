@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 
 import com.dhev.ExpressionLanguageUtils;
 import com.dhev.constraints.MaxLengthEL;
-import com.dhev.constraints.impl.MaxLengthELValidator;
 
 public class MaxLengthELValidatorTest {
 
@@ -53,7 +52,7 @@ public class MaxLengthELValidatorTest {
 
 	private void setMaxLengthForTest(Long maxLength) {
 		maxLengthELImpl.setExpressionLanguageUtils(expressionLanguageUtils);
-		when(expressionLanguageUtils.evaluateEl(Matchers.any(String.class)))
+		when(expressionLanguageUtils.getLong(Matchers.any(String.class)))
 				.thenReturn(maxLength);
 		maxLengthELImpl.initialize(maxLengthEL);
 

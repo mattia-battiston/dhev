@@ -2,7 +2,6 @@ package com.dhev.constraints.impl;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
@@ -29,7 +28,7 @@ public class MaxELValidatorTest {
 		MockitoAnnotations.initMocks(this);
 		maxELImpl.setExpressionLanguageUtils(mockExpressionLanguageUtils);
 
-		when(mockExpressionLanguageUtils.evaluateEl(Matchers.anyString()))
+		when(mockExpressionLanguageUtils.getLong(Matchers.anyString()))
 				.thenReturn(10L);
 
 		initializeMaxElImpl(true);
@@ -62,19 +61,6 @@ public class MaxELValidatorTest {
 		initializeMaxElImpl(false);
 
 		assertThat(maxELImpl.isValid(9l), is(true));
-	}
-
-	@Test
-	public void isValidCallsEvaluateElWithRightParam() {
-		String expression = "#{testMaxExpression}";
-		when(mockExpressionLanguageUtils.evaluateEl(expression))
-				.thenReturn(10l);
-		when(mockMaxElAnnotation.value()).thenReturn(expression);
-
-		maxELImpl.initialize(mockMaxElAnnotation);
-		maxELImpl.isValid(9l);
-
-		verify(mockExpressionLanguageUtils).evaluateEl(expression);
 	}
 
 	@Test

@@ -2,6 +2,8 @@ package com.dhev;
 
 public interface ExpressionLanguageUtils {
 
-	public Object evaluateEl(String expression);
+	<T> T evaluateEl(String expression, Class<T> clazz);
+
+	Long getLong(String expression);
 
 }

@@ -32,8 +32,7 @@ public class MaxELValidator implements Validator<MaxEL> {
 		if (param == null)
 			return true;
 
-		Long maxValue = ((Number) expressionLanguageUtils.evaluateEl(maxEL))
-				.longValue();
+		Long maxValue = expressionLanguageUtils.getLong(maxEL);
 		if (!includeLimit)
 			maxValue--;
 

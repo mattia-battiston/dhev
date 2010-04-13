@@ -1,6 +1,5 @@
 package com.dhev.constraints.impl;
 
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
@@ -14,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 
 import com.dhev.ExpressionLanguageUtils;
 import com.dhev.constraints.MinEL;
-import com.dhev.constraints.impl.MinELValidator;
 
 public class MinELValidatorTest {
 	private final MinELValidator minELImpl = new MinELValidator();
@@ -30,7 +28,7 @@ public class MinELValidatorTest {
 		MockitoAnnotations.initMocks(this);
 		minELImpl.setExpressionLanguageUtils(mockExpressionLanguageUtils);
 
-		when(mockExpressionLanguageUtils.evaluateEl(Matchers.anyString()))
+		when(mockExpressionLanguageUtils.getLong(Matchers.anyString()))
 				.thenReturn(10L);
 
 		initializeMinElImpl(true);
@@ -71,14 +69,13 @@ public class MinELValidatorTest {
 	@Test
 	public void isValidCallsEvaluateElWithRightParam() {
 		String expression = "#{testMaxExpression}";
-		when(mockExpressionLanguageUtils.evaluateEl(expression))
-				.thenReturn(10l);
+		when(mockExpressionLanguageUtils.getLong(expression)).thenReturn(10l);
 		when(mockMinElAnnotation.value()).thenReturn(expression);
 
 		minELImpl.initialize(mockMinElAnnotation);
 		minELImpl.isValid(9l);
 
-		verify(mockExpressionLanguageUtils).evaluateEl(expression);
+		verify(mockExpressionLanguageUtils).getLong(expression);
 	}
 
 	@Test

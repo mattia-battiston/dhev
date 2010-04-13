@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 
 import com.dhev.ExpressionLanguageUtils;
 import com.dhev.constraints.MinLengthEL;
-import com.dhev.constraints.impl.MinLengthELValidator;
 
 public class MinLengthELValidatorTest {
 
@@ -53,7 +52,7 @@ public class MinLengthELValidatorTest {
 
 	private void setMinLengthForTest(Long minLength) {
 		minLengthELImpl.setExpressionLanguageUtils(expressionLanguageUtils);
-		when(expressionLanguageUtils.evaluateEl(Matchers.any(String.class)))
+		when(expressionLanguageUtils.getLong(Matchers.any(String.class)))
 				.thenReturn(minLength);
 		minLengthELImpl.initialize(minLengthEL);
 	}

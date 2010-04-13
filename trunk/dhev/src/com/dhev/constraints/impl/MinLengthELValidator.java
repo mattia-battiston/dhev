@@ -20,10 +20,9 @@ public class MinLengthELValidator implements Validator<MinLengthEL> {
 		if (param == null)
 			return true;
 
-		Number minLength = (Number) expressionLanguageUtils
-				.evaluateEl(minLengthExpression);
+		Long minLength = expressionLanguageUtils.getLong(minLengthExpression);
 
-		return ((String) param).length() >= minLength.longValue();
+		return ((String) param).length() >= minLength;
 	}
 
 	public void setExpressionLanguageUtils(
