@@ -1,4 +1,4 @@
-package com.dhev;
+package com.dhev.constraints.impl;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -10,9 +10,13 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class MaxLengthELImplTest {
+import com.dhev.ExpressionLanguageUtils;
+import com.dhev.constraints.MaxLengthEL;
+import com.dhev.constraints.impl.MaxLengthELValidator;
 
-	private MaxLengthELImpl maxLengthELImpl = new MaxLengthELImpl();
+public class MaxLengthELValidatorTest {
+
+	private MaxLengthELValidator maxLengthELImpl = new MaxLengthELValidator();
 
 	@Mock
 	private MaxLengthEL maxLengthEL;
