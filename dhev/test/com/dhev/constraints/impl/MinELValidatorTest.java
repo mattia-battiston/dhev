@@ -1,4 +1,4 @@
-package com.dhev;
+package com.dhev.constraints.impl;
 
 
 import static org.hamcrest.Matchers.is;
@@ -12,8 +12,12 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class MinELImplTest {
-	private final MinELImpl minELImpl = new MinELImpl();
+import com.dhev.ExpressionLanguageUtils;
+import com.dhev.constraints.MinEL;
+import com.dhev.constraints.impl.MinELValidator;
+
+public class MinELValidatorTest {
+	private final MinELValidator minELImpl = new MinELValidator();
 
 	@Mock
 	private MinEL mockMinElAnnotation;
