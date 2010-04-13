@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.jboss.seam.annotations.Name;
 
 import com.dhev.constraints.MaxEL;
+import com.dhev.constraints.MaxLengthEL;
 import com.dhev.constraints.MinEL;
 import com.dhev.constraints.MinLengthEL;
 import com.dhev.constraints.RangeEL;
@@ -49,6 +50,7 @@ public class User implements Serializable {
 	@Column
 	// @Pattern(regex = "sdfsdf")
 	@MinLengthEL(value = "#{systemConfiguration.minLengthZip}")
+	@MaxLengthEL(value = "#{systemConfiguration.maxLengthZip}")
 	private String zip;
 
 	@Column
