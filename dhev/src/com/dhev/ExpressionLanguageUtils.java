@@ -6,4 +6,6 @@ public interface ExpressionLanguageUtils {
 
 	Long getLong(String expression);
 
+	Integer getInteger(String expression);
+
 }

@@ -10,7 +10,7 @@ public class SystemConfiguration {
 
 	private Integer minAge = 18;
 	private Integer maxAge = 25;
-	private String minLengthZip = "5";
+	private Integer minLengthZip = 5;
 	private Integer minRating = 0;
 	private Integer maxRating = 5;
 
@@ -30,11 +30,11 @@ public class SystemConfiguration {
 		this.maxAge = maxAge;
 	}
 
-	public String getMinLengthZip() {
+	public Integer getMinLengthZip() {
 		return minLengthZip;
 	}
 
-	public void setMinLengthZip(String minLengthZip) {
+	public void setMinLengthZip(Integer minLengthZip) {
 		this.minLengthZip = minLengthZip;
 	}
 

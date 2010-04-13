@@ -40,30 +40,47 @@ public class ExpressionLanguageUtilsImplTest {
 	@Mock
 	private ValueExpression mockValueExpression;
 
+	private String elExpression = "#{testExpression}";
+
 	@Before
 	public void before() {
 		MockitoAnnotations.initMocks(this);
 
 		mockStatic(FacesContext.class);
 		when(FacesContext.getCurrentInstance()).thenReturn(mockFacesContext);
-	}
-
-	@Test
-	public void evaluateElObtainsEvaluatedObject() {
-		String expression = "#{testExpresssion}";
 		when(mockFacesContext.getELContext()).thenReturn(mockELContext);
 		when(mockFacesContext.getApplication()).thenReturn(mockApplication);
 		when(mockApplication.getExpressionFactory()).thenReturn(
 				expressionFactory);
 		when(
 				expressionFactory.createValueExpression(mockELContext,
-						expression, Object.class)).thenReturn(
+						elExpression, Object.class)).thenReturn(
 				mockValueExpression);
 		when(mockValueExpression.getValue(mockELContext)).thenReturn(2l);
+	}
 
-		Number result = expressionLanguageUtilsImpl.evaluateEl(expression,
+	@Test
+	public void evaluateElObtainsEvaluatedObject() {
+		Number result = expressionLanguageUtilsImpl.evaluateEl(elExpression,
 				Number.class);
 
 		assertThat(((Long) result), is(2l));
 	}
+
+	@Test
+	public void getLongReturnsLong() {
+		when(mockValueExpression.getValue(mockELContext)).thenReturn(2);
+
+		assertThat(expressionLanguageUtilsImpl.getLong("#{testExpression}"),
+				is(2L));
+	}
+
+	@Test
+	public void getLongReturnsInteger() {
+		when(mockValueExpression.getValue(mockELContext)).thenReturn(2.5);
+
+		assertThat(expressionLanguageUtilsImpl.getInteger("#{testExpression}"),
+				is(2));
+	}
+
 }

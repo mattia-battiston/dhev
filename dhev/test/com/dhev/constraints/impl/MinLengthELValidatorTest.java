@@ -27,7 +27,7 @@ public class MinLengthELValidatorTest {
 	public void before() {
 		MockitoAnnotations.initMocks(this);
 
-		setMinLengthForTest(5L);
+		setMinLengthForTest(5);
 	}
 
 	@Test
@@ -50,9 +50,9 @@ public class MinLengthELValidatorTest {
 		assertThat(minLengthELImpl.isValid(null), is(true));
 	}
 
-	private void setMinLengthForTest(Long minLength) {
+	private void setMinLengthForTest(Integer minLength) {
 		minLengthELImpl.setExpressionLanguageUtils(expressionLanguageUtils);
-		when(expressionLanguageUtils.getLong(Matchers.any(String.class)))
+		when(expressionLanguageUtils.getInteger(Matchers.any(String.class)))
 				.thenReturn(minLength);
 		minLengthELImpl.initialize(minLengthEL);
 	}
