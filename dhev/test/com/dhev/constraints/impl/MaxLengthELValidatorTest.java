@@ -27,7 +27,7 @@ public class MaxLengthELValidatorTest {
 	public void before() {
 		MockitoAnnotations.initMocks(this);
 
-		setMaxLengthForTest(5L);
+		setMaxLengthForTest(5);
 	}
 
 	@Test
@@ -50,9 +50,9 @@ public class MaxLengthELValidatorTest {
 		assertThat(maxLengthELImpl.isValid(null), is(true));
 	}
 
-	private void setMaxLengthForTest(Long maxLength) {
+	private void setMaxLengthForTest(Integer maxLength) {
 		maxLengthELImpl.setExpressionLanguageUtils(expressionLanguageUtils);
-		when(expressionLanguageUtils.getLong(Matchers.any(String.class)))
+		when(expressionLanguageUtils.getInteger(Matchers.any(String.class)))
 				.thenReturn(maxLength);
 		maxLengthELImpl.initialize(maxLengthEL);
 
