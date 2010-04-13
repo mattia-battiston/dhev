@@ -7,7 +7,8 @@ import javax.faces.context.FacesContext;
 
 public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 
-	public Object evaluateEl(String expression) {
+	@SuppressWarnings("unchecked")
+	public <T> T evaluateEl(String expression, Class<T> clazz) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ELContext elCtx = context.getELContext();
 
@@ -16,6 +17,10 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 
 		ValueExpression valExpr = factory.createValueExpression(elCtx,
 				expression, Object.class);
-		return valExpr.getValue(elCtx);
+		return (T) valExpr.getValue(elCtx);
+	}
+
+	public Long getLong(String expression) {
+		return evaluateEl(expression, Number.class).longValue();
 	}
 }

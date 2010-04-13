@@ -61,9 +61,9 @@ public class ExpressionLanguageUtilsImplTest {
 				mockValueExpression);
 		when(mockValueExpression.getValue(mockELContext)).thenReturn(2l);
 
-		Object result = expressionLanguageUtilsImpl.evaluateEl(expression);
+		Number result = expressionLanguageUtilsImpl.evaluateEl(expression,
+				Number.class);
 
 		assertThat(((Long) result), is(2l));
-
 	}
 }

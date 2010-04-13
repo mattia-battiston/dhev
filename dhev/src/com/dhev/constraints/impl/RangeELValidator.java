@@ -26,8 +26,8 @@ public class RangeELValidator implements Validator<RangeEL> {
 	}
 
 	public boolean isValid(Object param) {
-		Number min = (Number) expressionLanguageUtils.evaluateEl(minEL);
-		Number max = (Number) expressionLanguageUtils.evaluateEl(maxEL);
+		Long min = expressionLanguageUtils.getLong(minEL);
+		Long max = expressionLanguageUtils.getLong(maxEL);
 
 		Range range = new RangeImpl(min, max);
 		RangeValidator validator = new RangeValidator();
@@ -43,20 +43,20 @@ public class RangeELValidator implements Validator<RangeEL> {
 
 	private class RangeImpl implements Range {
 
-		private final Number min;
-		private final Number max;
+		private final Long min;
+		private final Long max;
 
-		public RangeImpl(Number min, Number max) {
+		public RangeImpl(Long min, Long max) {
 			this.min = min;
 			this.max = max;
 		}
 
 		public long min() {
-			return min.longValue();
+			return min;
 		}
 
 		public long max() {
-			return max.longValue();
+			return max;
 		}
 
 		public String message() {

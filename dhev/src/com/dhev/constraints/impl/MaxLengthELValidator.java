@@ -20,10 +20,9 @@ public class MaxLengthELValidator implements Validator<MaxLengthEL> {
 		if (param == null)
 			return true;
 
-		Number maxLength = (Number) expressionLanguageUtils
-				.evaluateEl(maxLengthExpression);
+		Long maxLength = expressionLanguageUtils.getLong(maxLengthExpression);
 
-		return ((String) param).length() <= maxLength.longValue();
+		return ((String) param).length() <= maxLength;
 	}
 
 	public void setExpressionLanguageUtils(

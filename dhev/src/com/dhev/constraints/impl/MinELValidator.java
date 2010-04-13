@@ -23,8 +23,7 @@ public class MinELValidator implements Validator<MinEL> {
 		if (param == null)
 			return true;
 
-		Long min = ((Number) expressionLanguageUtils.evaluateEl(minExpression))
-				.longValue();
+		Long min = expressionLanguageUtils.getLong(minExpression);
 
 		if (includeLimit)
 			return min.compareTo(((Number) param).longValue()) <= 0;
