@@ -20,6 +20,4 @@ public @interface RangeEL {
 
 	String message() default "{validator.range}";
 
-	String el() default "";
-
 }
