@@ -18,4 +18,6 @@ public @interface MaxLengthEL {
 
 	String value() default "";
 
+	boolean includeLimit() default true;
+
 }
