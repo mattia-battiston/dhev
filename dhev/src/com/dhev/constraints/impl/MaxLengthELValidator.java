@@ -11,11 +11,13 @@ public class MaxLengthELValidator extends AbstractLengthValidator implements
 		Validator<MaxLengthEL> {
 
 	private String maxLengthExpression;
+	private boolean includeLimit;
 
 	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
 
 	public void initialize(MaxLengthEL annotation) {
 		maxLengthExpression = annotation.value();
+		includeLimit = annotation.includeLimit();
 	}
 
 	public void setExpressionLanguageUtils(
@@ -27,6 +29,8 @@ public class MaxLengthELValidator extends AbstractLengthValidator implements
 	Length getLength() {
 		Integer maxLength = expressionLanguageUtils
 				.getInteger(maxLengthExpression);
+		if (!includeLimit)
+			maxLength--;
 		return new LengthImpl(Integer.MIN_VALUE, maxLength);
 	}
 
