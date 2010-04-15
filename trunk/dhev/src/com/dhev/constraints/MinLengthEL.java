@@ -18,4 +18,6 @@ public @interface MinLengthEL {
 
 	String value() default "";
 
+	boolean includeLimit() default true;
+
 }

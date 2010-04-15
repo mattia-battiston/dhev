@@ -27,7 +27,7 @@ public class MinLengthELValidatorTest {
 	public void before() {
 		MockitoAnnotations.initMocks(this);
 
-		setMinLengthForTest(5);
+		initializeValidator(5);
 	}
 
 	@Test
@@ -36,8 +36,16 @@ public class MinLengthELValidatorTest {
 	}
 
 	@Test
-	public void parameterIsNotValidIfItIsAsLongAsMin() {
+	public void parameterIsValidIfItIsAsLongAsMin() {
 		assertThat(minLengthELImpl.isValid("12345"), is(true));
+	}
+
+	@Test
+	public void parameterIsValidIfItIsAsLongAsMinAndIncludeLimitIsFalse() {
+		when(minLengthEL.includeLimit()).thenReturn(false);
+		minLengthELImpl.initialize(minLengthEL);
+
+		assertThat(minLengthELImpl.isValid("12345"), is(false));
 	}
 
 	@Test
@@ -50,7 +58,8 @@ public class MinLengthELValidatorTest {
 		assertThat(minLengthELImpl.isValid(null), is(true));
 	}
 
-	private void setMinLengthForTest(Integer minLength) {
+	private void initializeValidator(Integer minLength) {
+		when(minLengthEL.includeLimit()).thenReturn(true);
 		minLengthELImpl.setExpressionLanguageUtils(expressionLanguageUtils);
 		when(expressionLanguageUtils.getInteger(Matchers.any(String.class)))
 				.thenReturn(minLength);
