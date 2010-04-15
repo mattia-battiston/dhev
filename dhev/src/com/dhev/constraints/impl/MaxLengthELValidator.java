@@ -4,7 +4,6 @@ import org.hibernate.validator.Length;
 import org.hibernate.validator.Validator;
 
 import com.dhev.ExpressionLanguageUtils;
-import com.dhev.ExpressionLanguageUtilsImpl;
 import com.dhev.constraints.MaxLengthEL;
 
 public class MaxLengthELValidator extends AbstractLengthValidator implements
@@ -12,8 +11,6 @@ public class MaxLengthELValidator extends AbstractLengthValidator implements
 
 	private String maxLengthExpression;
 	private boolean includeLimit;
-
-	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
 
 	public void initialize(MaxLengthEL annotation) {
 		maxLengthExpression = annotation.value();
