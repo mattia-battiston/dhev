@@ -25,6 +25,9 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 	}
 
 	public Integer getInteger(String expression) {
+		System.out.println("expression " + expression);
+		System.out.println("evaluate el "
+				+ evaluateEl(expression, Number.class));
 		return evaluateEl(expression, Number.class).intValue();
 	}
 }
