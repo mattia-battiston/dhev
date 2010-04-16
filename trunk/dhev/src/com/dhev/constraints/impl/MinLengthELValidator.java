@@ -5,6 +5,7 @@ import org.hibernate.validator.Validator;
 
 import com.dhev.ExpressionLanguageUtils;
 import com.dhev.constraints.MinLengthEL;
+import com.dhev.constraints.utils.ValidatorAnnotationProxy;
 
 public class MinLengthELValidator extends AbstractLengthValidator implements
 		Validator<MinLengthEL> {
@@ -24,11 +25,19 @@ public class MinLengthELValidator extends AbstractLengthValidator implements
 
 	@Override
 	Length getLength() {
+		return ValidatorAnnotationProxy.createProxy(this, Length.class);
+
+	}
+
+	public int min() {
 		Integer minLength = expressionLanguageUtils
 				.getInteger(minLengthExpression);
 		if (!includeLimit)
 			minLength++;
-		return new LengthImpl(minLength, Integer.MAX_VALUE);
+		return minLength;
 	}
 
+	public int max() {
+		return Integer.MAX_VALUE;
+	}
 }
