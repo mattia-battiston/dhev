@@ -14,10 +14,14 @@ import com.dhev.constraints.impl.RangeELValidator;
 @ValidatorClass(RangeELValidator.class)
 public @interface RangeEL {
 
-	String min() default "" + Long.MIN_VALUE;
+	String min() default "";
 
-	String max() default "" + Long.MAX_VALUE;
+	String max() default "";
 
 	String message() default "{validator.range}";
+
+	boolean includeMax() default true;
+
+	boolean includeMin() default true;
 
 }

@@ -13,13 +13,18 @@ public class RangeELValidator implements Validator<RangeEL> {
 
 	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
 
+	private String maxEL;
 	private String minEL;
 
-	private String maxEL;
+	private boolean includeMax;
+	private boolean includeMin;
 
-	public void initialize(RangeEL parameters) {
-		minEL = parameters.min();
-		maxEL = parameters.max();
+	public void initialize(RangeEL annotation) {
+		minEL = annotation.min();
+		maxEL = annotation.max();
+
+		includeMax = annotation.includeMax();
+		includeMin = annotation.includeMin();
 	}
 
 	public boolean isValid(Object param) {
@@ -31,11 +36,27 @@ public class RangeELValidator implements Validator<RangeEL> {
 	}
 
 	public Long min() {
-		return expressionLanguageUtils.getLong(minEL);
+		if (isParamNotSet(minEL))
+			return Long.MIN_VALUE;
+
+		Long min = expressionLanguageUtils.getLong(minEL);
+		if (!includeMin)
+			min++;
+		return min;
 	}
 
 	public Long max() {
-		return expressionLanguageUtils.getLong(maxEL);
+		if (isParamNotSet(maxEL))
+			return Long.MAX_VALUE;
+
+		Long max = expressionLanguageUtils.getLong(maxEL);
+		if (!includeMax)
+			max--;
+		return max;
+	}
+
+	private boolean isParamNotSet(String el) {
+		return el != null && el.trim().length() == 0;
 	}
 
 	public void setExpressionLanguageUtils(
