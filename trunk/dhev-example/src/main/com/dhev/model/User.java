@@ -12,10 +12,9 @@ import javax.persistence.Table;
 
 import org.jboss.seam.annotations.Name;
 
+import com.dhev.constraints.LengthEL;
 import com.dhev.constraints.MaxEL;
-import com.dhev.constraints.MaxLengthEL;
 import com.dhev.constraints.MinEL;
-import com.dhev.constraints.MinLengthEL;
 import com.dhev.constraints.RangeEL;
 
 @Name("user")
@@ -34,6 +33,7 @@ public class User implements Serializable {
 	private Long id;
 
 	@Column
+	@LengthEL(max = "#{systemConfiguration.maxLengthName}", includeMax = false, message = "{validator.maxLengthExcluded}")
 	private String name;
 
 	@Column
@@ -48,9 +48,7 @@ public class User implements Serializable {
 	private Integer age;// TODO: min is 18
 
 	@Column
-	// @Pattern(regex = "sdfsdf")
-	@MinLengthEL(value = "#{systemConfiguration.minLengthZip}")
-	@MaxLengthEL(value = "#{systemConfiguration.maxLengthZip}")
+	@LengthEL(min = "#{systemConfiguration.minLengthZip}", max = "#{systemConfiguration.maxLengthZip}", includeMax = false)
 	private String zip;
 
 	@Column

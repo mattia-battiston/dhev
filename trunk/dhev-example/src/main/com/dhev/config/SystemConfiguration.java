@@ -8,12 +8,21 @@ import org.jboss.seam.annotations.Scope;
 @Scope(ScopeType.APPLICATION)
 public class SystemConfiguration {
 
+	private Integer maxLengthName = 10;
 	private Integer minAge = 18;
 	private Integer maxAge = 25;
 	private Integer minLengthZip = 5;
 	private Integer maxLengthZip = 10;
 	private Integer minRating = 0;
 	private Integer maxRating = 5;
+
+	public Integer getMaxLengthName() {
+		return maxLengthName;
+	}
+
+	public void setMaxLengthName(Integer maxLengthName) {
+		this.maxLengthName = maxLengthName;
+	}
 
 	public Integer getMinAge() {
 		return minAge;

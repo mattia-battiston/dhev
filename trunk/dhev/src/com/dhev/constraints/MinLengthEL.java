@@ -9,6 +9,7 @@ import org.hibernate.validator.ValidatorClass;
 
 import com.dhev.constraints.impl.MinLengthELValidator;
 
+@Deprecated
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @ValidatorClass(MinLengthELValidator.class)
