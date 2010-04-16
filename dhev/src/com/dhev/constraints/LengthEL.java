@@ -7,18 +7,21 @@ import java.lang.annotation.Target;
 
 import org.hibernate.validator.ValidatorClass;
 
-import com.dhev.constraints.impl.MaxLengthELValidator;
+import com.dhev.constraints.impl.LengthELValidator;
 
-@Deprecated
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@ValidatorClass(MaxLengthELValidator.class)
-public @interface MaxLengthEL {
+@ValidatorClass(LengthELValidator.class)
+public @interface LengthEL {
 
-	String message() default "{validator.maxLength}";
+	String max() default "";
 
-	String value() default "";
+	String min() default "";
 
-	boolean includeLimit() default true;
+	String message() default "{validator.length}";
+
+	boolean includeMax() default true;
+
+	boolean includeMin() default true;
 
 }
