@@ -32,6 +32,8 @@ public class RangeELValidatorTest {
 
 		when(rangeEL.min()).thenReturn("#{min}");
 		when(rangeEL.max()).thenReturn("#{max}");
+		when(rangeEL.includeMin()).thenReturn(true);
+		when(rangeEL.includeMax()).thenReturn(true);
 
 		rangeELValidator.initialize(rangeEL);
 	}
@@ -60,4 +62,37 @@ public class RangeELValidatorTest {
 	public void isValidReturnsFalseIfParamIsGreaterThanMax() {
 		assertFalse(rangeELValidator.isValid(11L));
 	}
+
+	@Test
+	public void isValidReturnsFalsIfParamIsEqualToMinAndIncudeMinIsFalse() {
+		when(rangeEL.includeMin()).thenReturn(false);
+		rangeELValidator.initialize(rangeEL);
+
+		assertFalse(rangeELValidator.isValid(5L));
+	}
+
+	@Test
+	public void isValidReturnsFalsIfParamIsEqualToMaxAndIncudeMaxIsFalse() {
+		when(rangeEL.includeMax()).thenReturn(false);
+		rangeELValidator.initialize(rangeEL);
+
+		assertFalse(rangeELValidator.isValid(10L));
+	}
+
+	@Test
+	public void isValidReturnsTrueIfMinIsNullAndLengthIsLessThanMax() {
+		when(rangeEL.min()).thenReturn("");
+		rangeELValidator.initialize(rangeEL);
+
+		assertTrue(rangeELValidator.isValid(2L));
+	}
+
+	@Test
+	public void isValidReturnsTrueIfMaxIsNullAndLengthIsMoreThanMax() {
+		when(rangeEL.max()).thenReturn("");
+		rangeELValidator.initialize(rangeEL);
+
+		assertTrue(rangeELValidator.isValid(12L));
+	}
+
 }

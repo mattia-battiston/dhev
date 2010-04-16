@@ -52,7 +52,7 @@ public class User implements Serializable {
 	private String zip;
 
 	@Column
-	@RangeEL(min = "#{systemConfiguration.minRating}", max = "#{systemConfiguration.maxRating}")
+	@RangeEL(min = "#{systemConfiguration.minRating}", max = "#{systemConfiguration.maxRating}", includeMin = false)
 	private Integer rating;
 
 	public String getName() {
