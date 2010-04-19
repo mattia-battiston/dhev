@@ -5,7 +5,7 @@
 	<property file="version.properties" />
 
 	<property name="license" location="license" />
-	
+
 	<property name="src" location="src" />
 	<property name="test" location="test" />
 	<property name="test-report" location="test-report" />
@@ -15,10 +15,12 @@
 	<property name="build" location="build" />
 	<property name="build-src" location="${build}/src" />
 	<property name="build-test" location="${build}/test" />
+	<property name="api" location="api" />
 
 	<property name="application.name" value="${ant.project.name}" />
 	<property name="application.jar" value="${application.name}-${application.version}.jar" />
 	<property name="application.jar-src" value="${application.name}-src-${application.version}.jar" />
+	<property name="application.jar-api" value="${application.name}-api-${application.version}.jar" />
 
 	<!-- ***************************************************************************** -->
 
@@ -33,6 +35,7 @@
 		<delete includeemptydirs="true" dir="${build}" />
 		<delete includeemptydirs="true" dir="${dist}" />
 		<delete includeemptydirs="true" dir="${test-report}" />
+		<delete includeemptydirs="true" dir="${api}" />
 	</target>
 
 	<target name="init">
@@ -41,6 +44,7 @@
 		<mkdir dir="${build-src}" />
 		<mkdir dir="${build-test}" />
 		<mkdir dir="${test-report}" />
+		<mkdir dir="${api}" />
 	</target>
 
 	<target name="compile" depends="init">
@@ -61,6 +65,21 @@
 
 	<target name="build-jar-src" depends="init" description="creates a jar with all the source files">
 		<jar destfile="${dist}/${application.jar-src}" basedir="${src}">
+			<manifest>
+				<attribute name="Application-Name" value="${application.name}" />
+				<attribute name="Application-Version" value="${application.version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="build-javadoc" depends="init">
+		<javadoc sourcepath="${src}" destdir="${api}">
+			<classpath refid="build.lib.path" />
+		</javadoc>
+	</target>
+
+	<target name="build-jar-javadoc" depends="build-javadoc" description="builds the javadoc docs">
+		<jar destfile="${dist}/${application.jar-api}" basedir="${api}">
 			<manifest>
 				<attribute name="Application-Name" value="${application.name}" />
 				<attribute name="Application-Version" value="${application.version}" />
@@ -115,30 +134,33 @@
 	<!-- ***************************************************************************** -->
 
 	<target name="build-example" depends="build-jar" description="invokes to ant build of the example project and includes the resultant ear in the dist">
-		
-		<echo message="building example ear"/>
 
-		<copy file="${dist}/${application.jar}" tofile="../DHEV-Example/lib/ear/lib/dhev.jar" ></copy>
+		<echo message="building example ear" />
 
-		<ant antfile="../DHEV-Example/build.xml" taskname="build-ear" target="build-ear" inheritall="false"></ant>
-		
-		<copy tofile="${dist}/dhev-example-${application.version}.ear">
-			<fileset dir="../DHEV-Example/dist" includes="*.ear"/>
+		<copy file="${dist}/${application.jar}" tofile="../DHEV-Example/lib/ear/lib/dhev.jar">
 		</copy>
-		
+
+		<ant antfile="../DHEV-Example/build.xml" taskname="build-ear" target="build-ear" inheritall="false">
+		</ant>
+
+		<copy tofile="${dist}/dhev-example-${application.version}.ear">
+			<fileset dir="../DHEV-Example/dist" includes="*.ear" />
+		</copy>
+
 	</target>
 
 
 	<!-- ***************************************************************************** -->
 
-	<target name="build" depends="run-tests, build-jar, build-jar-src, build-example" description="runs the unit tests and creates the distribution zip file">
+	<target name="build" depends="run-tests, build-jar, build-jar-src, build-jar-javadoc, build-example" description="runs the unit tests and creates the distribution zip file">
 		<zip destfile="${dist}/${application.name}-all-${application.version}.zip">
+			<zipfileset dir="${dist}" includes="*${application.version}.jar,*${application.version}.ear" />
 			<zipfileset dir="${src}" prefix="src" />
 			<zipfileset dir="${test}" prefix="test" />
 			<zipfileset dir="${test-report}" prefix="test-report" />
-			<zipfileset dir="${dist}" includes="*${application.version}.jar,*${application.version}.ear" />
 			<zipfileset dir="${lib}" prefix="lib" />
 			<zipfileset dir="${license}" />
+			<zipfileset dir="${api}" prefix="api" />
 		</zip>
 
 		<if>
@@ -148,5 +170,7 @@
 			</then>
 		</if>
 	</target>
+
+	<!-- ***************************************************************************** -->
 
 </project>
