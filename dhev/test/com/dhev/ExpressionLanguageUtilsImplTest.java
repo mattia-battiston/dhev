@@ -63,13 +63,13 @@ public class ExpressionLanguageUtilsImplTest {
 		when(mockValueExpression.getValue(mockELContext)).thenReturn(2l);
 	}
 
-	// @Test
-	// public void evaluateElObtainsEvaluatedObject() {
-	// Number result = expressionLanguageUtilsImpl.evaluateEl(elExpression,
-	// Number.class);
-	//
-	// assertThat(((Long) result), is(2l));
-	// }
+	@Test
+	public void evaluateElObtainsEvaluatedObject() {
+		Number result = expressionLanguageUtilsImpl.evaluateEl(elExpression,
+				Number.class);
+
+		assertThat(((Long) result), is(2l));
+	}
 
 	@Test
 	public void getLongReturnsLong() {
@@ -89,7 +89,7 @@ public class ExpressionLanguageUtilsImplTest {
 		} catch (DhevClassCastException e) {
 			assertThat(
 					e.getMessage(),
-					is("Following EL expression does not evaluate to java.lang.Long: \"#{testExpression}\""));
+					is("Following EL expression does not evaluate to java.lang.Number: \"#{testExpression}\""));
 			assertTrue(e.getCause() instanceof ClassCastException);
 		}
 	}
@@ -112,7 +112,7 @@ public class ExpressionLanguageUtilsImplTest {
 		} catch (DhevClassCastException e) {
 			assertThat(
 					e.getMessage(),
-					is("Following EL expression does not evaluate to java.lang.Integer: \"#{testExpression}\""));
+					is("Following EL expression does not evaluate to java.lang.Number: \"#{testExpression}\""));
 			assertTrue(e.getCause() instanceof ClassCastException);
 		}
 	}
