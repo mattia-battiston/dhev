@@ -4,6 +4,8 @@
 
 	<property file="version.properties" />
 
+	<property name="license" location="license" />
+	
 	<property name="src" location="src" />
 	<property name="test" location="test" />
 	<property name="test-report" location="test-report" />
@@ -136,6 +138,7 @@
 			<zipfileset dir="${test-report}" prefix="test-report" />
 			<zipfileset dir="${dist}" includes="*${application.version}.jar,*${application.version}.ear" />
 			<zipfileset dir="${lib}" prefix="lib" />
+			<zipfileset dir="${license}" />
 		</zip>
 
 		<if>
