@@ -18,9 +18,15 @@
 		</navigation>
 	</page>
 
+	<exception class="com.dhev.exception.DhevClassCastException">
+		<redirect view-id="/error.seam">
+			<message severity="ERROR">#{org.jboss.seam.handledException}</message>
+		</redirect>
+	</exception>
+	
 	<exception>
-		<redirect view-id="/error.xhtml">
-			<message severity="error">Unexpected error, please try again</message>
+		<redirect view-id="/error.seam">
+			<message severity="ERROR">Generic error happened: #{org.jboss.seam.handledException}</message>
 		</redirect>
 	</exception>
 

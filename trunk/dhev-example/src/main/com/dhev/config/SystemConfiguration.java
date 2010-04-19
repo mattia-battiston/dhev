@@ -16,6 +16,19 @@ public class SystemConfiguration {
 	private Integer minRating = 0;
 	private Integer maxRating = 5;
 
+	/*
+	 * Use following lines to replace the Integer version of maxAge to test the
+	 * exception management when param does not evaluate to correct class type
+	 * (see documentation at section ClassCastException management). TODO: write
+	 * that documentation!!
+	 * 
+	 * private String maxAge = "25";
+	 * 
+	 * public String getMaxAge() { return maxAge; }
+	 * 
+	 * public void setMaxAge(String maxAge) { this.maxAge = maxAge; }
+	 */
+
 	public Integer getMaxLengthName() {
 		return maxLengthName;
 	}
@@ -32,16 +45,16 @@ public class SystemConfiguration {
 		this.minAge = minAge;
 	}
 
+	public Integer getMinLengthZip() {
+		return minLengthZip;
+	}
+
 	public Integer getMaxAge() {
 		return maxAge;
 	}
 
 	public void setMaxAge(Integer maxAge) {
 		this.maxAge = maxAge;
-	}
-
-	public Integer getMinLengthZip() {
-		return minLengthZip;
 	}
 
 	public void setMinLengthZip(Integer minLengthZip) {
