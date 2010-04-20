@@ -30,6 +30,7 @@ public class SystemConfiguration {
 	private Integer maxLengthZip = 10;
 	private Integer minRating = 0;
 	private Integer maxRating = 5;
+	private Boolean mustReadDocs = true;
 
 	/*
 	 * Use following lines to replace the Integer version of maxAge to test the
@@ -103,6 +104,14 @@ public class SystemConfiguration {
 
 	public void setMaxRating(Integer maxRating) {
 		this.maxRating = maxRating;
+	}
+
+	public Boolean getMustReadDocs() {
+		return mustReadDocs;
+	}
+
+	public void setMustReadDocs(Boolean mustReadDocs) {
+		this.mustReadDocs = mustReadDocs;
 	}
 
 }
