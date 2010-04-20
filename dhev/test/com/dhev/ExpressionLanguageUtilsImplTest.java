@@ -132,4 +132,27 @@ public class ExpressionLanguageUtilsImplTest {
 		}
 	}
 
+	@Test
+	public void getBooleanReturnsBoolean() {
+		when(mockValueExpression.getValue(mockELContext)).thenReturn(true);
+
+		assertThat(expressionLanguageUtilsImpl.getBoolean("#{testExpression}"),
+				is(true));
+	}
+
+	@Test
+	public void getBooleanThrowsCorrectExceptionWhenClassCastExceptionHappens() {
+		when(mockValueExpression.getValue(mockELContext)).thenReturn("true");
+
+		try {
+			expressionLanguageUtilsImpl.getBoolean("#{testExpression}");
+			fail("A DhevClassCastException should have been thrown here");
+		} catch (DhevClassCastException e) {
+			assertThat(
+					e.getMessage(),
+					is("Following EL expression does not evaluate to java.lang.Boolean: \"#{testExpression}\""));
+			assertTrue(e.getCause() instanceof ClassCastException);
+		}
+	}
+
 }

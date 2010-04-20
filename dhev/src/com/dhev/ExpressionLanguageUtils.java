@@ -23,4 +23,6 @@ public interface ExpressionLanguageUtils {
 
 	Integer getInteger(String expression);
 
+	Boolean getBoolean(String expression);
+
 }

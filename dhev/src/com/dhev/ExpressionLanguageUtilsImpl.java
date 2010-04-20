@@ -52,4 +52,8 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 	public Integer getInteger(String expression) {
 		return evaluateEl(expression, Number.class).intValue();
 	}
+
+	public Boolean getBoolean(String expression) {
+		return evaluateEl(expression, Boolean.class);
+	}
 }
