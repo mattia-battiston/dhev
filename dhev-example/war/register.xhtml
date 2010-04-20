@@ -40,6 +40,7 @@
 	            Age: <h:inputText id="age" value="#{user.age}" required="true"/> <h:message for="age" errorClass="errorMessage" />
 	            Zip: <h:inputText id="zip" value="#{user.zip}" required="true"/> <h:message for="zip" errorClass="errorMessage" />
 	            Rating: <h:inputText id="rating" value="#{user.rating}" required="true"/> <h:message for="rating" errorClass="errorMessage" />
+	            <h:selectBooleanCheckbox id="hasReadDocs" value="#{user.hasReadDocs}" /> I have read and agreed these documents <h:message for="hasReadDocs" errorClass="errorMessage" />
 				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
             </h:panelGrid>
             </s:validateAll>
@@ -54,6 +55,11 @@
          		Min length zip: <h:inputText id="minLengthZip" value="#{systemConfiguration.minLengthZip}" required="true"/>
          		Min rating: <h:inputText id="minRating" value="#{systemConfiguration.minRating}" required="true"/>
          		Max rating: <h:inputText id="maxRating" value="#{systemConfiguration.maxRating}" required="true"/>
+         		"I've read docs" must be: 
+         			<h:selectOneRadio id="mustReadDocs" value="#{systemConfiguration.mustReadDocs}">
+         				<f:selectItem id="itemTrue" itemValue="true" itemLabel="True"/>
+         				<f:selectItem id="itemFalse" itemValue="false" itemLabel="False"/>
+         			</h:selectOneRadio>
          		<h:commandButton id="updateConfiguration" action="#{systemConfiguration.updateConfiguration}" value="Update Configuration" />
          	</h:panelGrid>
          </h:form>

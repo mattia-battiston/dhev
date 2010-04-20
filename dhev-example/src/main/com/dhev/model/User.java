@@ -27,6 +27,7 @@ import javax.persistence.Table;
 
 import org.jboss.seam.annotations.Name;
 
+import com.dhev.constraints.AssertEL;
 import com.dhev.constraints.LengthEL;
 import com.dhev.constraints.MaxEL;
 import com.dhev.constraints.MinEL;
@@ -69,6 +70,10 @@ public class User implements Serializable {
 	@Column
 	@RangeEL(min = "#{systemConfiguration.minRating}", max = "#{systemConfiguration.maxRating}", includeMin = false)
 	private Integer rating;
+
+	@Column
+	@AssertEL(value = "#{systemConfiguration.mustReadDocs}")
+	private Boolean hasReadDocs;
 
 	public Long getId() {
 		return id;
@@ -124,6 +129,14 @@ public class User implements Serializable {
 
 	public void setRating(Integer rating) {
 		this.rating = rating;
+	}
+
+	public Boolean getHasReadDocs() {
+		return hasReadDocs;
+	}
+
+	public void setHasReadDocs(Boolean hasReadDocs) {
+		this.hasReadDocs = hasReadDocs;
 	}
 
 }
