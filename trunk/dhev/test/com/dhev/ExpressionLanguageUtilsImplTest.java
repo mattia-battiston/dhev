@@ -60,6 +60,7 @@ public class ExpressionLanguageUtilsImplTest {
 	private String elExpression = "#{testExpression}";
 	private String numericLiteralExpression = "2";
 	private String booleanLiteralExpression = "true";
+	private String stringLiteralExpression = "string";
 
 	@Before
 	public void before() {
@@ -78,6 +79,8 @@ public class ExpressionLanguageUtilsImplTest {
 				numericLiteralExpression);
 		configureExpressionFactory(booleanLiteralExpression,
 				booleanLiteralExpression);
+		configureExpressionFactory(stringLiteralExpression,
+				stringLiteralExpression);
 
 	}
 
@@ -188,4 +191,33 @@ public class ExpressionLanguageUtilsImplTest {
 		}
 	}
 
+	@Test
+	public void getStringReturnsString() {
+		configureExpressionFactory(elExpression, "string");
+
+		assertThat(expressionLanguageUtilsImpl.getString(elExpression),
+				is("string"));
+	}
+
+	@Test
+	public void getStringReturnsStringIfExpressionIsLiteral() {
+
+		assertThat(expressionLanguageUtilsImpl
+				.getString(stringLiteralExpression), is("string"));
+	}
+
+	@Test
+	public void getStringThrowsCorrectExceptionWhenClassCastExceptionHappens() {
+		configureExpressionFactory(elExpression, 2L);
+
+		try {
+			expressionLanguageUtilsImpl.getString(elExpression);
+			fail("A DhevClassCastException should have been thrown here");
+		} catch (DhevClassCastException e) {
+			assertThat(
+					e.getMessage(),
+					is("Following EL expression does not evaluate to java.lang.String: \"#{testExpression}\""));
+			assertTrue(e.getCause() instanceof ClassCastException);
+		}
+	}
 }
