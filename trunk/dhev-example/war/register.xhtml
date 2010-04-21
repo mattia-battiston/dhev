@@ -37,6 +37,7 @@
 	            Name: <h:inputText id="name" value="#{user.name}" required="true"/> <h:message for="name" errorClass="errorMessage" />
 	            Surname: <h:inputText id="surname" value="#{user.surname}" required="true"/> <h:message for="surname" errorClass="errorMessage" />
 	            Username: <h:inputText id="username" value="#{user.userName}" required="true"/> <h:message for="username" errorClass="errorMessage" />
+	            Email: <h:inputText id="email" value="#{user.email}" required="true"/> <h:message for="email" errorClass="errorMessage" />
 	            Age: <h:inputText id="age" value="#{user.age}" required="true"/> <h:message for="age" errorClass="errorMessage" />
 	            Zip: <h:inputText id="zip" value="#{user.zip}" required="true"/> <h:message for="zip" errorClass="errorMessage" />
 	            Rating: <h:inputText id="rating" value="#{user.rating}" required="true"/> <h:message for="rating" errorClass="errorMessage" />
@@ -61,6 +62,7 @@
          <h:form id="configuration">
          	Application Configuration
          	<h:panelGrid columns="2">
+         		Email pattern: <h:inputText id="emailPattern" value="#{systemConfiguration.emailPattern}" required="true"/>
          		Min age: <h:inputText id="minAge" value="#{systemConfiguration.minAge}" required="true"/>
          		Min length zip: <h:inputText id="minLengthZip" value="#{systemConfiguration.minLengthZip}" required="true"/>
          		Min rating: <h:inputText id="minRating" value="#{systemConfiguration.minRating}" required="true"/>

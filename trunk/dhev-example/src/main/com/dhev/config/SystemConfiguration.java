@@ -33,6 +33,7 @@ public class SystemConfiguration {
 	private Integer minColors = 2;
 	private Integer maxColors = 4;
 	private Boolean mustReadDocs = true;
+	private String emailPattern = "[a-z]+@[a-z]+\\.com";
 
 	/*
 	 * Use following lines to replace the Integer version of maxAge to test the
@@ -130,6 +131,14 @@ public class SystemConfiguration {
 
 	public void setMustReadDocs(Boolean mustReadDocs) {
 		this.mustReadDocs = mustReadDocs;
+	}
+
+	public String getEmailPattern() {
+		return emailPattern;
+	}
+
+	public void setEmailPattern(String emailPattern) {
+		this.emailPattern = emailPattern;
 	}
 
 }

@@ -31,6 +31,7 @@ import com.dhev.constraints.AssertEL;
 import com.dhev.constraints.LengthEL;
 import com.dhev.constraints.MaxEL;
 import com.dhev.constraints.MinEL;
+import com.dhev.constraints.PatternEL;
 import com.dhev.constraints.RangeEL;
 import com.dhev.constraints.SizeEL;
 
@@ -63,6 +64,10 @@ public class User implements Serializable {
 	@MaxEL(value = "#{systemConfiguration.maxAge}")
 	@MinEL(value = "#{systemConfiguration.minAge}", includeLimit = true, message = "{validator.minAge}")
 	private Integer age;// TODO: min is 18
+
+	@Column
+	@PatternEL(regex = "#{systemConfiguration.emailPattern}")
+	private String email;
 
 	@Column
 	@LengthEL(min = "#{systemConfiguration.minLengthZip}", max = "#{systemConfiguration.maxLengthZip}", includeMax = false)
@@ -110,6 +115,14 @@ public class User implements Serializable {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Integer getAge() {
