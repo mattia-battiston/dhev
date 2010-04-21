@@ -19,14 +19,15 @@ import org.hibernate.validator.Length;
 import org.hibernate.validator.LengthValidator;
 import org.hibernate.validator.Validator;
 
+import com.dhev.ExpressionLanguageResolverFactory;
 import com.dhev.ExpressionLanguageUtils;
-import com.dhev.ExpressionLanguageUtilsImpl;
 import com.dhev.constraints.LengthEL;
 import com.dhev.constraints.utils.ValidatorAnnotationProxy;
 
 public class LengthELValidator implements Validator<LengthEL> {
 
-	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
+	private ExpressionLanguageUtils expressionLanguageUtils = ExpressionLanguageResolverFactory
+			.createResolver();
 
 	private String maxEL;
 	private String minEL;

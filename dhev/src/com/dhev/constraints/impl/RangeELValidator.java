@@ -19,14 +19,15 @@ import org.hibernate.validator.Range;
 import org.hibernate.validator.RangeValidator;
 import org.hibernate.validator.Validator;
 
+import com.dhev.ExpressionLanguageResolverFactory;
 import com.dhev.ExpressionLanguageUtils;
-import com.dhev.ExpressionLanguageUtilsImpl;
 import com.dhev.constraints.RangeEL;
 import com.dhev.constraints.utils.ValidatorAnnotationProxy;
 
 public class RangeELValidator implements Validator<RangeEL> {
 
-	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
+	private ExpressionLanguageUtils expressionLanguageUtils = ExpressionLanguageResolverFactory
+			.createResolver();
 
 	private String maxEL;
 	private String minEL;
