@@ -49,10 +49,8 @@ public class SizeELValidator implements Validator<SizeEL> {
 	}
 
 	public Integer min() {
-		if (isParamNotSet(minEL)) {
-			System.out.println("returning 0");
+		if (isParamNotSet(minEL))
 			return 0;
-		}
 
 		return expressionLanguageUtils.getInteger(minEL);
 	}
