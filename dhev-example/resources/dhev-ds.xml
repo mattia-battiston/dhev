@@ -7,8 +7,8 @@
 	<local-tx-datasource>
 		<jndi-name>dhevDatasource</jndi-name>
 		<use-java-context>true</use-java-context>
-		<connection-url>jdbc:hsqldb:hsql://localhost/locdb</connection-url>
-<!-- 		<connection-url>jdbc:hsqldb:hsql://localhost/xdb</connection-url> -->
+		<!--<connection-url>jdbc:hsqldb:hsql://localhost/locdb</connection-url>-->
+		<connection-url>jdbc:hsqldb:mem:test</connection-url>
 		<driver-class>org.hsqldb.jdbcDriver</driver-class>
 		<user-name>sa</user-name>
 		<password></password>
