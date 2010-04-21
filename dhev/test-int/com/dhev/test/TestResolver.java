@@ -25,4 +25,8 @@ public class TestResolver implements ExpressionLanguageUtils {
 		return Boolean.parseBoolean(expression);
 	}
 
+	public String getString(String expression) {
+		return expression;
+	}
+
 }

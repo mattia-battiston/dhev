@@ -51,6 +51,15 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 			return evaluate(valueExpression, Boolean.class);
 	}
 
+	public String getString(String expression) {
+		ValueExpression valueExpression = getValueExpression(expression);
+
+		if (valueExpression.isLiteralText())
+			return valueExpression.getExpressionString();
+		else
+			return evaluate(valueExpression, String.class);
+	}
+
 	private <T> T evaluate(ValueExpression valueExpression, Class<T> clazz) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ELContext elCtx = context.getELContext();
