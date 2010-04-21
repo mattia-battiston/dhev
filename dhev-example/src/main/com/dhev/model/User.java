@@ -32,6 +32,7 @@ import com.dhev.constraints.LengthEL;
 import com.dhev.constraints.MaxEL;
 import com.dhev.constraints.MinEL;
 import com.dhev.constraints.RangeEL;
+import com.dhev.constraints.SizeEL;
 
 @Name("user")
 @Entity
@@ -70,6 +71,10 @@ public class User implements Serializable {
 	@Column
 	@RangeEL(min = "#{systemConfiguration.minRating}", max = "#{systemConfiguration.maxRating}", includeMin = false)
 	private Integer rating;
+
+	@Column
+	@SizeEL(min = "#{systemConfiguration.minColors}", max = "#{systemConfiguration.maxColors}")
+	private String[] colors;
 
 	@Column
 	@AssertEL(value = "#{systemConfiguration.mustReadDocs}")
@@ -129,6 +134,14 @@ public class User implements Serializable {
 
 	public void setRating(Integer rating) {
 		this.rating = rating;
+	}
+
+	public String[] getColors() {
+		return colors;
+	}
+
+	public void setColors(String[] colors) {
+		this.colors = colors;
 	}
 
 	public Boolean getHasReadDocs() {

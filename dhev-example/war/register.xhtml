@@ -40,6 +40,16 @@
 	            Age: <h:inputText id="age" value="#{user.age}" required="true"/> <h:message for="age" errorClass="errorMessage" />
 	            Zip: <h:inputText id="zip" value="#{user.zip}" required="true"/> <h:message for="zip" errorClass="errorMessage" />
 	            Rating: <h:inputText id="rating" value="#{user.rating}" required="true"/> <h:message for="rating" errorClass="errorMessage" />
+				Colors: <h:selectManyCheckbox id="colors" value="#{user.colors}">
+                   <f:selectItem itemLabel="Red" itemValue="Red" />
+                   <f:selectItem itemLabel="Yellow" itemValue="Yellow" />
+                   <f:selectItem itemLabel="Blue" itemValue="Blue" />
+                   <f:selectItem itemLabel="Green" itemValue="Green" />
+                   <f:selectItem itemLabel="White" itemValue="White" />
+                   <f:selectItem itemLabel="Black" itemValue="Black" />
+                </h:selectManyCheckbox>
+                <h:message for="colors" errorClass="errorMessage" />
+                          
 	            <h:selectBooleanCheckbox id="hasReadDocs" value="#{user.hasReadDocs}" /> I have read and agreed these documents <h:message for="hasReadDocs" errorClass="errorMessage" />
 				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
             </h:panelGrid>
@@ -55,6 +65,8 @@
          		Min length zip: <h:inputText id="minLengthZip" value="#{systemConfiguration.minLengthZip}" required="true"/>
          		Min rating: <h:inputText id="minRating" value="#{systemConfiguration.minRating}" required="true"/>
          		Max rating: <h:inputText id="maxRating" value="#{systemConfiguration.maxRating}" required="true"/>
+         		Min colors: <h:inputText id="minColors" value="#{systemConfiguration.minColors}" required="true"/>
+         		Max colors: <h:inputText id="maxColors" value="#{systemConfiguration.maxColors}" required="true"/>
          		"I've read docs" must be: 
          			<h:selectOneRadio id="mustReadDocs" value="#{systemConfiguration.mustReadDocs}">
          				<f:selectItem id="itemTrue" itemValue="true" itemLabel="True"/>

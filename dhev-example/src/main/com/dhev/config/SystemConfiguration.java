@@ -30,6 +30,8 @@ public class SystemConfiguration {
 	private Integer maxLengthZip = 10;
 	private Integer minRating = 0;
 	private Integer maxRating = 5;
+	private Integer minColors = 2;
+	private Integer maxColors = 4;
 	private Boolean mustReadDocs = true;
 
 	/*
@@ -104,6 +106,22 @@ public class SystemConfiguration {
 
 	public void setMaxRating(Integer maxRating) {
 		this.maxRating = maxRating;
+	}
+
+	public Integer getMinColors() {
+		return minColors;
+	}
+
+	public void setMinColors(Integer minColors) {
+		this.minColors = minColors;
+	}
+
+	public Integer getMaxColors() {
+		return maxColors;
+	}
+
+	public void setMaxColors(Integer maxColors) {
+		this.maxColors = maxColors;
 	}
 
 	public Boolean getMustReadDocs() {
