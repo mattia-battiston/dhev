@@ -19,14 +19,15 @@ import org.hibernate.validator.Size;
 import org.hibernate.validator.SizeValidator;
 import org.hibernate.validator.Validator;
 
+import com.dhev.ExpressionLanguageResolverFactory;
 import com.dhev.ExpressionLanguageUtils;
-import com.dhev.ExpressionLanguageUtilsImpl;
 import com.dhev.constraints.SizeEL;
 import com.dhev.constraints.utils.ValidatorAnnotationProxy;
 
 public class SizeELValidator implements Validator<SizeEL> {
 
-	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
+	private ExpressionLanguageUtils expressionLanguageUtils = ExpressionLanguageResolverFactory
+			.createResolver();
 
 	private String minEL;
 
@@ -45,12 +46,13 @@ public class SizeELValidator implements Validator<SizeEL> {
 
 		boolean valid = validator.isValid(param);
 
-		System.out.println("returning " + valid);
+		System.out.println("returning " + valid + " for param " + param);
 		return valid;
 	}
 
 	public Integer min() {
-		System.out.println("");
+		System.out.println("min----> "
+				+ expressionLanguageUtils.getInteger(minEL));
 		return expressionLanguageUtils.getInteger(minEL);
 	}
 

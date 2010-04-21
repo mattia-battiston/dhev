@@ -57,9 +57,13 @@ public class ExpressionLanguageUtilsImplTest {
 	private ExpressionFactory expressionFactory;
 
 	@Mock
-	private ValueExpression mockValueExpression;
+	private ValueExpression mockElValueExpression;
+
+	@Mock
+	private ValueExpression mockLiteralValueExpression;
 
 	private String elExpression = "#{testExpression}";
+	private String literalExpression = "2";
 
 	@Before
 	public void before() {
@@ -69,34 +73,46 @@ public class ExpressionLanguageUtilsImplTest {
 		when(FacesContext.getCurrentInstance()).thenReturn(mockFacesContext);
 		when(mockFacesContext.getELContext()).thenReturn(mockELContext);
 		when(mockFacesContext.getApplication()).thenReturn(mockApplication);
+
 		when(mockApplication.getExpressionFactory()).thenReturn(
 				expressionFactory);
+
 		when(
 				expressionFactory.createValueExpression(mockELContext,
 						elExpression, Object.class)).thenReturn(
-				mockValueExpression);
-		when(mockValueExpression.getValue(mockELContext)).thenReturn(2l);
-	}
+				mockElValueExpression);
+		when(mockElValueExpression.getExpressionString()).thenReturn(
+				elExpression);
+		when(mockElValueExpression.getValue(mockELContext)).thenReturn(2l);
 
-	@Test
-	public void evaluateElObtainsEvaluatedObject() {
-		Number result = expressionLanguageUtilsImpl.evaluateEl(elExpression,
-				Number.class);
-
-		assertThat(((Long) result), is(2l));
+		when(
+				expressionFactory.createValueExpression(mockELContext,
+						literalExpression, Object.class)).thenReturn(
+				mockLiteralValueExpression);
+		when(mockLiteralValueExpression.getValue(mockELContext))
+				.thenReturn("2");
+		when(mockLiteralValueExpression.getExpressionString()).thenReturn("2");
+		when(mockLiteralValueExpression.isLiteralText()).thenReturn(true);
 	}
 
 	@Test
 	public void getLongReturnsLong() {
-		when(mockValueExpression.getValue(mockELContext)).thenReturn(2);
+		when(mockElValueExpression.getValue(mockELContext)).thenReturn(2L);
 
-		assertThat(expressionLanguageUtilsImpl.getLong("#{testExpression}"),
+		assertThat(expressionLanguageUtilsImpl.getLong(elExpression), is(2L));
+	}
+
+	@Test
+	public void getLongReturnsLongIfExpressionIsLiteral() {
+
+		assertThat(expressionLanguageUtilsImpl.getLong(literalExpression),
 				is(2L));
 	}
 
 	@Test
 	public void getLongThrowsCorrectExceptionWhenClassCastExceptionHappens() {
-		when(mockValueExpression.getValue(mockELContext)).thenReturn("string");
+		when(mockElValueExpression.getValue(mockELContext))
+				.thenReturn("string");
 
 		try {
 			expressionLanguageUtilsImpl.getLong("#{testExpression}");
@@ -111,15 +127,15 @@ public class ExpressionLanguageUtilsImplTest {
 
 	@Test
 	public void getIntegerReturnsInteger() {
-		when(mockValueExpression.getValue(mockELContext)).thenReturn(2.5);
+		when(mockElValueExpression.getValue(mockELContext)).thenReturn(2.5);
 
-		assertThat(expressionLanguageUtilsImpl.getInteger("#{testExpression}"),
-				is(2));
+		assertThat(expressionLanguageUtilsImpl.getInteger(elExpression), is(2));
 	}
 
 	@Test
 	public void getIntegerThrowsCorrectExceptionWhenClassCastExceptionHappens() {
-		when(mockValueExpression.getValue(mockELContext)).thenReturn("string");
+		when(mockElValueExpression.getValue(mockELContext))
+				.thenReturn("string");
 
 		try {
 			expressionLanguageUtilsImpl.getInteger("#{testExpression}");
@@ -134,7 +150,7 @@ public class ExpressionLanguageUtilsImplTest {
 
 	@Test
 	public void getBooleanReturnsBoolean() {
-		when(mockValueExpression.getValue(mockELContext)).thenReturn(true);
+		when(mockElValueExpression.getValue(mockELContext)).thenReturn(true);
 
 		assertThat(expressionLanguageUtilsImpl.getBoolean("#{testExpression}"),
 				is(true));
@@ -142,7 +158,7 @@ public class ExpressionLanguageUtilsImplTest {
 
 	@Test
 	public void getBooleanThrowsCorrectExceptionWhenClassCastExceptionHappens() {
-		when(mockValueExpression.getValue(mockELContext)).thenReturn("true");
+		when(mockElValueExpression.getValue(mockELContext)).thenReturn("true");
 
 		try {
 			expressionLanguageUtilsImpl.getBoolean("#{testExpression}");

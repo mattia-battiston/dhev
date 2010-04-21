@@ -24,36 +24,54 @@ import com.dhev.exception.DhevClassCastException;
 
 public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 
-	public <T> T evaluateEl(String expression, Class<T> clazz) {
+	public Long getLong(String expression) {
+		ValueExpression valueExpression = getValueExpression(expression);
+
+		if (valueExpression.isLiteralText())
+			return Long.parseLong(valueExpression.getExpressionString());
+		else
+			return evaluate(valueExpression, Number.class).longValue();
+	}
+
+	public Integer getInteger(String expression) {
+		ValueExpression valueExpression = getValueExpression(expression);
+
+		if (valueExpression.isLiteralText())
+			return Integer.parseInt(valueExpression.getExpressionString());
+		else
+			return evaluate(valueExpression, Number.class).intValue();
+	}
+
+	public Boolean getBoolean(String expression) {
+		ValueExpression valueExpression = getValueExpression(expression);
+
+		if (valueExpression.isLiteralText())
+			return Boolean.parseBoolean(valueExpression.getExpressionString());
+		else
+			return evaluate(valueExpression, Boolean.class);
+	}
+
+	private <T> T evaluate(ValueExpression valueExpression, Class<T> clazz) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ELContext elCtx = context.getELContext();
+		try {
+			return clazz.cast(valueExpression.getValue(elCtx));
+		} catch (ClassCastException ex) {
+			throw new DhevClassCastException(
+					"Following EL expression does not evaluate to "
+							+ clazz.getName() + ": \""
+							+ valueExpression.getExpressionString() + "\"", ex);
+		}
+
+	}
+
+	private ValueExpression getValueExpression(String expression) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ELContext elCtx = context.getELContext();
 
 		ExpressionFactory factory = context.getApplication()
 				.getExpressionFactory();
 
-		ValueExpression valExpr = factory.createValueExpression(elCtx,
-				expression, Object.class);
-
-		T result = null;
-		try {
-			result = clazz.cast(valExpr.getValue(elCtx));
-		} catch (ClassCastException ex) {
-			throw new DhevClassCastException(
-					"Following EL expression does not evaluate to "
-							+ clazz.getName() + ": \"" + expression + "\"", ex);
-		}
-		return result;
-	}
-
-	public Long getLong(String expression) {
-		return evaluateEl(expression, Number.class).longValue();
-	}
-
-	public Integer getInteger(String expression) {
-		return evaluateEl(expression, Number.class).intValue();
-	}
-
-	public Boolean getBoolean(String expression) {
-		return evaluateEl(expression, Boolean.class);
+		return factory.createValueExpression(elCtx, expression, Object.class);
 	}
 }
