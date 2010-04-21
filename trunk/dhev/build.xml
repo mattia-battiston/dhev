@@ -16,6 +16,7 @@
 	<property name="build-src" location="${build}/src" />
 	<property name="build-test" location="${build}/test" />
 	<property name="api" location="api" />
+	<property name="resources" location="resources" />
 
 	<property name="application.name" value="${ant.project.name}" />
 	<property name="application.jar" value="${application.name}-${application.version}.jar" />
@@ -154,13 +155,30 @@
 
 	<target name="build" depends="run-tests, build-jar, build-jar-src, build-jar-javadoc, build-example" description="runs the unit tests and creates the distribution zip file">
 		<zip destfile="${dist}/${application.name}-all-${application.version}.zip">
-			<zipfileset dir="${dist}" includes="*${application.version}.jar,*${application.version}.ear" />
-			<zipfileset dir="${src}" prefix="src" />
-			<zipfileset dir="${test}" prefix="test" />
-			<zipfileset dir="${test-report}" prefix="test-report" />
-			<zipfileset dir="${lib}" prefix="lib" />
-			<zipfileset dir="${license}" />
-			<zipfileset dir="${api}" prefix="api" />
+			<zipfileset dir="${basedir}" prefix="DHEV">
+				<include name="src/**/*" />
+				<include name="test/**/*" />
+				<include name="api/**/*" />
+				<include name="lib/**/*" />
+				<include name="test-report/**/*" />
+				<include name="resources/**/*" />
+				<include name="build.xml" />
+				<include name="*.properties" />
+			</zipfileset>
+
+			<zipfileset dir="${basedir}/../DHEV-Example" prefix="DHEV-Example">
+				<include name="src/**/*" />
+				<include name="lib/**/*" />
+				<include name="resources/**/*" />
+				<include name="war/**/*" />
+				<include name="build.xml" />
+				<include name="*.properties" />
+			</zipfileset>
+
+			<zipfileset dir="${resources}" includes="*.txt" />
+			<zipfileset file="${dist}/*${application.version}.jar" />
+			<zipfileset file="${dist}/*${application.version}.ear" />
+			<zipfileset file="${basedir}/../DHEV-Example/resources/*-ds.xml" />
 		</zip>
 
 		<if>
