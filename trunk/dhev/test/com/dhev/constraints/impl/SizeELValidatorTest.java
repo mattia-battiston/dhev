@@ -53,28 +53,42 @@ public class SizeELValidatorTest {
 
 	@Test
 	public void isValidReturnsTrueIfParamIsBetweenMinAndMax() {
-		assertTrue(sizeELValidator.isValid(new int[] { 1, 2, 3, 4, 5, 6 }));
+		assertTrue(sizeELValidator.isValid(new int[6]));
 	}
 
 	@Test
 	public void isValidReturnsTrueIfParamIsEqualToMin() {
-		assertTrue(sizeELValidator.isValid(new int[] { 1, 2, 3, 4, 5 }));
+		assertTrue(sizeELValidator.isValid(new int[5]));
 	}
 
 	@Test
 	public void isValidReturnsTrueIfParamIsEqualToMax() {
-		assertTrue(sizeELValidator.isValid(new int[] { 1, 2, 3, 4, 5, 6, 7, 8,
-				9, 10 }));
+		assertTrue(sizeELValidator.isValid(new int[10]));
 	}
 
 	@Test
 	public void isValidReturnsFalseIfParamIsLowerThanMin() {
-		assertFalse(sizeELValidator.isValid(new int[] { 1, 2, 3 }));
+		assertFalse(sizeELValidator.isValid(new int[3]));
 	}
 
 	@Test
 	public void isValidReturnsFalseIfParamIsGreaterThanMax() {
-		assertFalse(sizeELValidator.isValid(new int[] { 1, 2, 3, 4, 5, 6, 7, 8,
-				9, 10, 11 }));
+		assertFalse(sizeELValidator.isValid(new int[11]));
+	}
+
+	@Test
+	public void defaultMinIsZero() {
+		when(sizeEL.min()).thenReturn("");
+		sizeELValidator.initialize(sizeEL);
+
+		assertTrue(sizeELValidator.isValid(new int[] {}));
+	}
+
+	@Test
+	public void defaultMaxIsMaxInteger() {
+		when(sizeEL.max()).thenReturn("");
+		sizeELValidator.initialize(sizeEL);
+
+		assertTrue(sizeELValidator.isValid(new int[2048]));
 	}
 }
