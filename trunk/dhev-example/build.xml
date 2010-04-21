@@ -59,7 +59,6 @@
 
 	<target name="build-jar" depends="compile">
 		<copy file="${meta-inf}/persistence.xml" tofile="${build.resources}/persistence.xml" overwrite="true" />
-		<copy file="${resources}/import.sql" tofile="${build.resources}/import.sql" overwrite="true" />
 
 		<copy todir="${build.meta-inf}" file="${meta-inf}/ejb-jar.xml" />
 		<copy todir="${build.meta-inf}" overwrite="true">
