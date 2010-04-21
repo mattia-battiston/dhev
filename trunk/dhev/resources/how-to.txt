@@ -1,7 +1,0 @@
-- Install DHEV in your project:
-Simply include /dhev-VERSION.jar in your project.
-
-- Run the DHEV-example:
-DHEV-Example is a JBoss Seam project which demonstrates the use of DHEV. In order to
-run it, copy /dhev-example-VERSION.ear and /dhev-ds.xml to your JBoss instance and 
-start it.
