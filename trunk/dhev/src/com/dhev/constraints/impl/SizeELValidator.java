@@ -15,6 +15,8 @@
  */
 package com.dhev.constraints.impl;
 
+import static com.dhev.constraints.utils.ValidatorUtils.isParamNotSet;
+
 import org.hibernate.validator.Size;
 import org.hibernate.validator.SizeValidator;
 import org.hibernate.validator.Validator;
@@ -30,7 +32,6 @@ public class SizeELValidator implements Validator<SizeEL> {
 			.createResolver();
 
 	private String minEL;
-
 	private String maxEL;
 
 	public void initialize(SizeEL parameters) {
@@ -39,24 +40,25 @@ public class SizeELValidator implements Validator<SizeEL> {
 	}
 
 	public boolean isValid(Object param) {
-		System.out.println("validating sizeel");
 		Size size = ValidatorAnnotationProxy.createProxy(this, Size.class);
 		SizeValidator validator = new SizeValidator();
 		validator.initialize(size);
 
-		boolean valid = validator.isValid(param);
+		return validator.isValid(param);
 
-		System.out.println("returning " + valid + " for param " + param);
-		return valid;
 	}
 
 	public Integer min() {
-		System.out.println("min----> "
-				+ expressionLanguageUtils.getInteger(minEL));
+		if (isParamNotSet(minEL))
+			return 0;
+
 		return expressionLanguageUtils.getInteger(minEL);
 	}
 
 	public Integer max() {
+		if (isParamNotSet(maxEL))
+			return Integer.MAX_VALUE;
+
 		return expressionLanguageUtils.getInteger(maxEL);
 	}
 

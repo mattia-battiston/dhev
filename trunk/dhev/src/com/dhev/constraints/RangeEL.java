@@ -33,10 +33,9 @@ public @interface RangeEL {
 
 	String max() default "";
 
-	String message() default "{validator.range}";
-
 	boolean includeMax() default true;
 
 	boolean includeMin() default true;
 
+	String message() default "{validator.range}";
 }

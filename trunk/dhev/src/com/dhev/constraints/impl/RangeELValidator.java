@@ -15,6 +15,8 @@
  */
 package com.dhev.constraints.impl;
 
+import static com.dhev.constraints.utils.ValidatorUtils.isParamNotSet;
+
 import org.hibernate.validator.Range;
 import org.hibernate.validator.RangeValidator;
 import org.hibernate.validator.Validator;
@@ -29,11 +31,11 @@ public class RangeELValidator implements Validator<RangeEL> {
 	private ExpressionLanguageUtils expressionLanguageUtils = ExpressionLanguageResolverFactory
 			.createResolver();
 
-	private String maxEL;
 	private String minEL;
+	private String maxEL;
 
-	private boolean includeMax;
 	private boolean includeMin;
+	private boolean includeMax;
 
 	public void initialize(RangeEL annotation) {
 		minEL = annotation.min();
@@ -69,10 +71,6 @@ public class RangeELValidator implements Validator<RangeEL> {
 		if (!includeMax)
 			max--;
 		return max;
-	}
-
-	private boolean isParamNotSet(String el) {
-		return el != null && el.trim().length() == 0;
 	}
 
 	public void setExpressionLanguageUtils(

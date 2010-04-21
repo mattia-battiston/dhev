@@ -19,20 +19,22 @@ import org.hibernate.validator.Min;
 import org.hibernate.validator.MinValidator;
 import org.hibernate.validator.Validator;
 
+import com.dhev.ExpressionLanguageResolverFactory;
 import com.dhev.ExpressionLanguageUtils;
-import com.dhev.ExpressionLanguageUtilsImpl;
 import com.dhev.constraints.MinEL;
 import com.dhev.constraints.utils.ValidatorAnnotationProxy;
 
 public class MinELValidator implements Validator<MinEL> {
 
-	private String minExpression;
+	private ExpressionLanguageUtils expressionLanguageUtils = ExpressionLanguageResolverFactory
+			.createResolver();
+
+	private String minEl;
+
 	private boolean includeLimit;
 
-	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
-
 	public void initialize(MinEL annotation) {
-		minExpression = annotation.value();
+		minEl = annotation.value();
 		includeLimit = annotation.includeLimit();
 	}
 
@@ -53,7 +55,7 @@ public class MinELValidator implements Validator<MinEL> {
 	}
 
 	public long value() {
-		Long minValue = expressionLanguageUtils.getLong(minExpression);
+		Long minValue = expressionLanguageUtils.getLong(minEl);
 		if (!includeLimit)
 			minValue++;
 		return minValue;

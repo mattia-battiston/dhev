@@ -29,10 +29,10 @@ import com.dhev.constraints.impl.MaxELValidator;
 @ValidatorClass(MaxELValidator.class)
 public @interface MaxEL {
 
-	String message() default "{validator.max}";
-
 	String value() default "";
 
 	boolean includeLimit() default true;
+
+	String message() default "{validator.max}";
 
 }
