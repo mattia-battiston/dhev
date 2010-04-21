@@ -6,6 +6,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.validator.event.ValidateEventListener;
 
+import com.dhev.test.TestMessageInterpolator;
+
 public class TestSchema {
 	public static AnnotationConfiguration config;
 	static {
@@ -24,6 +26,8 @@ public class TestSchema {
 				"org.hibernate.cache.HashtableCacheProvider");
 		config.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		config.setProperty("hibernate.show_sql", "true");
+		config.setProperty("hibernate.validator.message_interpolator_class",
+				TestMessageInterpolator.class.getCanonicalName());
 		config.setListener("pre-insert", new ValidateEventListener());
 
 	}

@@ -13,17 +13,17 @@ public class SizeELValidatorModel {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	@SizeEL(min = "2", max = "5")
-	private String[] size2_5;
+	@SizeEL(min = "#{config.min}", max = "#{config.max}")
+	private String[] sizeMin2Max5;
 
-	@SizeEL(max = "5")
-	private String[] testDefaultMin;
+	@SizeEL(max = "#{config.max}")
+	private String[] testDefaultMinMax5;
 
-	@SizeEL(min = "2")
-	private String[] testDefaultMax;
+	@SizeEL(min = "#{config.min}")
+	private String[] testMin2DefaultMax;
 
 	@SizeEL
-	private String[] testDefaults;
+	private String[] testDefaultMinDefaultMax;
 
 	public Long getId() {
 		return id;
@@ -33,36 +33,36 @@ public class SizeELValidatorModel {
 		this.id = id;
 	}
 
-	public String[] getSize2_5() {
-		return size2_5;
+	public String[] getSizeMin2Max5() {
+		return sizeMin2Max5;
 	}
 
-	public void setSize2_5(String[] range2_5) {
-		this.size2_5 = range2_5;
+	public void setSizeMin2Max5(String[] sizeMin2Max5) {
+		this.sizeMin2Max5 = sizeMin2Max5;
 	}
 
-	public String[] getTestDefaultMin() {
-		return testDefaultMin;
+	public String[] getTestDefaultMinMax5() {
+		return testDefaultMinMax5;
 	}
 
-	public void setTestDefaultMin(String[] testDefaultMin) {
-		this.testDefaultMin = testDefaultMin;
+	public void setTestDefaultMinMax5(String[] testDefaultMinMax5) {
+		this.testDefaultMinMax5 = testDefaultMinMax5;
 	}
 
-	public String[] getTestDefaultMax() {
-		return testDefaultMax;
+	public String[] getTestMin2DefaultMax() {
+		return testMin2DefaultMax;
 	}
 
-	public void setTestDefaultMax(String[] testDefaultMax) {
-		this.testDefaultMax = testDefaultMax;
+	public void setTestMin2DefaultMax(String[] testMin2DefaultMax) {
+		this.testMin2DefaultMax = testMin2DefaultMax;
 	}
 
-	public String[] getTestDefaults() {
-		return testDefaults;
+	public String[] getTestDefaultMinDefaultMax() {
+		return testDefaultMinDefaultMax;
 	}
 
-	public void setTestDefaults(String[] testDefaults) {
-		this.testDefaults = testDefaults;
+	public void setTestDefaultMinDefaultMax(String[] testDefaultMinDefaultMax) {
+		this.testDefaultMinDefaultMax = testDefaultMinDefaultMax;
 	}
 
 }
