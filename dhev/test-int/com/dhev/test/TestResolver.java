@@ -4,7 +4,6 @@ import com.dhev.ExpressionLanguageUtils;
 
 public class TestResolver implements ExpressionLanguageUtils {
 
-	@Override
 	public Integer getInteger(String expression) {
 		if (expression.startsWith("#{config."))
 			try {
@@ -18,12 +17,10 @@ public class TestResolver implements ExpressionLanguageUtils {
 			return Integer.parseInt(expression);
 	}
 
-	@Override
 	public Long getLong(String expression) {
 		return Long.parseLong(expression);
 	}
 
-	@Override
 	public Boolean getBoolean(String expression) {
 		return Boolean.parseBoolean(expression);
 	}
