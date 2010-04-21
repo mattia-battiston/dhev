@@ -49,14 +49,11 @@ public class SizeELValidator implements Validator<SizeEL> {
 	}
 
 	public Integer min() {
-		System.out.println("min was called");
 		if (isParamNotSet(minEL)) {
 			System.out.println("returning 0");
 			return 0;
 		}
 
-		System.out.println("returning "
-				+ expressionLanguageUtils.getInteger(minEL));
 		return expressionLanguageUtils.getInteger(minEL);
 	}
 
