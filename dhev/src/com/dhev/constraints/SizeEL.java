@@ -29,9 +29,9 @@ import com.dhev.constraints.impl.SizeELValidator;
 @ValidatorClass(SizeELValidator.class)
 public @interface SizeEL {
 
-	String max() default "" + Integer.MAX_VALUE;
+	String min() default "";
 
-	String min() default "0";
+	String max() default "";
 
 	String message() default "{validator.size}";
 

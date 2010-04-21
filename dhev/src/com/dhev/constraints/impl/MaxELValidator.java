@@ -19,18 +19,19 @@ import org.hibernate.validator.Max;
 import org.hibernate.validator.MaxValidator;
 import org.hibernate.validator.Validator;
 
+import com.dhev.ExpressionLanguageResolverFactory;
 import com.dhev.ExpressionLanguageUtils;
-import com.dhev.ExpressionLanguageUtilsImpl;
 import com.dhev.constraints.MaxEL;
 import com.dhev.constraints.utils.ValidatorAnnotationProxy;
 
 public class MaxELValidator implements Validator<MaxEL> {
 
-	private boolean includeLimit;
+	private ExpressionLanguageUtils expressionLanguageUtils = ExpressionLanguageResolverFactory
+			.createResolver();
 
 	private String maxEL;
 
-	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
+	private boolean includeLimit;
 
 	public void initialize(MaxEL annotation) {
 		maxEL = annotation.value();

@@ -17,13 +17,15 @@ package com.dhev.constraints.impl;
 
 import org.hibernate.validator.Validator;
 
+import com.dhev.ExpressionLanguageResolverFactory;
 import com.dhev.ExpressionLanguageUtils;
-import com.dhev.ExpressionLanguageUtilsImpl;
 import com.dhev.constraints.AssertEL;
 
 public class AssertELValidator implements Validator<AssertEL> {
 
-	private ExpressionLanguageUtils expressionLanguageUtils = new ExpressionLanguageUtilsImpl();
+	private ExpressionLanguageUtils expressionLanguageUtils = ExpressionLanguageResolverFactory
+			.createResolver();
+
 	private String assertEL;
 
 	public void initialize(AssertEL annotation) {

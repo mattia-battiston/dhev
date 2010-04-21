@@ -29,8 +29,7 @@ import com.dhev.constraints.impl.AssertELValidator;
 @ValidatorClass(AssertELValidator.class)
 public @interface AssertEL {
 
-	String message() default "{validator.assert}";
-
 	String value() default "";
 
+	String message() default "{validator.assert}";
 }

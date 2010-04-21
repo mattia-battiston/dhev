@@ -29,14 +29,13 @@ import com.dhev.constraints.impl.LengthELValidator;
 @ValidatorClass(LengthELValidator.class)
 public @interface LengthEL {
 
-	String max() default "";
-
 	String min() default "";
 
-	String message() default "{validator.length}";
+	String max() default "";
 
 	boolean includeMax() default true;
 
 	boolean includeMin() default true;
 
+	String message() default "{validator.length}";
 }

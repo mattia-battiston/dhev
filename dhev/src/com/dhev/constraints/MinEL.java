@@ -29,10 +29,9 @@ import com.dhev.constraints.impl.MinELValidator;
 @ValidatorClass(MinELValidator.class)
 public @interface MinEL {
 
-	String message() default "{validator.min}";
-
 	String value() default "";
 
 	boolean includeLimit() default true;
 
+	String message() default "{validator.min}";
 }
