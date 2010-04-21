@@ -5,7 +5,6 @@ import org.hibernate.validator.Validator;
 
 public class TestMessageInterpolator implements MessageInterpolator {
 
-	@Override
 	public String interpolate(String message, Validator validator,
 			MessageInterpolator defaultInterpolator) {
 		System.out.println("message[" + message + "] validator[" + validator
