@@ -7,9 +7,9 @@
   <output ID="/register.xhtml" NAME="output1" PATH="/register.xhtml"
    TARGET="#xregister.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
  </item>
- <item ID="com.dhev.exception.DhevClassCastException"
-  NAME="exception:com.dhev.exception.DhevClassCastException"
-  PATH="com.dhev.exception.DhevClassCastException" SHAPE="24,1105,0,0"
+ <item ID="com.dhev.exception.EvaluationException"
+  NAME="exception:com.dhev.exception.EvaluationException"
+  PATH="com.dhev.exception.EvaluationException" SHAPE="24,1105,0,0"
   TYPE="exception" model-entity="SeamPagesDiagramItem">
   <output ID="/error.seam" NAME="output" PATH="/error.seam"
    TARGET="#xerror.seam" model-entity="SeamPagesDiagramItemOutput"/>

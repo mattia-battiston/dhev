@@ -24,6 +24,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
+import javax.el.PropertyNotFoundException;
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
@@ -37,7 +38,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.dhev.exception.DhevClassCastException;
+import com.dhev.exception.EvaluationException;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(FacesContext.class)
@@ -99,8 +100,12 @@ public class ExpressionLanguageUtilsImplTest {
 				expressionFactory.createValueExpression(mockELContext, el,
 						Object.class)).thenReturn(mock);
 		when(mock.getExpressionString()).thenReturn(el);
-		when(mock.getValue(mockELContext)).thenReturn(value);
 		when(mock.isLiteralText()).thenReturn(!el.startsWith("#{"));
+
+		if (value instanceof Exception)
+			when(mock.getValue(mockELContext)).thenThrow((Exception) value);
+		else
+			when(mock.getValue(mockELContext)).thenReturn(value);
 	}
 
 	@Test
@@ -124,7 +129,7 @@ public class ExpressionLanguageUtilsImplTest {
 		try {
 			expressionLanguageUtilsImpl.getLong("#{testExpression}");
 			fail("A DhevClassCastException should have been thrown here");
-		} catch (DhevClassCastException e) {
+		} catch (EvaluationException e) {
 			assertThat(
 					e.getMessage(),
 					is("Following EL expression does not evaluate to java.lang.Number: \"#{testExpression}\""));
@@ -153,7 +158,7 @@ public class ExpressionLanguageUtilsImplTest {
 		try {
 			expressionLanguageUtilsImpl.getInteger("#{testExpression}");
 			fail("A DhevClassCastException should have been thrown here");
-		} catch (DhevClassCastException e) {
+		} catch (EvaluationException e) {
 			assertThat(
 					e.getMessage(),
 					is("Following EL expression does not evaluate to java.lang.Number: \"#{testExpression}\""));
@@ -183,7 +188,7 @@ public class ExpressionLanguageUtilsImplTest {
 		try {
 			expressionLanguageUtilsImpl.getBoolean("#{testExpression}");
 			fail("A DhevClassCastException should have been thrown here");
-		} catch (DhevClassCastException e) {
+		} catch (EvaluationException e) {
 			assertThat(
 					e.getMessage(),
 					is("Following EL expression does not evaluate to java.lang.Boolean: \"#{testExpression}\""));
@@ -213,11 +218,45 @@ public class ExpressionLanguageUtilsImplTest {
 		try {
 			expressionLanguageUtilsImpl.getString(elExpression);
 			fail("A DhevClassCastException should have been thrown here");
-		} catch (DhevClassCastException e) {
+		} catch (EvaluationException e) {
 			assertThat(
 					e.getMessage(),
 					is("Following EL expression does not evaluate to java.lang.String: \"#{testExpression}\""));
 			assertTrue(e.getCause() instanceof ClassCastException);
 		}
 	}
+
+	@Test
+	public void getLongThrowsCorrectExceptionWhenExpressionIsWrong() {
+		configureExpressionFactory("#{wrongEL}", new PropertyNotFoundException(
+				"Property wrongEL not found"));
+
+		try {
+			expressionLanguageUtilsImpl.getLong("#{wrongEL}");
+			fail("Should have thrown excepion");
+		} catch (EvaluationException ex) {
+			assertThat(
+					ex.getMessage(),
+					is("Can't find property specified in EL expression: \"#{wrongEL}\""));
+		}
+
+	}
+
+	@Test
+	public void getLongThrowsCorrectExpcetionWhenExpressionIsEvaluatedToNull() {
+		configureExpressionFactory(elExpression, null);
+
+		try {
+			expressionLanguageUtilsImpl.getLong("#{testExpression}");
+			fail("Should have thrown excepion");
+		} catch (EvaluationException ex) {
+			// TODO: catch correct exception here after we have decided how to
+			// manage the NullPointerException
+			assertThat(
+					ex.getMessage(),
+					is("Following EL expression evaluates to null: \"#{testExpression}\""));
+		}
+
+	}
+
 }
