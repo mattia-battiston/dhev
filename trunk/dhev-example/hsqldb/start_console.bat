@@ -1,1 +1,0 @@
-java -jar hsqldb.jar loc
