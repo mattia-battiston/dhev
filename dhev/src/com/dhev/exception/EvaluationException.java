@@ -15,14 +15,18 @@
  */
 package com.dhev.exception;
 
-public class DhevClassCastException extends ClassCastException {
+public class EvaluationException extends RuntimeException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2397574779432806691L;
 
-	public DhevClassCastException(String message, ClassCastException cause) {
+	public EvaluationException(String message) {
+		super(message);
+	}
+
+	public EvaluationException(String message, Exception cause) {
 		super(message);
 		this.initCause(cause);
 	}

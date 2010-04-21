@@ -17,10 +17,11 @@ package com.dhev;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
+import javax.el.PropertyNotFoundException;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import com.dhev.exception.DhevClassCastException;
+import com.dhev.exception.EvaluationException;
 
 public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 
@@ -64,11 +65,22 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ELContext elCtx = context.getELContext();
 		try {
-			return clazz.cast(valueExpression.getValue(elCtx));
+			Object value = valueExpression.getValue(elCtx);
+
+			if (value == null)
+				throw new EvaluationException(
+						"Following EL expression evaluates to null: \""
+								+ valueExpression.getExpressionString() + "\"");
+
+			return clazz.cast(value);
 		} catch (ClassCastException ex) {
-			throw new DhevClassCastException(
+			throw new EvaluationException(
 					"Following EL expression does not evaluate to "
 							+ clazz.getName() + ": \""
+							+ valueExpression.getExpressionString() + "\"", ex);
+		} catch (PropertyNotFoundException ex) {
+			throw new EvaluationException(
+					"Can't find property specified in EL expression: \""
 							+ valueExpression.getExpressionString() + "\"", ex);
 		}
 

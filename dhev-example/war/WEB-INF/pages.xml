@@ -18,7 +18,7 @@
 		</navigation>
 	</page>
 
-	<exception class="com.dhev.exception.DhevClassCastException">
+	<exception class="com.dhev.exception.EvaluationException">
 		<redirect view-id="/error.seam">
 			<message severity="ERROR">#{org.jboss.seam.handledException}</message>
 		</redirect>

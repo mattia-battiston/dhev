@@ -69,7 +69,7 @@ public class SystemConfiguration {
 	}
 
 	public Integer getMaxAge() {
-		return maxAge;
+		return null;
 	}
 
 	public void setMaxAge(Integer maxAge) {
