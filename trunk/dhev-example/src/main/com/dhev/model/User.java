@@ -28,6 +28,7 @@ import javax.persistence.Table;
 import org.jboss.seam.annotations.Name;
 
 import com.dhev.constraints.AssertEL;
+import com.dhev.constraints.DecimalMaxEL;
 import com.dhev.constraints.LengthEL;
 import com.dhev.constraints.MaxEL;
 import com.dhev.constraints.MinEL;
@@ -84,6 +85,10 @@ public class User implements Serializable {
 	@Column
 	@AssertEL(value = "#{systemConfiguration.mustReadDocs}")
 	private Boolean hasReadDocs;
+
+	@Column
+	@DecimalMaxEL(value = "#{systemConfiguration.maxHeight}", includeLimit = false)
+	private Double height;
 
 	public Long getId() {
 		return id;
@@ -163,6 +168,14 @@ public class User implements Serializable {
 
 	public void setHasReadDocs(Boolean hasReadDocs) {
 		this.hasReadDocs = hasReadDocs;
+	}
+
+	public Double getHeight() {
+		return height;
+	}
+
+	public void setHeight(Double height) {
+		this.height = height;
 	}
 
 }

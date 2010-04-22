@@ -61,6 +61,15 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 			return evaluate(valueExpression, String.class);
 	}
 
+	public Double getDouble(String expression) {
+		ValueExpression valueExpression = getValueExpression(expression);
+
+		if (valueExpression.isLiteralText())
+			return Double.parseDouble(valueExpression.getExpressionString());
+		else
+			return evaluate(valueExpression, Number.class).doubleValue();
+	}
+
 	private <T> T evaluate(ValueExpression valueExpression, Class<T> clazz) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ELContext elCtx = context.getELContext();
@@ -95,4 +104,5 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 
 		return factory.createValueExpression(elCtx, expression, Object.class);
 	}
+
 }

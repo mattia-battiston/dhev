@@ -34,6 +34,7 @@ public class SystemConfiguration {
 	private Integer maxColors = 4;
 	private Boolean mustReadDocs = true;
 	private String emailPattern = "[a-z]+@[a-z]+\\.com";
+	private Double maxHeight = 210.5;
 
 	/*
 	 * Use following lines to replace the Integer version of maxAge to test the
@@ -69,7 +70,7 @@ public class SystemConfiguration {
 	}
 
 	public Integer getMaxAge() {
-		return null;
+		return maxAge;
 	}
 
 	public void setMaxAge(Integer maxAge) {
@@ -139,6 +140,14 @@ public class SystemConfiguration {
 
 	public void setEmailPattern(String emailPattern) {
 		this.emailPattern = emailPattern;
+	}
+
+	public Double getMaxHeight() {
+		return maxHeight;
+	}
+
+	public void setMaxHeight(Double maxHeight) {
+		this.maxHeight = maxHeight;
 	}
 
 }
