@@ -16,6 +16,7 @@
 package com.dhev.constraints.impl;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -87,5 +88,10 @@ public class MaxELValidatorTest {
 	private void initializeMaxElImpl(boolean includeLimit) {
 		when(mockMaxElAnnotation.includeLimit()).thenReturn(includeLimit);
 		maxELImpl.initialize(mockMaxElAnnotation);
+	}
+
+	@Test
+	public void isValidReturnsFalseIfParamIsNotANumber() {
+		assertFalse(maxELImpl.isValid("not a number"));
 	}
 }

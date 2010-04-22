@@ -60,6 +60,7 @@ public class ExpressionLanguageUtilsImplTest {
 
 	private String elExpression = "#{testExpression}";
 	private String numericLiteralExpression = "2";
+	private String doubleLiteralExpression = "2.5d";
 	private String booleanLiteralExpression = "true";
 	private String stringLiteralExpression = "string";
 
@@ -78,6 +79,8 @@ public class ExpressionLanguageUtilsImplTest {
 		configureExpressionFactory(elExpression, 2L);
 		configureExpressionFactory(numericLiteralExpression,
 				numericLiteralExpression);
+		configureExpressionFactory(doubleLiteralExpression,
+				doubleLiteralExpression);
 		configureExpressionFactory(booleanLiteralExpression,
 				booleanLiteralExpression);
 		configureExpressionFactory(stringLiteralExpression,
@@ -227,7 +230,7 @@ public class ExpressionLanguageUtilsImplTest {
 	}
 
 	@Test
-	public void getLongThrowsCorrectExceptionWhenExpressionIsWrong() {
+	public void correctExceptionIsThrownWhenExpressionIsWrong() {
 		configureExpressionFactory("#{wrongEL}", new PropertyNotFoundException(
 				"Property wrongEL not found"));
 
@@ -243,7 +246,7 @@ public class ExpressionLanguageUtilsImplTest {
 	}
 
 	@Test
-	public void getLongThrowsCorrectExpcetionWhenExpressionIsEvaluatedToNull() {
+	public void correctExceptionIsThrownWhenExpressionIsEvaluatedToNull() {
 		configureExpressionFactory(elExpression, null);
 
 		try {
@@ -257,6 +260,35 @@ public class ExpressionLanguageUtilsImplTest {
 					is("Following EL expression evaluates to null: \"#{testExpression}\""));
 		}
 
+	}
+
+	@Test
+	public void getDoubleReturnsDouble() {
+		configureExpressionFactory(elExpression, 2.5);
+
+		assertThat(expressionLanguageUtilsImpl.getDouble(elExpression), is(2.5));
+	}
+
+	@Test
+	public void getDoubleReturnsDoubleIfExpressionIsLiteral() {
+
+		assertThat(expressionLanguageUtilsImpl
+				.getDouble(doubleLiteralExpression), is(2.5));
+	}
+
+	@Test
+	public void getDoubleThrowsCorrectExceptionWhenClassCastExceptionHappens() {
+		configureExpressionFactory(elExpression, "string");
+
+		try {
+			expressionLanguageUtilsImpl.getDouble("#{testExpression}");
+			fail("A DhevClassCastException should have been thrown here");
+		} catch (EvaluationException e) {
+			assertThat(
+					e.getMessage(),
+					is("Following EL expression does not evaluate to java.lang.Number: \"#{testExpression}\""));
+			assertTrue(e.getCause() instanceof ClassCastException);
+		}
 	}
 
 }

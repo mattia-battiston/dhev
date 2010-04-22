@@ -29,4 +29,8 @@ public class TestResolver implements ExpressionLanguageUtils {
 		return expression;
 	}
 
+	public Double getDouble(String expression) {
+		return Double.parseDouble(expression);
+	}
+
 }

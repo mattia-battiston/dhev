@@ -13,18 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.dhev;
+package com.dhev.constraints;
 
-public interface ExpressionLanguageUtils {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-	Long getLong(String expression);
+import org.hibernate.validator.ValidatorClass;
 
-	Integer getInteger(String expression);
+import com.dhev.constraints.impl.DecimalMaxELValidator;
 
-	Boolean getBoolean(String expression);
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+@ValidatorClass(DecimalMaxELValidator.class)
+public @interface DecimalMaxEL {
 
-	String getString(String expression);
+	String value() default "";
 
-	Double getDouble(String expression);
+	boolean includeLimit() default true;
+
+	String message() default "{validator.max}";
 
 }
