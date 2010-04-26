@@ -30,7 +30,7 @@ public class SystemConfiguration {
 	private Integer maxLengthZip = 10;
 	private Integer minRating = 0;
 	private Integer maxRating = 5;
-	private Integer minColors = 2;
+	private Integer minColors = 0;
 	private Integer maxColors = 4;
 	private Boolean mustReadDocs = true;
 	private String emailPattern = "[a-z]+@[a-z]+\\.com";
