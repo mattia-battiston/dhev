@@ -36,6 +36,8 @@ public class SystemConfiguration {
 	private String emailPattern = "[a-z]+@[a-z]+\\.com";
 	private Double maxHeight = 210.5;
 	private Double minHeight = 123.45;
+	private Double minWeight = 30.1;
+	private Double maxWeight = 456.789;
 
 	/*
 	 * Use following lines to replace the Integer version of maxAge to test the
@@ -157,6 +159,22 @@ public class SystemConfiguration {
 
 	public void setMinHeight(Double minHeight) {
 		this.minHeight = minHeight;
+	}
+
+	public Double getMinWeight() {
+		return minWeight;
+	}
+
+	public void setMinWeight(Double minWeight) {
+		this.minWeight = minWeight;
+	}
+
+	public Double getMaxWeight() {
+		return maxWeight;
+	}
+
+	public void setMaxWeight(Double maxWeight) {
+		this.maxWeight = maxWeight;
 	}
 
 }

@@ -30,6 +30,7 @@ import org.jboss.seam.annotations.Name;
 import com.dhev.constraints.AssertEL;
 import com.dhev.constraints.DecimalMaxEL;
 import com.dhev.constraints.DecimalMinEL;
+import com.dhev.constraints.DecimalRangeEL;
 import com.dhev.constraints.LengthEL;
 import com.dhev.constraints.MaxEL;
 import com.dhev.constraints.MinEL;
@@ -91,6 +92,10 @@ public class User implements Serializable {
 	@DecimalMinEL(value = "#{systemConfiguration.minHeight}")
 	@DecimalMaxEL(value = "#{systemConfiguration.maxHeight}", includeLimit = false)
 	private Double height;
+
+	@Column
+	@DecimalRangeEL(min = "#{systemConfiguration.minWeight}", max = "#{systemConfiguration.maxWeight}")
+	private Double weight;
 
 	public Long getId() {
 		return id;
@@ -178,6 +183,14 @@ public class User implements Serializable {
 
 	public void setHeight(Double height) {
 		this.height = height;
+	}
+
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
 	}
 
 }
