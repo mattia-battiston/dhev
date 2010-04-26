@@ -35,6 +35,7 @@ public class SystemConfiguration {
 	private Boolean mustReadDocs = true;
 	private String emailPattern = "[a-z]+@[a-z]+\\.com";
 	private Double maxHeight = 210.5;
+	private Double minHeight = 123.45;
 
 	/*
 	 * Use following lines to replace the Integer version of maxAge to test the
@@ -148,6 +149,14 @@ public class SystemConfiguration {
 
 	public void setMaxHeight(Double maxHeight) {
 		this.maxHeight = maxHeight;
+	}
+
+	public Double getMinHeight() {
+		return minHeight;
+	}
+
+	public void setMinHeight(Double minHeight) {
+		this.minHeight = minHeight;
 	}
 
 }
