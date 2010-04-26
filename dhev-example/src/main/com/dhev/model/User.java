@@ -29,6 +29,7 @@ import org.jboss.seam.annotations.Name;
 
 import com.dhev.constraints.AssertEL;
 import com.dhev.constraints.DecimalMaxEL;
+import com.dhev.constraints.DecimalMinEL;
 import com.dhev.constraints.LengthEL;
 import com.dhev.constraints.MaxEL;
 import com.dhev.constraints.MinEL;
@@ -59,12 +60,12 @@ public class User implements Serializable {
 	private String surname;
 
 	@Column
-	private String userName;// TODO: minLenght is 5
+	private String userName;
 
 	@Column
 	@MaxEL(value = "#{systemConfiguration.maxAge}")
 	@MinEL(value = "#{systemConfiguration.minAge}", includeLimit = true, message = "{validator.minAge}")
-	private Integer age;// TODO: min is 18
+	private Integer age;
 
 	@Column
 	@PatternEL(regex = "#{systemConfiguration.emailPattern}")
@@ -87,6 +88,7 @@ public class User implements Serializable {
 	private Boolean hasReadDocs;
 
 	@Column
+	@DecimalMinEL(value = "#{systemConfiguration.minHeight}")
 	@DecimalMaxEL(value = "#{systemConfiguration.maxHeight}", includeLimit = false)
 	private Double height;
 
