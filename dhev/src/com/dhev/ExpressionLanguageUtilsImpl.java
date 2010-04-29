@@ -15,6 +15,8 @@
  */
 package com.dhev;
 
+import java.util.Date;
+
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.PropertyNotFoundException;
@@ -68,6 +70,21 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 			return Double.parseDouble(valueExpression.getExpressionString());
 		else
 			return evaluate(valueExpression, Number.class).doubleValue();
+	}
+
+	public Date getDate(String expression) {
+		ValueExpression valueExpression = getValueExpression(expression);
+
+		if (valueExpression.isLiteralText()) {
+			// TODO: take in input also a String representing the date
+			// format (dd-MMM-yyy ...) and use it to parse the literal
+			throw new EvaluationException(
+					"unsupported feature: Following EL expression is literal: \""
+							+ valueExpression.getExpressionString()
+							+ "\". Dates can't be literal, they must evaluate to a java.util.Date object");
+		} else {
+			return evaluate(valueExpression, Date.class);
+		}
 	}
 
 	private <T> T evaluate(ValueExpression valueExpression, Class<T> clazz) {
