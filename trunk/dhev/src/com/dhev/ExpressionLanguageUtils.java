@@ -15,6 +15,8 @@
  */
 package com.dhev;
 
+import java.util.Date;
+
 public interface ExpressionLanguageUtils {
 
 	Long getLong(String expression);
@@ -26,5 +28,7 @@ public interface ExpressionLanguageUtils {
 	String getString(String expression);
 
 	Double getDouble(String expression);
+
+	Date getDate(String expression);
 
 }

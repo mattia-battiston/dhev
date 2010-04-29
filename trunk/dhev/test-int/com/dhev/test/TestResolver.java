@@ -1,5 +1,7 @@
 package com.dhev.test;
 
+import java.util.Date;
+
 import com.dhev.ExpressionLanguageUtils;
 
 public class TestResolver implements ExpressionLanguageUtils {
@@ -31,6 +33,11 @@ public class TestResolver implements ExpressionLanguageUtils {
 
 	public Double getDouble(String expression) {
 		return Double.parseDouble(expression);
+	}
+
+	public Date getDate(String expression) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

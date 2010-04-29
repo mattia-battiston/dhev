@@ -22,6 +22,11 @@ import static org.junit.Assert.fail;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.PropertyNotFoundException;
@@ -63,6 +68,7 @@ public class ExpressionLanguageUtilsImplTest {
 	private String doubleLiteralExpression = "2.5d";
 	private String booleanLiteralExpression = "true";
 	private String stringLiteralExpression = "string";
+	private String dateLiteralExpression = "01-jan-2010 14:08";
 
 	@Before
 	public void before() {
@@ -85,6 +91,7 @@ public class ExpressionLanguageUtilsImplTest {
 				booleanLiteralExpression);
 		configureExpressionFactory(stringLiteralExpression,
 				stringLiteralExpression);
+		configureExpressionFactory(dateLiteralExpression, dateLiteralExpression);
 
 	}
 
@@ -253,8 +260,6 @@ public class ExpressionLanguageUtilsImplTest {
 			expressionLanguageUtilsImpl.getLong("#{testExpression}");
 			fail("Should have thrown excepion");
 		} catch (EvaluationException ex) {
-			// TODO: catch correct exception here after we have decided how to
-			// manage the NullPointerException
 			assertThat(
 					ex.getMessage(),
 					is("Following EL expression evaluates to null: \"#{testExpression}\""));
@@ -288,6 +293,35 @@ public class ExpressionLanguageUtilsImplTest {
 					e.getMessage(),
 					is("Following EL expression does not evaluate to java.lang.Number: \"#{testExpression}\""));
 			assertTrue(e.getCause() instanceof ClassCastException);
+		}
+	}
+
+	/**/
+	@Test
+	public void getDateReturnsDate() throws ParseException {
+		Date d = new SimpleDateFormat("dd-MMM-yyyy h:mm")
+				.parse(dateLiteralExpression);
+		configureExpressionFactory(elExpression, d);
+
+		assertTrue(expressionLanguageUtilsImpl.getDate(elExpression) instanceof Date);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(expressionLanguageUtilsImpl.getDate(elExpression));
+		assertThat(calendar.get(Calendar.DAY_OF_MONTH), is(1));
+		assertThat(calendar.get(Calendar.MONTH), is(Calendar.JANUARY));
+		assertThat(calendar.get(Calendar.YEAR), is(2010));
+		assertThat(calendar.get(Calendar.HOUR), is(2));
+		assertThat(calendar.get(Calendar.MINUTE), is(8));
+	}
+
+	@Test
+	public void getDateThrowsExceptionIfExpressionIsLiteral() {
+		try {
+			expressionLanguageUtilsImpl.getDate(dateLiteralExpression);
+			fail("exception should have been thrown when trying to get a Date from a literal");
+		} catch (EvaluationException ex) {
+			assertThat(
+					ex.getMessage(),
+					is("unsupported feature: Following EL expression is literal: \"01-jan-2010 14:08\". Dates can't be literal, they must evaluate to a java.util.Date object"));
 		}
 	}
 
