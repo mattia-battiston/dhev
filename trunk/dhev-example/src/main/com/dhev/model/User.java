@@ -16,6 +16,7 @@
 package com.dhev.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,7 @@ import javax.persistence.Table;
 import org.jboss.seam.annotations.Name;
 
 import com.dhev.constraints.AssertEL;
+import com.dhev.constraints.BeforeEL;
 import com.dhev.constraints.DecimalMaxEL;
 import com.dhev.constraints.DecimalMinEL;
 import com.dhev.constraints.DecimalRangeEL;
@@ -96,6 +98,10 @@ public class User implements Serializable {
 	@Column
 	@DecimalRangeEL(min = "#{systemConfiguration.minWeight}", max = "#{systemConfiguration.maxWeight}")
 	private Double weight;
+
+	@Column
+	@BeforeEL(value = "#{systemConfiguration.minDateOfBirth}")
+	private Date dateOfBirth;
 
 	public Long getId() {
 		return id;
@@ -191,6 +197,14 @@ public class User implements Serializable {
 
 	public void setWeight(Double weight) {
 		this.weight = weight;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 }
