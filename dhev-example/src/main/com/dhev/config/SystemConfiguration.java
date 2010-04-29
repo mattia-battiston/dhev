@@ -15,6 +15,10 @@
  */
 package com.dhev.config;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
@@ -38,6 +42,17 @@ public class SystemConfiguration {
 	private Double minHeight = 123.45;
 	private Double minWeight = 30.1;
 	private Double maxWeight = 456.789;
+	private Date minDateOfBirth;
+
+	{
+		try {
+			minDateOfBirth = new SimpleDateFormat("dd-MMM-yyyy")
+					.parse("01-jan-2010");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/*
 	 * Use following lines to replace the Integer version of maxAge to test the
@@ -175,6 +190,14 @@ public class SystemConfiguration {
 
 	public void setMaxWeight(Double maxWeight) {
 		this.maxWeight = maxWeight;
+	}
+
+	public Date getMinDateOfBirth() {
+		return minDateOfBirth;
+	}
+
+	public void setMinDateOfBirth(Date minDateOfBirth) {
+		this.minDateOfBirth = minDateOfBirth;
 	}
 
 }

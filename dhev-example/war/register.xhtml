@@ -54,6 +54,13 @@
                 <h:message for="colors" errorClass="errorMessage" />
                           
 	            <h:selectBooleanCheckbox id="hasReadDocs" value="#{user.hasReadDocs}" /> I have read and agreed these documents <h:message for="hasReadDocs" errorClass="errorMessage" />
+				
+				Date of birth:
+			    <h:inputText id="dob" value="#{user.dateOfBirth}" required="true">
+			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
+			    </h:inputText>
+			    <h:message for="dob" errorClass="errorMessage"/>
+				
 				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
             </h:panelGrid>
             </s:validateAll>
