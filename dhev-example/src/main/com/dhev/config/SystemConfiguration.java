@@ -46,8 +46,8 @@ public class SystemConfiguration {
 
 	{
 		try {
-			minDateOfBirth = new SimpleDateFormat("dd-MMM-yyyy")
-					.parse("01-jan-2010");
+			minDateOfBirth = new SimpleDateFormat("dd-MMM-yyyy z")
+					.parse("01-jan-2010 GMT");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -51,15 +51,15 @@
                    <f:selectItem itemLabel="White" itemValue="White" />
                    <f:selectItem itemLabel="Black" itemValue="Black" />
                 </h:selectManyCheckbox>
+
                 <h:message for="colors" errorClass="errorMessage" />
-                          
-	            <h:selectBooleanCheckbox id="hasReadDocs" value="#{user.hasReadDocs}" /> I have read and agreed these documents <h:message for="hasReadDocs" errorClass="errorMessage" />
-				
-				Date of birth:
+				Date of birth (dd-mon-yyyy):
 			    <h:inputText id="dob" value="#{user.dateOfBirth}" required="true">
 			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
 			    </h:inputText>
 			    <h:message for="dob" errorClass="errorMessage"/>
+                          
+	            <h:selectBooleanCheckbox id="hasReadDocs" value="#{user.hasReadDocs}" /> I have read and agreed these documents <h:message for="hasReadDocs" errorClass="errorMessage" />
 				
 				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
             </h:panelGrid>
@@ -78,6 +78,10 @@
          		Max rating: <h:inputText id="maxRating" value="#{systemConfiguration.maxRating}" required="true"/>
          		Min colors: <h:inputText id="minColors" value="#{systemConfiguration.minColors}" required="true"/>
          		Max colors: <h:inputText id="maxColors" value="#{systemConfiguration.maxColors}" required="true"/>
+				Min Date of birth (dd-mon-yyyy):
+			    <h:inputText id="minDob" value="#{systemConfiguration.minDateOfBirth}" required="true">
+			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
+			    </h:inputText>
          		"I've read docs" must be: 
          			<h:selectOneRadio id="mustReadDocs" value="#{systemConfiguration.mustReadDocs}">
          				<f:selectItem id="itemTrue" itemValue="true" itemLabel="True"/>
