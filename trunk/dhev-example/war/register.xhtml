@@ -51,8 +51,8 @@
                    <f:selectItem itemLabel="White" itemValue="White" />
                    <f:selectItem itemLabel="Black" itemValue="Black" />
                 </h:selectManyCheckbox>
-
                 <h:message for="colors" errorClass="errorMessage" />
+
 				Date of birth (dd-mon-yyyy):
 			    <h:inputText id="dob" value="#{user.dateOfBirth}" required="true">
 			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
@@ -81,7 +81,7 @@
          		Min colors: <h:inputText id="minColors" value="#{systemConfiguration.minColors}" required="true"/>
          		Max colors: <h:inputText id="maxColors" value="#{systemConfiguration.maxColors}" required="true"/>
 				Min Date of birth (dd-mon-yyyy):
-			    <h:inputText id="minDob" value="#{systemConfiguration.minDateOfBirth}" required="true">
+			    <h:inputText id="minDob" value="#{systemConfiguration.maxDateOfBirth}" required="true">
 			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
 			    </h:inputText>
          		"I've read docs" must be: 
