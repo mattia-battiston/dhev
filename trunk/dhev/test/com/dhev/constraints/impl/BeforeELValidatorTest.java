@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,9 @@ public class BeforeELValidatorTest {
 	@Before
 	public void before() {
 		MockitoAnnotations.initMocks(this);
+
+		// need this to ensure date is parsed correctly on all JVMs
+		Locale.setDefault(Locale.UK);
 
 		when(beforeELAnnotation.value()).thenReturn("#{testExpression}");
 		when(beforeELAnnotation.includeLimit()).thenReturn(true);

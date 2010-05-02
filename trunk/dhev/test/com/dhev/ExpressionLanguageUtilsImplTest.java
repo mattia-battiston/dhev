@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
@@ -73,6 +74,9 @@ public class ExpressionLanguageUtilsImplTest {
 	@Before
 	public void before() {
 		MockitoAnnotations.initMocks(this);
+
+		// need this to ensure date is parsed correctly on all JVMs
+		Locale.setDefault(Locale.UK);
 
 		mockStatic(FacesContext.class);
 		when(FacesContext.getCurrentInstance()).thenReturn(mockFacesContext);
@@ -296,7 +300,6 @@ public class ExpressionLanguageUtilsImplTest {
 		}
 	}
 
-	/**/
 	@Test
 	public void getDateReturnsDate() throws ParseException {
 		Date d = new SimpleDateFormat("dd-MMM-yyyy h:mm")
