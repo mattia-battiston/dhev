@@ -100,7 +100,8 @@ public class User implements Serializable {
 	private Double weight;
 
 	@Column
-	@BeforeEL(value = "#{systemConfiguration.minDateOfBirth}")
+	@BeforeEL(value = "#{systemConfiguration.maxDateOfBirth}")
+	// @AfterEL(value = "#{systemConfiguration.maxDateOfBirth}")
 	private Date dateOfBirth;
 
 	public Long getId() {
