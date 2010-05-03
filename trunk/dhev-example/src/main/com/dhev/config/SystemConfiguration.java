@@ -20,11 +20,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.annotations.Startup;
 
 @Name("systemConfiguration")
 @Scope(ScopeType.APPLICATION)
+@Startup
 public class SystemConfiguration {
 
 	private Integer maxLengthName = 10;
@@ -45,7 +48,10 @@ public class SystemConfiguration {
 	private Date maxDateOfBirth;
 	private Date minDateOfBirth;
 
-	{
+	@Create
+	public void init() {
+		System.out.println("initializing SystemConfiguration...");
+
 		try {
 			maxDateOfBirth = new SimpleDateFormat("dd-MMM-yyyy z")
 					.parse("01-jan-2010 GMT");
@@ -55,6 +61,7 @@ public class SystemConfiguration {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	/*
