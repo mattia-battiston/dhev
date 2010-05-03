@@ -28,6 +28,7 @@ import javax.persistence.Table;
 
 import org.jboss.seam.annotations.Name;
 
+import com.dhev.constraints.AfterEL;
 import com.dhev.constraints.AssertEL;
 import com.dhev.constraints.BeforeEL;
 import com.dhev.constraints.DecimalMaxEL;
@@ -101,7 +102,7 @@ public class User implements Serializable {
 
 	@Column
 	@BeforeEL(value = "#{systemConfiguration.maxDateOfBirth}")
-	// @AfterEL(value = "#{systemConfiguration.maxDateOfBirth}")
+	@AfterEL(value = "#{systemConfiguration.minDateOfBirth}", includeLimit = false)
 	private Date dateOfBirth;
 
 	public Long getId() {

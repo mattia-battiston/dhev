@@ -43,11 +43,14 @@ public class SystemConfiguration {
 	private Double minWeight = 30.1;
 	private Double maxWeight = 456.789;
 	private Date maxDateOfBirth;
+	private Date minDateOfBirth;
 
 	{
 		try {
 			maxDateOfBirth = new SimpleDateFormat("dd-MMM-yyyy z")
 					.parse("01-jan-2010 GMT");
+			minDateOfBirth = new SimpleDateFormat("dd-MMM-yyyy z")
+					.parse("31-dec-1986 GMT");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -198,6 +201,14 @@ public class SystemConfiguration {
 
 	public void setMaxDateOfBirth(Date minDateOfBirth) {
 		this.maxDateOfBirth = minDateOfBirth;
+	}
+
+	public Date getMinDateOfBirth() {
+		return minDateOfBirth;
+	}
+
+	public void setMinDateOfBirth(Date minDateOfBirth) {
+		this.minDateOfBirth = minDateOfBirth;
 	}
 
 }
