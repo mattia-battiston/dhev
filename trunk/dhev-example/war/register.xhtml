@@ -59,8 +59,6 @@
 			    </h:inputText>
 			    <h:message for="dob" errorClass="errorMessage"/>
 			    
-			    <!-- TODO: add example for AfterEL -->
-                          
 	            <h:selectBooleanCheckbox id="hasReadDocs" value="#{user.hasReadDocs}" /> I have read and agreed these documents <h:message for="hasReadDocs" errorClass="errorMessage" />
 				
 				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
