@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib/slf4j-api-1.5.11.jar"/>
 	<classpathentry kind="lib" path="lib/cglib.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-validator.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

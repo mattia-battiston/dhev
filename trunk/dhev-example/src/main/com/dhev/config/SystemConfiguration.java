@@ -48,6 +48,11 @@ public class SystemConfiguration {
 	private Date maxDateOfBirth;
 	private Date minDateOfBirth;
 
+	private Integer maxScoreAverageIntegerDigits = 3;
+	private Integer minScoreAverageIntegerDigits;
+	private Integer maxScoreAverageFractionDigits = 2;
+	private Integer minScoreAverageFractionDigits;
+
 	@Create
 	public void init() {
 		System.out.println("initializing SystemConfiguration...");
@@ -216,6 +221,42 @@ public class SystemConfiguration {
 
 	public void setMinDateOfBirth(Date minDateOfBirth) {
 		this.minDateOfBirth = minDateOfBirth;
+	}
+
+	public Integer getMaxScoreAverageIntegerDigits() {
+		return maxScoreAverageIntegerDigits;
+	}
+
+	public void setMaxScoreAverageIntegerDigits(
+			Integer maxScoreAverageIntegerDigits) {
+		this.maxScoreAverageIntegerDigits = maxScoreAverageIntegerDigits;
+	}
+
+	public Integer getMinScoreAverageIntegerDigits() {
+		return minScoreAverageIntegerDigits;
+	}
+
+	public void setMinScoreAverageIntegerDigits(
+			Integer minScoreAverageIntegerDigits) {
+		this.minScoreAverageIntegerDigits = minScoreAverageIntegerDigits;
+	}
+
+	public Integer getMaxScoreAverageFractionDigits() {
+		return maxScoreAverageFractionDigits;
+	}
+
+	public void setMaxScoreAverageFractionDigits(
+			Integer maxScoreAverageFractionDigits) {
+		this.maxScoreAverageFractionDigits = maxScoreAverageFractionDigits;
+	}
+
+	public Integer getMinScoreAverageFractionDigits() {
+		return minScoreAverageFractionDigits;
+	}
+
+	public void setMinScoreAverageFractionDigits(
+			Integer minScoreAverageFractionDigits) {
+		this.minScoreAverageFractionDigits = minScoreAverageFractionDigits;
 	}
 
 }
