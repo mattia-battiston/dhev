@@ -34,6 +34,7 @@ import com.dhev.constraints.BeforeEL;
 import com.dhev.constraints.DecimalMaxEL;
 import com.dhev.constraints.DecimalMinEL;
 import com.dhev.constraints.DecimalRangeEL;
+import com.dhev.constraints.DigitsEL;
 import com.dhev.constraints.LengthEL;
 import com.dhev.constraints.MaxEL;
 import com.dhev.constraints.MinEL;
@@ -104,6 +105,10 @@ public class User implements Serializable {
 	@BeforeEL(value = "#{systemConfiguration.maxDateOfBirth}")
 	@AfterEL(value = "#{systemConfiguration.minDateOfBirth}", includeLimit = false)
 	private Date dateOfBirth;
+
+	@Column
+	@DigitsEL(maxIntegerDigits = "#{systemConfiguration.maxScoreAverageIntegerDigits}", maxFractionalDigits = "#{systemConfiguration.maxScoreAverageFractionDigits}")
+	private Double scoreAverage;
 
 	public Long getId() {
 		return id;
@@ -207,6 +212,14 @@ public class User implements Serializable {
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Double getScoreAverage() {
+		return scoreAverage;
+	}
+
+	public void setScoreAverage(Double scoreAverage) {
+		this.scoreAverage = scoreAverage;
 	}
 
 }

@@ -58,8 +58,10 @@
 			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
 			    </h:inputText>
 			    <h:message for="dob" errorClass="errorMessage"/>
+				Score average: <h:inputText id="scoreAverage" value="#{user.scoreAverage}" required="true"/> <h:message for="scoreAverage" errorClass="errorMessage" />
 			    
 	            <h:selectBooleanCheckbox id="hasReadDocs" value="#{user.hasReadDocs}" /> I have read and agreed these documents <h:message for="hasReadDocs" errorClass="errorMessage" />
+				
 				
 				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
             </h:panelGrid>
@@ -86,6 +88,9 @@
 			    <h:inputText id="maxDob" value="#{systemConfiguration.maxDateOfBirth}" required="true">
 			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
 			    </h:inputText>
+			    
+			    <!-- TODO: add configuration for score average (number of digits) -->
+			    
          		"I've read docs" must be: 
          			<h:selectOneRadio id="mustReadDocs" value="#{systemConfiguration.mustReadDocs}">
          				<f:selectItem id="itemTrue" itemValue="true" itemLabel="True"/>
