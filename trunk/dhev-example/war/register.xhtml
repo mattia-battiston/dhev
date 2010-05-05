@@ -89,7 +89,16 @@
 			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
 			    </h:inputText>
 			    
-			    <!-- TODO: add configuration for score average (number of digits) -->
+			    Score avg integer digits: 
+			    <h:panelGrid columns="4">
+			    	from <h:inputText id="minScoreAverageIntegerDigits" value="#{systemConfiguration.minScoreAverageIntegerDigits}" required="true" size="5"/>
+			    	to <h:inputText id="maxScoreAverageIntegerDigits" value="#{systemConfiguration.maxScoreAverageIntegerDigits}" required="true" size="5"/>
+			    </h:panelGrid>
+			    Score avg fractional digits: 
+			    <h:panelGrid columns="4">
+			    	from <h:inputText id="minScoreAverageFractionDigits" value="#{systemConfiguration.minScoreAverageFractionDigits}" required="true" size="5"/>
+			    	to <h:inputText id="maxScoreAverageFractionDigits" value="#{systemConfiguration.maxScoreAverageFractionDigits}" required="true" size="5"/>
+			    </h:panelGrid>
 			    
          		"I've read docs" must be: 
          			<h:selectOneRadio id="mustReadDocs" value="#{systemConfiguration.mustReadDocs}">
