@@ -1,13 +1,10 @@
 package com.dhev.constraints.impl;
 
-import org.hibernate.validator.Digits;
-import org.hibernate.validator.DigitsValidator;
 import org.hibernate.validator.Validator;
 
 import com.dhev.ExpressionLanguageResolverFactory;
 import com.dhev.ExpressionLanguageUtils;
 import com.dhev.constraints.DigitsEL;
-import com.dhev.constraints.utils.ValidatorAnnotationProxy;
 
 public class DigitsELValidator implements Validator<DigitsEL> {
 
@@ -15,36 +12,71 @@ public class DigitsELValidator implements Validator<DigitsEL> {
 			.createResolver();
 
 	private String maxIntegerDigitsEL;
+	private String minIntegerDigitsEL;
 	private String maxFractionalDigitsEL;
+	private String minFractionalDigitsEL;
 
 	public void initialize(DigitsEL annotation) {
 		maxIntegerDigitsEL = annotation.maxIntegerDigits();
+		minIntegerDigitsEL = annotation.minIntegerDigits();
 		maxFractionalDigitsEL = annotation.maxFractionalDigits();
+		minFractionalDigitsEL = annotation.minFractionalDigits();
 	}
 
 	public boolean isValid(Object param) {
 		if (param == null)
 			return true;
 
-		Digits digits = ValidatorAnnotationProxy
-				.createProxy(this, Digits.class);
-		DigitsValidator validator = new DigitsValidator();
-		validator.initialize(digits);
+		if (param instanceof Number) {
 
-		return validator.isValid(param);
+			String stringValue = param.toString();
+			int pos = stringValue.indexOf(".");
+
+			Integer integerDigits = (pos == -1) ? stringValue.length() : pos;
+			Integer fractionalDigits = (pos == -1) ? 0 : stringValue.length()
+					- pos - 1;
+
+			return checkIntegerDigits(integerDigits)
+					&& checkFractionalDigits(fractionalDigits);
+		} else {
+			return false;
+		}
+
+	}
+
+	private boolean checkIntegerDigits(Integer integerDigits) {
+		Integer maxIntegerDigits = getMaxIntegerDigits();
+		Integer minIntegerDigits = getMinIntegerDigits();
+		return maxIntegerDigits.compareTo(integerDigits) >= 0
+				&& integerDigits.compareTo(minIntegerDigits) >= 0;
+	}
+
+	private boolean checkFractionalDigits(Integer fractionalDigits) {
+		Integer maxFractionalDigits = getMaxFractionalDigits();
+		Integer minFractionalDigits = getMinFractionalDigits();
+		return maxFractionalDigits.compareTo(fractionalDigits) >= 0
+				&& fractionalDigits.compareTo(minFractionalDigits) >= 0;
+	}
+
+	private Integer getMaxIntegerDigits() {
+		return expressionLanguageUtils.getInteger(maxIntegerDigitsEL);
+	}
+
+	private Integer getMinIntegerDigits() {
+		return expressionLanguageUtils.getInteger(minIntegerDigitsEL);
+	}
+
+	private Integer getMaxFractionalDigits() {
+		return expressionLanguageUtils.getInteger(maxFractionalDigitsEL);
+	}
+
+	private Integer getMinFractionalDigits() {
+		return expressionLanguageUtils.getInteger(minFractionalDigitsEL);
 	}
 
 	public void setExpressionLanguageUtils(
 			ExpressionLanguageUtils expressionLanguageUtils) {
 		this.expressionLanguageUtils = expressionLanguageUtils;
-	}
-
-	public int integerDigits() {
-		return expressionLanguageUtils.getInteger(maxIntegerDigitsEL);
-	}
-
-	public int fractionalDigits() {
-		return expressionLanguageUtils.getInteger(maxFractionalDigitsEL);
 	}
 
 }
