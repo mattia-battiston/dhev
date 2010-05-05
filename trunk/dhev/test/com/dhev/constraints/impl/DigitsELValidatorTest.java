@@ -28,15 +28,23 @@ public class DigitsELValidatorTest {
 		MockitoAnnotations.initMocks(this);
 
 		when(digitsELAnnotation.maxIntegerDigits()).thenReturn(
-				"#{integerDigits}");
+				"#{maxIntegerDigits}");
+		when(digitsELAnnotation.minIntegerDigits()).thenReturn(
+				"#{minIntegerDigits}");
 		when(digitsELAnnotation.maxFractionalDigits()).thenReturn(
-				"#{fractionDigits}");
+				"#{maxFractionDigits}");
+		when(digitsELAnnotation.minFractionalDigits()).thenReturn(
+				"#{minFractionDigits}");
 		validator.initialize(digitsELAnnotation);
 
-		when(expressionLanguageUtils.getInteger("#{integerDigits}"))
-				.thenReturn(3);
-		when(expressionLanguageUtils.getInteger("#{fractionDigits}"))
+		when(expressionLanguageUtils.getInteger("#{maxIntegerDigits}"))
+				.thenReturn(4);
+		when(expressionLanguageUtils.getInteger("#{minIntegerDigits}"))
 				.thenReturn(2);
+		when(expressionLanguageUtils.getInteger("#{maxFractionDigits}"))
+				.thenReturn(3);
+		when(expressionLanguageUtils.getInteger("#{minFractionDigits}"))
+				.thenReturn(1);
 		validator.setExpressionLanguageUtils(expressionLanguageUtils);
 	}
 
@@ -46,38 +54,53 @@ public class DigitsELValidatorTest {
 	}
 
 	@Test
-	public void isValidReturnsTrueIfNumberHasMaxIntegerAndFractionDigits() {
+	public void isValidReturnsTrueIfIntegerDigitsAreBetweenMinAndMax() {
 		assertTrue(validator.isValid(123.45));
 	}
 
 	@Test
-	public void isValidReturnsTrueIfNumberHasLessIntegerDigitsThanMax() {
-		assertTrue(validator.isValid(23.45));
-		assertTrue(validator.isValid(3.45));
-		assertTrue(validator.isValid(.45));
+	public void isValidReturnsTrueIfIntegerDigitsAreEqualToMax() {
+		assertTrue(validator.isValid(1234.45));
 	}
 
 	@Test
-	public void isValidReturnsTrueIfNumberHasLessFractionDigitsThanMax() {
+	public void isValidReturnsTrueIfIntegerDigitsAreEqualToMin() {
+		assertTrue(validator.isValid(12.45));
+	}
+
+	@Test
+	public void isValidReturnsFalseIfIntegerDigitsAreMoreThanMax() {
+		assertFalse(validator.isValid(12345.45));
+	}
+
+	@Test
+	public void isValidReturnsFalseIfIntegerDigitsAreLessThanMin() {
+		assertFalse(validator.isValid(1.45));
+	}
+
+	@Test
+	public void isValidReturnsTrueIfFractionalDigitsAreBetweenMinAndMax() {
+		assertTrue(validator.isValid(123.45));
+	}
+
+	@Test
+	public void isValidReturnsTrueIfFractionalDigitsAreEqualToMax() {
+		assertTrue(validator.isValid(123.456));
+	}
+
+	@Test
+	public void isValidReturnsTrueIfFractionalDigitsAreEualToMin() {
 		assertTrue(validator.isValid(123.4));
-		assertTrue(validator.isValid(123));
 	}
 
 	@Test
-	public void isValidReturnsFalseIfNumberHasMoreIntegerDigitsThanMax() {
-		assertFalse(validator.isValid(1234.45));
-		assertFalse(validator.isValid(1234));
+	public void isValidReturnsFalseIfFractionalDigitsAreMoreThanMax() {
+		assertFalse(validator.isValid(123.4567));
 	}
 
 	@Test
-	public void isValidReturnsFalseIfNumberHasMorefractionDigitsThanMax() {
-		assertFalse(validator.isValid(123.456));
-		assertFalse(validator.isValid(.456));
-	}
-
-	@Test
-	public void isValidReturnsFalseIfParamIsNotANumber() {
-		assertFalse(validator.isValid("not a number"));
+	public void isValidReturnsFalseIfFractionalDigitsAreLessThanMin() {
+		assertFalse(validator.isValid(123));
 	}
 
 }

@@ -29,11 +29,15 @@ import com.dhev.constraints.impl.DigitsELValidator;
 @ValidatorClass(DigitsELValidator.class)
 public @interface DigitsEL {
 
-	// TODO: add minIntegerDigits and minFractionalDigits
+	// TODO: make limits optional
 
 	String maxIntegerDigits() default "";
 
+	String minIntegerDigits() default "";
+
 	String maxFractionalDigits() default "";
+
+	String minFractionalDigits() default "";
 
 	String message() default "{validator.digits}";
 
