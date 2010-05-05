@@ -107,7 +107,10 @@ public class User implements Serializable {
 	private Date dateOfBirth;
 
 	@Column
-	@DigitsEL(maxIntegerDigits = "#{systemConfiguration.maxScoreAverageIntegerDigits}", maxFractionalDigits = "#{systemConfiguration.maxScoreAverageFractionDigits}")
+	@DigitsEL(maxIntegerDigits = "#{systemConfiguration.maxScoreAverageIntegerDigits}", 
+			minIntegerDigits = "#{systemConfiguration.minScoreAverageIntegerDigits}", 
+			maxFractionalDigits = "#{systemConfiguration.maxScoreAverageFractionDigits}",
+			minFractionalDigits = "#{systemConfiguration.minScoreAverageFractionDigits}")
 	private Double scoreAverage;
 
 	public Long getId() {

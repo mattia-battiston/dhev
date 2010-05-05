@@ -48,10 +48,10 @@ public class SystemConfiguration {
 	private Date maxDateOfBirth;
 	private Date minDateOfBirth;
 
-	private Integer maxScoreAverageIntegerDigits = 3;
-	private Integer minScoreAverageIntegerDigits;
-	private Integer maxScoreAverageFractionDigits = 2;
-	private Integer minScoreAverageFractionDigits;
+	private Integer maxScoreAverageIntegerDigits = 4;
+	private Integer minScoreAverageIntegerDigits = 2;
+	private Integer maxScoreAverageFractionDigits = 3;
+	private Integer minScoreAverageFractionDigits = 1;
 
 	@Create
 	public void init() {
@@ -63,7 +63,6 @@ public class SystemConfiguration {
 			minDateOfBirth = new SimpleDateFormat("dd-MMM-yyyy z")
 					.parse("31-dec-1986 GMT");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

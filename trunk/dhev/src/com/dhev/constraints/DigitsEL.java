@@ -29,8 +29,6 @@ import com.dhev.constraints.impl.DigitsELValidator;
 @ValidatorClass(DigitsELValidator.class)
 public @interface DigitsEL {
 
-	// TODO: make limits optional
-
 	String maxIntegerDigits() default "";
 
 	String minIntegerDigits() default "";

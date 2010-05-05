@@ -103,4 +103,36 @@ public class DigitsELValidatorTest {
 		assertFalse(validator.isValid(123));
 	}
 
+	@Test
+	public void isValidReturnTrueIfIntegerDigitsAreMoreThanMaxButMaxIsNotSet() {
+		when(digitsELAnnotation.maxIntegerDigits()).thenReturn("");
+		validator.initialize(digitsELAnnotation);
+
+		assertTrue(validator.isValid(12345.45));
+	}
+
+	@Test
+	public void isValidReturnTrueIfIntegerDigitsAreLessThanMinButMinIsNotSet() {
+		when(digitsELAnnotation.minIntegerDigits()).thenReturn("");
+		validator.initialize(digitsELAnnotation);
+
+		assertTrue(validator.isValid(1.45));
+	}
+
+	@Test
+	public void isValidReturnTrueIfFractionalDigitsAreMoreThanMaxButMaxIsNotSet() {
+		when(digitsELAnnotation.maxFractionalDigits()).thenReturn("");
+		validator.initialize(digitsELAnnotation);
+
+		assertTrue(validator.isValid(12.4567));
+	}
+
+	@Test
+	public void isValidReturnTrueIfFractionalDigitsAreLessThanMinButMinIsNotSet() {
+		when(digitsELAnnotation.minFractionalDigits()).thenReturn("");
+		validator.initialize(digitsELAnnotation);
+
+		assertTrue(validator.isValid(12.4));
+	}
+
 }

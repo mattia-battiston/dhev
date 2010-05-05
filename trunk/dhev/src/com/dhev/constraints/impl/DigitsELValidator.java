@@ -1,5 +1,7 @@
 package com.dhev.constraints.impl;
 
+import static com.dhev.constraints.utils.ValidatorUtils.isParamNotSet;
+
 import org.hibernate.validator.Validator;
 
 import com.dhev.ExpressionLanguageResolverFactory;
@@ -59,19 +61,31 @@ public class DigitsELValidator implements Validator<DigitsEL> {
 	}
 
 	private Integer getMaxIntegerDigits() {
-		return expressionLanguageUtils.getInteger(maxIntegerDigitsEL);
+		if (isParamNotSet(maxIntegerDigitsEL))
+			return Integer.MAX_VALUE;
+		else
+			return expressionLanguageUtils.getInteger(maxIntegerDigitsEL);
 	}
 
 	private Integer getMinIntegerDigits() {
-		return expressionLanguageUtils.getInteger(minIntegerDigitsEL);
+		if (isParamNotSet(minIntegerDigitsEL))
+			return Integer.MIN_VALUE;
+		else
+			return expressionLanguageUtils.getInteger(minIntegerDigitsEL);
 	}
 
 	private Integer getMaxFractionalDigits() {
-		return expressionLanguageUtils.getInteger(maxFractionalDigitsEL);
+		if (isParamNotSet(maxFractionalDigitsEL))
+			return Integer.MAX_VALUE;
+		else
+			return expressionLanguageUtils.getInteger(maxFractionalDigitsEL);
 	}
 
 	private Integer getMinFractionalDigits() {
-		return expressionLanguageUtils.getInteger(minFractionalDigitsEL);
+		if (isParamNotSet(minFractionalDigitsEL))
+			return Integer.MIN_VALUE;
+		else
+			return expressionLanguageUtils.getInteger(minFractionalDigitsEL);
 	}
 
 	public void setExpressionLanguageUtils(
