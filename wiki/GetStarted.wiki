@@ -1,0 +1,8 @@
+=Get Started=
+
+TODO: write a quick guide to explain the main concepts:
+  * example code of the simplest case
+  * include limit
+  * run the example
+  * how to change a message
+  * exception management
