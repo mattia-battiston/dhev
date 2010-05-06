@@ -71,8 +71,7 @@ public class SystemConfiguration {
 	/*
 	 * Use following lines to replace the Integer version of maxAge to test the
 	 * exception management when param does not evaluate to correct class type
-	 * (see documentation at section ClassCastException management). TODO: write
-	 * that documentation!!
+	 * (see documentation at section ClassCastException management). 
 	 * 
 	 * private String maxAge = "25";
 	 * 
