@@ -1,6 +1,7 @@
 #labels Featured
+#sidebar TableOfContents
 
-= Introduction =
+= User Guide =
 
 Add your content here.
 
