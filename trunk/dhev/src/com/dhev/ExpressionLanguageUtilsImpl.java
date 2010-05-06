@@ -76,8 +76,6 @@ public class ExpressionLanguageUtilsImpl implements ExpressionLanguageUtils {
 		ValueExpression valueExpression = getValueExpression(expression);
 
 		if (valueExpression.isLiteralText()) {
-			// TODO: take in input also a String representing the date
-			// format (dd-MMM-yyy ...) and use it to parse the literal
 			throw new EvaluationException(
 					"unsupported feature: Following EL expression is literal: \""
 							+ valueExpression.getExpressionString()

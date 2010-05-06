@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 import com.dhev.ExpressionLanguageUtils;
 import com.dhev.constraints.DigitsEL;
 
-//TODO: refactor tests after implementing minIntegerDigits and minFractionDigits
 public class DigitsELValidatorTest {
 
 	private DigitsELValidator validator = new DigitsELValidator();
