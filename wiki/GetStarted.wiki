@@ -5,7 +5,9 @@
 ----
 
 ==DHEV In a nutshell==
-Dhev is ....blah blah blah TODO
+The *Dynamic Hibernate EL Validator* project extends the usage of the Hibernate Validator framework within Seam, allowing developers to use of Expression Language strings to set validators' properties and limits (like min, max, etc.) at runtime.
+
+This means you can change the validations without having to recompile the application but simple changing a row in the database, or clicking a button, or whatever you and your users prefer.
 
 ----
 ==Installation==
@@ -17,4 +19,12 @@ TODO
 
 ----
 ==Run the sample application==
+TODO
+
+----
+==Only for Seam?==
+TODO
+
+----
+==License==
 TODO
