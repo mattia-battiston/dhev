@@ -1,16 +1,13 @@
 #labels Featured
 #sidebar TableOfContents
 
-<wiki:toc max_depth="1" />
-
 = User Guide =
 
-Add your content here.
+<wiki:toc max_depth="1" />
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+TODO: write documentation for:
+  * basic usage of validators
+  * include limit, change message
+  * exception management
+  * integration with seam and hibernate validator
+  * summary table
