@@ -12,7 +12,9 @@ This means you can change the validations without having to recompile the applic
 
 ----
 ==Installation==
-Download latest version of DHEV from the [https://code.google.com/p/dhev/downloads/list download] page
+Download latest version of DHEV from the [https://code.google.com/p/dhev/downloads/list download] page: 
+  * dhev-x.x.x.jar: it's the main jar, ready to be included in your project
+  * dhev-all-x.x.x.zip: contains the main DHEV jar but also source code, api, and a full sample application which demonstrates all the most important features of this library.
 
 ----
 ==How it works==
