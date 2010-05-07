@@ -1,5 +1,7 @@
 #sidebar TableOfContents
 
+<wiki:toc max_depth="1" />
+
 =Get Started=
 
 TODO: write a quick guide to explain the main concepts:
