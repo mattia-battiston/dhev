@@ -2,15 +2,19 @@
 
 =Get Started=
 <wiki:toc max_depth="1" />
+----
 
 ==DHEV In a nutshell==
 Dhev is ....blah blah blah TODO
 
+----
 ==Installation==
 TODO
 
+----
 ==How it works==
 TODO
 
+----
 ==Run the sample application==
 TODO
