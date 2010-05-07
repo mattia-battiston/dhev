@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram model-entity="SeamPagesDiagram">
+ <item ID="#register.xhtml" NAME="#xregister.xhtml"
+  PATH="/register.xhtml" SHAPE="344,17,0,0" TYPE="page" model-entity="SeamPagesDiagramItem">
+  <output ID="/register.xhtml" NAME="output" PATH="/register.xhtml"
+   TARGET="#xregister.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+  <output ID="/register.xhtml" NAME="output1" PATH="/register.xhtml"
+   TARGET="#xregister.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item ID="com.dhev.exception.EvaluationException"
+  NAME="exception:com.dhev.exception.EvaluationException"
+  PATH="com.dhev.exception.EvaluationException" SHAPE="24,1105,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/error.seam" NAME="output" PATH="/error.seam"
+   TARGET="#xerror.seam" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item NAME="#xerror.seam" PATH="/error.seam" SHAPE="344,1081,0,0"
+  TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item NAME="exception:" SHAPE="24,1185,0,0" TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/error.seam" NAME="output" PATH="/error.seam"
+   TARGET="#xerror.seam" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+</diagram>

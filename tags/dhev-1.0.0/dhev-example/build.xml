@@ -1,0 +1,120 @@
+<project name="dhev-example" default="build-ear">
+
+	<property file="build.properties" />
+
+	<property name="application.name" value="${ant.project.name}" />
+	<property name="application.jar" value="${application.name}.jar" />
+	<property name="application.war" value="${application.name}.war" />
+	<property name="application.ear" value="${application.name}.ear" />
+
+	<property name="src-main" location="src/main" />
+	<property name="web-inf" location="war/WEB-INF" />
+	<property name="meta-inf" location="war/META-INF" />
+	<property name="lib" location="lib" />
+	<property name="lib-war" location="${lib}/war" />
+	<property name="lib-ear" location="${lib}/ear" />
+	<property name="dist" location="dist" />
+	<property name="build" location="build" />
+	<property name="build.src-main" location="${build}/src-main" />
+	<property name="build.src-test" location="${build}/src-test" />
+	<property name="build.resources" location="${build}/resources" />
+	<property name="build.meta-inf" location="${build}/meta-inf" />
+	<property name="resources" location="resources" />
+
+	<path id="build.lib.path">
+		<fileset dir="${lib}" includes="**/*.jar" />
+	</path>
+
+	<!-- ***************************************************************************** -->
+
+	<target name="clean" description="Cleans up the build environment">
+		<delete includeemptydirs="true" dir="${build}" />
+		<delete includeemptydirs="true" dir="${dist}" />
+	</target>
+
+	<!-- ***************************************************************************** -->
+	<target name="check-properties-are-set">
+		<fail unless="jboss.dir" message="Please set the jboss.dir property, e.g.: jboss.dir = C:/jboss-4.2.1.GA"/>
+		<fail unless="jboss.server" message="Please set the jboss.server property, e.g.: jboss.server = default"/>
+	</target>
+
+	<!-- ***************************************************************************** -->
+
+
+	<target name="init" depends="check-properties-are-set">
+		<mkdir dir="${dist}" />
+		<mkdir dir="${build}" />
+		<mkdir dir="${build.src-main}" />
+		<mkdir dir="${build.src-test}" />
+	</target>
+
+	<!-- ***************************************************************************** -->
+
+	<target name="compile" depends="init">
+		<javac destdir="${build.src-main}" nowarn="false" debug="true" optimize="true" verbose="false" failonerror="true">
+			<src path="${src-main}" />
+			<classpath refid="build.lib.path" />
+		</javac>
+	</target>
+
+	<target name="build-jar" depends="compile">
+		<copy file="${meta-inf}/persistence.xml" tofile="${build.resources}/persistence.xml" overwrite="true" />
+
+		<copy todir="${build.meta-inf}" file="${meta-inf}/ejb-jar.xml" />
+		<copy todir="${build.meta-inf}" overwrite="true">
+			<fileset file="${build.resources}/persistence.xml">
+				<different targetdir="${build.meta-inf}" />
+			</fileset>
+		</copy>
+		<copy todir="${build.src-main}" overwrite="true">
+			<fileset file="${build.resources}/import.sql">
+				<different targetdir="${build.src-main}" />
+			</fileset>
+		</copy>
+
+		<jar destfile="${dist}/${application.jar}" basedir="${build.src-main}">
+			<fileset dir="${src-main}" />
+			<metainf dir="${build.meta-inf}">
+				<include name="persistence.xml" />
+				<include name="ejb-jar.xml" />
+			</metainf>
+		</jar>
+	</target>
+
+	<target name="build-war">
+		<war destfile="${dist}/${application.war}" webxml="${web-inf}/web.xml">
+			<fileset dir="war" excludes="META-INF/**" />
+			<lib dir="${lib-war}" />
+		</war>
+	</target>
+
+	<target name="build-ear" depends="build-jar, build-war" description="creates the ear of the application, ready to be deploied">
+		<ear destfile="${dist}/${application.ear}" appxml="${meta-inf}/application.xml">
+			<fileset dir="${dist}">
+				<include name="${application.jar}" />
+				<include name="${application.war}" />
+			</fileset>
+			<fileset dir="${lib-ear}" />
+
+			<metainf dir="${meta-inf}">
+				<include name="jboss-app.xml" />
+			</metainf>
+		</ear>
+	</target>
+
+	<target name="deploy-ear" depends="check-properties-are-set, build-ear">
+		<copy file="${dist}/${application.ear}" todir="${jboss.dir}/server/${jboss.server}/deploy/" />
+	</target>
+
+	<target name="deploy-datasource" depends="check-properties-are-set">
+		<copy todir="${jboss.dir}/server/${jboss.server}/deploy" overwrite="true">
+			<fileset file="${resources}/dhev-ds.xml">
+				<different targetdir="${jboss.dir}/server/${jboss.server}/deploy">
+				</different>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="deploy" depends="deploy-datasource, deploy-ear" description="Deploys the application and the datasource configuration to jboss instance" />
+
+</project>

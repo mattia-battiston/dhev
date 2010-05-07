@@ -1,0 +1,186 @@
+<project name="dhev" default="build">
+
+	<!-- ***************************************************************************** -->
+
+	<property file="version.properties" />
+
+	<property name="license" location="license" />
+
+	<property name="src" location="src" />
+	<property name="test" location="test" />
+	<property name="test-report" location="test-report" />
+	<property name="test-report-html" location="${test-report}/html" />
+	<property name="lib" location="lib" />
+	<property name="dist" location="dist" />
+	<property name="build" location="build" />
+	<property name="build-src" location="${build}/src" />
+	<property name="build-test" location="${build}/test" />
+	<property name="api" location="api" />
+	<property name="resources" location="resources" />
+
+	<property name="application.name" value="${ant.project.name}" />
+	<property name="application.jar" value="${application.name}-${application.version}.jar" />
+	<property name="application.jar-src" value="${application.name}-src-${application.version}.jar" />
+	<property name="application.jar-api" value="${application.name}-api-${application.version}.jar" />
+
+	<!-- ***************************************************************************** -->
+
+	<path id="build.lib.path">
+		<fileset dir="${lib}" includes="**/*.jar" />
+	</path>
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="build.lib.path" />
+	<!-- ***************************************************************************** -->
+
+	<target name="clean" description="Cleans up the build environment">
+		<delete includeemptydirs="true" dir="${build}" />
+		<delete includeemptydirs="true" dir="${dist}" />
+		<delete includeemptydirs="true" dir="${test-report}" />
+		<delete includeemptydirs="true" dir="${api}" />
+	</target>
+
+	<target name="init">
+		<mkdir dir="${dist}" />
+		<mkdir dir="${build}" />
+		<mkdir dir="${build-src}" />
+		<mkdir dir="${build-test}" />
+		<mkdir dir="${test-report}" />
+		<mkdir dir="${api}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac destdir="${build-src}" nowarn="false" debug="true" optimize="true" failonerror="true">
+			<src path="${src}" />
+			<classpath refid="build.lib.path" />
+		</javac>
+	</target>
+
+	<target name="build-jar" depends="compile" description="creates the main jar">
+		<jar destfile="${dist}/${application.jar}" basedir="${build-src}">
+			<manifest>
+				<attribute name="Application-Name" value="${application.name}" />
+				<attribute name="Application-Version" value="${application.version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="build-jar-src" depends="init" description="creates a jar with all the source files">
+		<jar destfile="${dist}/${application.jar-src}" basedir="${src}">
+			<manifest>
+				<attribute name="Application-Name" value="${application.name}" />
+				<attribute name="Application-Version" value="${application.version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="build-javadoc" depends="init">
+		<javadoc sourcepath="${src}" destdir="${api}">
+			<classpath refid="build.lib.path" />
+		</javadoc>
+	</target>
+
+	<target name="build-jar-javadoc" depends="build-javadoc" description="builds the javadoc docs">
+		<jar destfile="${dist}/${application.jar-api}" basedir="${api}">
+			<manifest>
+				<attribute name="Application-Name" value="${application.name}" />
+				<attribute name="Application-Version" value="${application.version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- ***************************************************************************** -->
+
+	<target name="compile-test" depends="compile">
+		<javac destdir="${build-test}" nowarn="false" debug="true" optimize="true" verbose="false" failonerror="true">
+			<src path="${test}" />
+			<classpath>
+				<path refid="build.lib.path" />
+				<pathelement location="${build-src}" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="run-tests" depends="compile-test" description="runs the unit tests">
+
+		<delete dir="${test-report}" />
+		<mkdir dir="${test-report}" />
+		<mkdir dir="${test-report-html}" />
+
+		<junit printsummary="yes" errorproperty="should-fail">
+			<classpath>
+				<path refid="build.lib.path" />
+				<pathelement location="${build-src}" />
+				<pathelement location="${build-test}" />
+			</classpath>
+
+			<formatter type="xml" />
+
+			<batchtest fork="yes" todir="${test-report}">
+				<fileset dir="${test}">
+					<include name="**/*Test*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<junitreport todir="${test-report-html}">
+			<fileset dir="${test-report}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${test-report-html}" />
+		</junitreport>
+
+		<echo message="Checkout junit tests execution report at ${test-report-html}/index.html" />
+	</target>
+
+	<!-- ***************************************************************************** -->
+
+	<target name="build-example" depends="build-jar" description="invokes to ant build of the example project and includes the resultant ear in the dist">
+
+		<echo message="building example ear" />
+
+		<copy file="${dist}/${application.jar}" tofile="../DHEV-Example/lib/ear/lib/dhev.jar">
+		</copy>
+
+		<ant antfile="../DHEV-Example/build.xml" taskname="build-ear" target="build-ear" inheritall="false">
+		</ant>
+
+		<copy tofile="${dist}/dhev-example-${application.version}.ear">
+			<fileset dir="../DHEV-Example/dist" includes="*.ear" />
+		</copy>
+
+	</target>
+
+
+	<!-- ***************************************************************************** -->
+
+	<target name="build" depends="run-tests, build-jar, build-jar-src, build-jar-javadoc, build-example" description="runs the unit tests and creates the distribution zip file">
+		<zip destfile="${dist}/${application.name}-all-${application.version}.zip">
+			<zipfileset file="${dist}/${application.jar}" />
+			<zipfileset file="${dist}/${application.jar-src}" />
+			<zipfileset file="${dist}/${application.jar-api}" prefix="api" />
+			<zipfileset dir="${api}" prefix="api/api" />
+
+			<zipfileset dir="${basedir}/../DHEV-Example" prefix="sample">
+				<include name="src/**/*" />
+				<include name="lib/**/*" />
+				<include name="dist/**/*.ear" />
+				<include name="resources/**/*" />
+				<include name="war/**/*" />
+				<include name="build.xml" />
+				<include name="*.properties" />
+			</zipfileset>
+
+			<zipfileset dir="${resources}" includes="*.txt" />
+		</zip>
+
+		<if>
+			<equals arg1="${should-fail}" arg2="true" />
+			<then>
+				<fail message="Unit tests failed" />
+			</then>
+		</if>
+	</target>
+
+	<!-- ***************************************************************************** -->
+
+</project>

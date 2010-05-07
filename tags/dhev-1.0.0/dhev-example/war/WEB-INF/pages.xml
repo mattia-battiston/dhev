@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+	http-port="8080">
+
+	<page view-id="/register.xhtml" login-required="false">
+		<navigation>
+			<rule if-outcome="success">
+				<redirect view-id="/register.xhtml">
+					<message severity="info">#{messages['userRegistered']}</message>
+				</redirect>
+			</rule>
+			<rule if-outcome="configurationUpdated">
+				<redirect view-id="/register.xhtml">
+					<message severity="info">#{messages['configurationUpdated']}</message>
+				</redirect>
+			</rule>
+		</navigation>
+	</page>
+
+	<exception class="com.dhev.exception.EvaluationException">
+		<redirect view-id="/error.seam">
+			<message severity="ERROR">#{org.jboss.seam.handledException}</message>
+		</redirect>
+	</exception>
+	
+	<exception>
+		<redirect view-id="/error.seam">
+			<message severity="ERROR">Generic error happened: #{org.jboss.seam.handledException}</message>
+		</redirect>
+	</exception>
+
+</pages>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+   <head>
+      <title>DHEV Example</title>
+      
+      <style>
+		.errorMessage{
+			color: red;
+		}
+		
+		.infoMessage{
+			color: blue;
+		}
+	  </style>
+   </head>
+   <body>
+
+	<div style="width: 100%; text-align: center;">
+	<h1>DHEV - Dynamic Hibernate EL Validator</h1>
+	<h3>Example Application</h3>
+	</div>
+	
+	<br/>
+	
+	<h:messages globalOnly="true" infoClass="infoMessage"/>
+	
+	<f:view>
+         <h:form id="registration">
+         	<s:validateAll>
+         	<h:panelGrid columns="3">
+	            Name: <h:inputText id="name" value="#{user.name}" required="true"/> <h:message for="name" errorClass="errorMessage" />
+	            Surname: <h:inputText id="surname" value="#{user.surname}" required="true"/> <h:message for="surname" errorClass="errorMessage" />
+	            Username: <h:inputText id="username" value="#{user.userName}" required="true"/> <h:message for="username" errorClass="errorMessage" />
+	            Email: <h:inputText id="email" value="#{user.email}" required="true"/> <h:message for="email" errorClass="errorMessage" />
+	            Age: <h:inputText id="age" value="#{user.age}" required="true"/> <h:message for="age" errorClass="errorMessage" />
+	            Zip: <h:inputText id="zip" value="#{user.zip}" required="true"/> <h:message for="zip" errorClass="errorMessage" />
+	            Rating: <h:inputText id="rating" value="#{user.rating}" required="true"/> <h:message for="rating" errorClass="errorMessage" />
+				Height: <h:inputText id="height" value="#{user.height}" required="true"/> <h:message for="height" errorClass="errorMessage" />
+				Weight: <h:inputText id="weight" value="#{user.weight}" required="true"/> <h:message for="weight" errorClass="errorMessage" />
+				Colors: <h:selectManyCheckbox id="colors" value="#{user.colors}">
+                   <f:selectItem itemLabel="Red" itemValue="Red" />
+                   <f:selectItem itemLabel="Yellow" itemValue="Yellow" />
+                   <f:selectItem itemLabel="Blue" itemValue="Blue" />
+                   <f:selectItem itemLabel="Green" itemValue="Green" />
+                   <f:selectItem itemLabel="White" itemValue="White" />
+                   <f:selectItem itemLabel="Black" itemValue="Black" />
+                </h:selectManyCheckbox>
+                <h:message for="colors" errorClass="errorMessage" />
+
+				Date of birth (dd-mon-yyyy):
+			    <h:inputText id="dob" value="#{user.dateOfBirth}" required="true">
+			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
+			    </h:inputText>
+			    <h:message for="dob" errorClass="errorMessage"/>
+				Score average: <h:inputText id="scoreAverage" value="#{user.scoreAverage}" required="true"/> <h:message for="scoreAverage" errorClass="errorMessage" />
+			    
+	            <h:selectBooleanCheckbox id="hasReadDocs" value="#{user.hasReadDocs}" /> I have read and agreed these documents <h:message for="hasReadDocs" errorClass="errorMessage" />
+				
+				
+				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
+            </h:panelGrid>
+            </s:validateAll>
+         </h:form>
+         
+         <br/>
+         
+         <h:form id="configuration">
+         	Application Configuration
+         	<h:panelGrid columns="2">
+         		Email pattern: <h:inputText id="emailPattern" value="#{systemConfiguration.emailPattern}" required="true"/>
+         		Min age: <h:inputText id="minAge" value="#{systemConfiguration.minAge}" required="true"/>
+         		Min length zip: <h:inputText id="minLengthZip" value="#{systemConfiguration.minLengthZip}" required="true"/>
+         		Min rating: <h:inputText id="minRating" value="#{systemConfiguration.minRating}" required="true"/>
+         		Max rating: <h:inputText id="maxRating" value="#{systemConfiguration.maxRating}" required="true"/>
+         		Min colors: <h:inputText id="minColors" value="#{systemConfiguration.minColors}" required="true"/>
+         		Max colors: <h:inputText id="maxColors" value="#{systemConfiguration.maxColors}" required="true"/>
+				Min Date of birth (dd-mon-yyyy):
+			    <h:inputText id="minDob" value="#{systemConfiguration.minDateOfBirth}" required="true">
+			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
+			    </h:inputText>
+				Max Date of birth (dd-mon-yyyy):
+			    <h:inputText id="maxDob" value="#{systemConfiguration.maxDateOfBirth}" required="true">
+			    	<f:convertDateTime type="date" pattern="dd-MMM-yyyy"/>
+			    </h:inputText>
+			    
+			    Score avg integer digits: 
+			    <h:panelGrid columns="4">
+			    	from <h:inputText id="minScoreAverageIntegerDigits" value="#{systemConfiguration.minScoreAverageIntegerDigits}" required="true" size="5"/>
+			    	to <h:inputText id="maxScoreAverageIntegerDigits" value="#{systemConfiguration.maxScoreAverageIntegerDigits}" required="true" size="5"/>
+			    </h:panelGrid>
+			    Score avg fractional digits: 
+			    <h:panelGrid columns="4">
+			    	from <h:inputText id="minScoreAverageFractionDigits" value="#{systemConfiguration.minScoreAverageFractionDigits}" required="true" size="5"/>
+			    	to <h:inputText id="maxScoreAverageFractionDigits" value="#{systemConfiguration.maxScoreAverageFractionDigits}" required="true" size="5"/>
+			    </h:panelGrid>
+			    
+         		"I've read docs" must be: 
+         			<h:selectOneRadio id="mustReadDocs" value="#{systemConfiguration.mustReadDocs}">
+         				<f:selectItem id="itemTrue" itemValue="true" itemLabel="True"/>
+         				<f:selectItem id="itemFalse" itemValue="false" itemLabel="False"/>
+         			</h:selectOneRadio>
+         		<h:commandButton id="updateConfiguration" action="#{systemConfiguration.updateConfiguration}" value="Update Configuration" />
+         	</h:panelGrid>
+         </h:form>
+      </f:view>
+
+   </body>
+</html>
