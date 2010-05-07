@@ -12,7 +12,7 @@ This means you can change the validations without having to recompile the applic
 
 ----
 ==Installation==
-TODO
+Download latest version of DHEV from the [Download download] page
 
 ----
 ==How it works==
