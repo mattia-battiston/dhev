@@ -35,12 +35,27 @@ public class User {
 
 }}} 
 
-When the validation is triggered, the method _getMaxAge()_ is invoked on the bean named _systemConfiguration_, and that value is used as the max value for the _age_.
+When the validation is triggered, the method _getMaxAge()_ is invoked on the bean named _systemConfiguration_, and that value is used as the max value for the _age_. 
+
+{{{
+@Name("systemConfiguration")
+public class SystemConfiguration{
+   ...
+   public long getMaxAge(){
+      //you might read this value from a properties file or from db
+      return 21;
+   }
+   ...
+}
+}}}
 
 ----
 ==Run the sample application==
-TODO
+In the dhev-all-x.x.x.zip is included a sample application which gives a good demonstration of all the features of DHEV.After unzipping the file, do one of the following:
+  * Manual deploy: copy /sample/dist/dhev-example.ear and /sample/resources/dhev-ds.xml into the deploy folder of your jboss installation
+  * Ant: edit /sample/build.properties and change the _jboss.dir_ and _jboss.server_ properties to that they point to your jboss installation. Then open a console in the /sample folder and type "ant deploy"
 
+The application has been tested on jboss 4 and 5, either with jdk 5 and 6, with no problems.
 ----
 ==Only for Seam?==
 TODO
