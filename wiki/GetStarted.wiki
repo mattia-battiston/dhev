@@ -62,8 +62,8 @@ For example, enter 12 as age and click on register: you'll receive an error sayi
 The application has been tested on jboss 4 and 5, either with jdk 5 and 6, with no problems.
 ----
 ==Only for Seam?==
-TODO
+Currently DHEV is designed to work with Seam, but we're already working to extend it to other frameworks. Stay tuned! 
 
 ----
-==License==
-TODO
+==License and contribution==
+DHEV is distributed under [http://www.apache.org/licenses/LICENSE-2.0.html Apache License 2.0]. If you wish to contribute to the development, contact us.
