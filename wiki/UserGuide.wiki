@@ -9,5 +9,7 @@ TODO: write documentation for:
   * basic usage of validators
   * include limit, change message
   * exception management
+  * sample application: usage, details, etc.
+For example, enter 12 as age and click on register: you'll receive an error saying "User must be older than 18". Now scroll down and change the min age field from 18 to 12, then click on the button to update the configuration. Try again to use 12 as age: no error is returned this time!
   * integration with seam and hibernate validator
   * summary table
