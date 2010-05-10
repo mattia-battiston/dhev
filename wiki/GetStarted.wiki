@@ -57,7 +57,7 @@ In the dhev-all-x.x.x.zip is included a sample application which gives a good de
 Browse to http://localhost:8080/dhev-example/ and you should see the application up and running!
 
 The application is a simulation of a registration form for a user, where he has to enter all his data. The top part is the form that the user should fill, and that gets validated. The bottom part is the configuration of the validation: change those values and see that the validation changes!<br/>
-For example...
+For example, enter 12 as age and click on register: you'll receive an error saying "User must be older than 18". Now scroll down and change the min age field from 18 to 12, then click on the button to update the configuration. Try again to use 12 as age: no error is returned this time!
 
 The application has been tested on jboss 4 and 5, either with jdk 5 and 6, with no problems.
 ----
