@@ -19,7 +19,23 @@ Simply include dhev-x.x.x.jar as a lib in your project. If you're using Seam you
 
 ----
 ==How it works==
-TODO
+Let's say in your application you have a _User_ bean with an _age_ field, and you want to have a validator to make sure the age is not more than a certain limit. Using DHEV you would write something like this:
+
+{{{
+//the User bean; it might also be annotated with jpa stuff, etc. etc.
+import com.dhev.constraints.MaxEL;
+
+public class User {
+
+  @MaxEL(value = "#{systemConfiguration.maxAge}")
+  private Integer age;
+  
+  //...
+}
+
+}}} 
+
+When the validation is triggered, the method _getMaxAge()_ is invoked on the bean named _systemConfiguration_, and that value is used as the max value for the _age_.
 
 ----
 ==Run the sample application==
