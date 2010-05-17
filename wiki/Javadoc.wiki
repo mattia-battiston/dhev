@@ -1,4 +1,4 @@
 #labels Featured
 #sidebar TableOfContents
 
-<wiki:gadget url="http://dhev.googlecode.com/svn/trunk/dhev/resources/api_gadget.xml"/>
+<wiki:gadget url="http://dhev.googlecode.com/svn/trunk/dhev/resources/api_gadget.xml" width="540" height="400"/>
