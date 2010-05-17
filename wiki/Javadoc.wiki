@@ -1,4 +1,4 @@
 #labels Featured
 #sidebar TableOfContents
 
-TODO: link the javadoc here
+See [http://code.google.com/p/dhev/source/browse/trunk/dhev/api/index.html DHEV API]
