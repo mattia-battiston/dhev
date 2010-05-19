@@ -5,11 +5,24 @@
 
 <wiki:toc max_depth="1" />
 
-TODO: write documentation for:
-  * basic usage of validators
-  * include limit, change message
-  * exception management
-  * sample application: usage, details, etc.
+==The "Hello World" of DHEV==
+TODO talk about a simple example (use the User model of the sample application, do it like a tutorial - first max age, then min age, then email, etc.)
+
+==Limits==
+TODO talk about include limit feature (we don't want the max age included anymore); future plan to make this changeable at runtime
+
+==Messages==
+TODO talk about how to set up error messages (messages_en.properties), how to change them, etc.
+
+==Exceptions==
+TODO talk about what are the most common error cases and how users could manage them
+
+==Summary table==
+TODO table with: Validator, Descriptions, Params, Default Message, Example
+
+
+==The DHEV sample application==
+TODO move this on its own page
 For example, enter 12 as age and click on register: you'll receive an error saying "User must be older than 18". Now scroll down and change the min age field from 18 to 12, then click on the button to update the configuration. Try again to use 12 as age: no error is returned this time!
 
 The application has been tested on jboss 4 and 5, either with jdk 5 and 6, with no problems.
