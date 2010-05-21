@@ -1,3 +1,6 @@
   * [GetStarted Get Started] 
   * [UserGuide User Guide]
+  * [TutorialSummary Tutorial]
+    * Part 1
+    * Part 2
   * [http://dhev.googlecode.com/svn/trunk/dhev/api/index.html Javadoc]
