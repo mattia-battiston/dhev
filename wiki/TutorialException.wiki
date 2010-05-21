@@ -1,3 +1,4 @@
 #sidebar TableOfContents
 
 == Exceptions ==
+TODO talk about what are the most common error cases and how users could manage them
