@@ -1,6 +1,6 @@
   * [GetStarted Get Started] 
   * [UserGuide User Guide]
-  * [TutorialSummary Tutorial]
+  * [Tutorial Tutorial]
     * [TutorialSetup Setup the project]
     * [TutorialFirstValidation Add our first validation]
     * [TutorialLimitMessage Limits and messages]
