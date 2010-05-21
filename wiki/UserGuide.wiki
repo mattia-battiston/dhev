@@ -3,26 +3,6 @@
 
 = User Guide =
 
-This user guide is structured as a tutorial. We'll follow the case of a user registration form, and we'll apply different validations to this form to make sure the user data can't be wrong!
-
-
-==The "Hello World" of DHEV==
-First we need setup a Seam project with a few components in there. You can either build it from scratch and add what we'll discuss in a few lines, or download this [http://code.google.com/p/dhev/downloads/detail?name=DHEV-Tutorial.rar&can=2&q= archive] which contains an eclipse project ready to be imported. The project contains these main things:
-  * User bean: this is the model representing the User. It's a usual pojo decorated with JPA annotations for the persistence, and of course a @Name since we'll use it as a Seam component. For now our user has only a couple of fields, username and age:
-   {{{
-//com.dhev.model.User.java
-
-   }}}
-
-==Limits==
-TODO talk about include limit feature (we don't want the max age included anymore); future plan to make this changeable at runtime
-
-==Messages==
-TODO talk about how to set up error messages (messages_en.properties), how to change them, etc.
-
-==Exceptions==
-TODO talk about what are the most common error cases and how users could manage them
-
 ==Summary table==
 TODO table with: Validator, Descriptions, Params, Default Message, Example
 
