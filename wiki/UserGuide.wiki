@@ -3,10 +3,15 @@
 
 = User Guide =
 
-<wiki:toc max_depth="1" />
+This user guide is structured as a tutorial. We'll follow the case of a user registration form, and we'll apply different validations to this form to make sure the user data can't be wrong!
+
 
 ==The "Hello World" of DHEV==
-TODO talk about a simple example (use the User model of the sample application, do it like a tutorial - first max age, then min age, then email, etc.)
+First we need setup a Seam project with a few components in there. You can either build it from scratch and add what we'll discuss in a few lines, or download this [dhev-tutorial zip] which contains an eclipse project ready to be imported. The project contains these main things:
+  * User bean: this is the model representing the User. It's a usual pojo decorated with JPA annotations for the persistence. For now it has only a couple of fields, username and age:
+   {{{
+//com.dhev.model.User.java
+   }}}
 
 ==Limits==
 TODO talk about include limit feature (we don't want the max age included anymore); future plan to make this changeable at runtime
