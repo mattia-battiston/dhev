@@ -5,13 +5,9 @@
 
 In this tutorial we'll follow the case of a user registration form, and we'll apply different validations to this form to make sure the user data can't be wrong!
 
+We assume you have a basic understanding of how Seam works, anyway we'll try to keep things clear and simple.
 
-
-==Limits==
-TODO talk about include limit feature (we don't want the max age included anymore); future plan to make this changeable at runtime
-
-==Messages==
-TODO talk about how to set up error messages (messages_en.properties), how to change them, etc.
-
-==Exceptions==
-TODO talk about what are the most common error cases and how users could manage them
+  * [TutorialSetup Setup the project]: setup a new Seam project, the "users registration", which we'll use to demonstrate DHEV 
+  * [TutorialFirstValidation Add our first validation]: add the first validation to the user
+  * [TutorialLimitMessage Limits and messages]: play with limits of the validations and error messages
+  * [TutorialException Evaluation exceptions]: understand how to manage exceptions from DHEV
