@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+   <head>
+      <title>DHEV Example</title>
+      
+      <style>
+		.errorMessage{
+			color: red;
+		}
+		
+		.infoMessage{
+			color: blue;
+		}
+	  </style>
+   </head>
+   <body>
+
+	<div style="width: 100%; text-align: center;">
+	<h1>DHEV - Dynamic Hibernate EL Validator</h1>
+	<h3>Example Application</h3>
+	</div>
+	
+	<br/>
+	
+	<h:messages globalOnly="true" infoClass="infoMessage"/>
+	
+	<f:view>
+         <h:form id="registration">
+         	<s:validateAll>
+         	<h:panelGrid columns="3">
+	            Username: <h:inputText id="username" value="#{user.userName}" required="true"/> <h:message for="username" errorClass="errorMessage" />
+	            Age: <h:inputText id="age" value="#{user.age}" required="true"/> <h:message for="age" errorClass="errorMessage" />
+				<h:commandButton id="register" action="#{userManager.registerUser}" value="Register" />
+            </h:panelGrid>
+            </s:validateAll>
+         </h:form>
+         
+         <br/>
+         
+         <!-- <h:form id="configuration">
+         	Application Configuration
+         	<h:panelGrid columns="2">
+         		Min age: <h:inputText id="minAge" value="#{systemConfiguration.minAge}" required="true"/>
+         	</h:panelGrid>
+         </h:form>
+          -->
+         
+      </f:view>
+
+   </body>
+</html>
