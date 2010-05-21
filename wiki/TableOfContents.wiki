@@ -1,6 +1,8 @@
   * [GetStarted Get Started] 
   * [UserGuide User Guide]
   * [TutorialSummary Tutorial]
-    * Part 1
-    * Part 2
+    * [TutorialSetup Setup the project]
+    * [TutorialFirstValidation Add our first validation]
+    * [TutorialLimitMessage Limits and messages]
+    * [TutorialException Evaluation exceptions]
   * [http://dhev.googlecode.com/svn/trunk/dhev/api/index.html Javadoc]
