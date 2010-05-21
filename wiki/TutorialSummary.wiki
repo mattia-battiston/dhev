@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#sidebar TableOfContents
 
 In this tutorial we'll follow the case of a user registration form, and we'll apply different validations to this form to make sure the user data can't be wrong!
 
