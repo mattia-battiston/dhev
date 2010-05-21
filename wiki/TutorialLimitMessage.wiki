@@ -2,3 +2,5 @@
 
 == Limits and messages ==
 TODO talk about include limit feature (we don't want the max age included anymore); future plan to make this changeable at runtime
+
+TODO talk about how to set up error messages (messages_en.properties), how to change them, etc.
