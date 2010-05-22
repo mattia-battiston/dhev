@@ -45,8 +45,9 @@ public class UserManagerImpl implements UserManager {
 }}}
   * register.xhtml: it's the main (and practically only) page of the application. It has a form where user's data can be entered, and a "Register" button which triggers the userManager's registerUser() method:
 {{{
-<!-- register.xhtml -->
 <!-- ... -->
+      <h:messages globalOnly="true" infoClass="infoMessage"/>
+
       <f:view>
          <h:form id="registration">
          	<s:validateAll>
@@ -59,4 +60,61 @@ public class UserManagerImpl implements UserManager {
          </h:form>         
       </f:view>
 <!-- ... -->
+}}}
+  * pages.xml: defines the navigation rules of your application. When "success" is returned from the userManager, then redirect to the same page adding a confirmation message (here we specify just the key of the message, the content is then taken from the messages.properties file)
+{{{
+<!-- ... -->
+        <page view-id="/register.xhtml" login-required="false">
+		<navigation>
+			<rule if-outcome="success">
+				<redirect view-id="/register.xhtml">
+					<message severity="info">#{messages['userRegistered']}</message>
+				</redirect>
+			</rule>
+		</navigation>
+	</page>
+<!-- ... -->
+}}}
+  * messages.properties: may contain the labels for the internationalization, error messages, etc. We'll use it as a place where to put our messages
+{{{
+#...
+userRegistered=New user has been successfully registered, yeah!
+#...
+}}}
+  * dhev-ds.xml: the datasource, pointing to an in-memory instance of hsqldb
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE datasources
+    PUBLIC "-//JBoss//DTD JBOSS JCA Config 1.5//EN"
+    "http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd">
+<datasources>
+	<local-tx-datasource>
+		<jndi-name>dhevDatasource</jndi-name>
+		<use-java-context>true</use-java-context>
+		<connection-url>jdbc:hsqldb:mem:test</connection-url>
+		<driver-class>org.hsqldb.jdbcDriver</driver-class>
+		<user-name>sa</user-name>
+		<password></password>
+	</local-tx-datasource>
+</datasources>
+}}}
+  * persistence.xml: to configure JPA in order to use the in-memory db and to initialize it when the application starts
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+	<persistence-unit name="dhev-Tutorial-Database"
+		transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/dhevDatasource</jta-data-source>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="jboss.entity.manager.factory.jndi.name" value="java:/dhevEntityManagerFactory" />
+		</properties>
+	</persistence-unit>
+</persistence>
 }}}
