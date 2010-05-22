@@ -118,3 +118,4 @@ userRegistered=New user has been successfully registered, yeah!
 	</persistence-unit>
 </persistence>
 }}}
+  * build.xml and build.properties: they're respectively the ant build file, and some configurations for that. The task you want to use is the "deploy", which creates the ear of the application and copies it with the datasource to the jboss installation specified in the build.properties
