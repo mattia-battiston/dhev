@@ -21,7 +21,7 @@ public class User implements Serializable {
 
 }
 }}}
-  * UserManager class: contains a method to persist the user to the database. It simply calls persist on the entity manager, then return the "success" string (in the pages.xml file there will be a rule to manage that return):
+  * !UserManager class: contains a method to persist the user to the database. It simply calls persist on the entity manager, then return the "success" string (in the pages.xml file there will be a rule to manage that return):
 {{{
 //com.dhev.service.UserManagerImpl
 @Name("userManager")
