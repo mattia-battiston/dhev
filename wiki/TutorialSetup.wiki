@@ -119,3 +119,13 @@ userRegistered=New user has been successfully registered, yeah!
 </persistence>
 }}}
   * build.xml and build.properties: they're respectively the ant build file, and some configurations for that. The task you want to use is the "deploy", which creates the ear of the application and copies it with the datasource to the jboss installation specified in the build.properties
+{{{
+#build.properties
+jboss.dir = C:/jboss-5.1.0.GA
+jboss.server = default
+}}}
+
+== Try it! ==
+Now that you've successfully imported the project in eclipse, let's make sure everything is working fine. 
+Modify the build.properties and make sure you're pointing to the jboss installation you want to use. Then, launch the ant "deploy" task.
+Start jboss and go to http://localhost:8080/dhev-tutorial. You should see this page:
