@@ -129,3 +129,4 @@ jboss.server = default
 Now that you've successfully imported the project in eclipse, let's make sure everything is working fine. 
 Modify the build.properties and make sure you're pointing to the jboss installation you want to use. Then, launch the ant "deploy" task.
 Start jboss and go to http://localhost:8080/dhev-tutorial. You should see this page:
+[http://code.google.com/p/dhev/source/browse/trunk/site/resource/images/TutorialSetup1.png]
