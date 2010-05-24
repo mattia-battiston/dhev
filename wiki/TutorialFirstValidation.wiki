@@ -1,3 +1,14 @@
 #sidebar TableOfContents
 
 == Add the first validation ==
+We are now able to register a user with a certain username and age. However, we don't want our users to be too young; let's say they must be *at least 21* to register on our application. 
+
+==== Apply the simplest validation ====
+Let's modify the User bean to apply this validation. We simply add an annotation from the Hibernate Validator framework to the age field:
+{{{
+@Column
+@Min(value = 21)
+private Integer age;
+}}}
+Redeploy the app and try to register a user setting an age lower than 21: hibernate validator does its work and stops us, giving an error:
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation1.png]
