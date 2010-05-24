@@ -3,7 +3,7 @@
 == Add the first validation ==
 We are now able to register a user with a certain username and age. However, we don't want our users to be too young; let's say they must be *at least 21* to register on our application. 
 
-==== Apply the simplest validation ====
+=== Apply the simplest validation ===
 Let's modify the User bean to apply this validation. We simply add an annotation from the Hibernate Validator framework to the age field:
 {{{
 @Column
@@ -14,6 +14,6 @@ Redeploy the app and try to register a user setting an age lower than 21: hibern
 [http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation1.png]
 Pretty easy and straightforward, eh? Well, really there's a problem with this...
 
-==== What if we change idea? ====
+=== What if we change idea? ===
 We set the age limit to 21, and it works. But what if tomorrow that limit changes? What if tomorrow the business analyst comes to you and say "we were wrong, that value needs to modified"? (and we all know this happens a lot!). We would have to edit the User bean again, recompile the application and redeploy it; not a great solution just to change one number. So, here's where DHEV comes to help! 
 Let's modify the User using DHEV:
