@@ -15,5 +15,49 @@ Redeploy the app and try to register a user setting an age lower than 21: hibern
 Pretty easy and straightforward, eh? Well, really there's a problem with this...
 
 === What if we change idea? ===
-We set the age limit to 21, and it works. But what if tomorrow that limit changes? What if tomorrow the business analyst comes to you and say "we were wrong, that value needs to modified"? (and we all know this happens a lot!). We would have to edit the User bean again, recompile the application and redeploy it; not a great solution just to change one number. So, here's where DHEV comes to help! 
+We set the age limit to 21, and it works. But what if tomorrow that limit changes? What if tomorrow the business analyst comes to you and say "we were wrong, that value needs to modified"? (and we all know this happens a lot!). We would have to edit the User bean again, recompile the application and redeploy it; not a great solution just to change one number. So, here's where DHEV comes to help! <br/>
 Let's modify the User using DHEV:
+{{{
+//...
+@Column
+@MinEL(value = "#{systemConfiguration.minAge}")
+private Integer age;
+//...
+}}}
+In the MinEL annotation we are using Expression Language to specify the getMinAge() method on a bean whose @Name is systemConfiguration. Let's create this bean:
+{{{
+@Name("systemConfiguration")
+@Scope(ScopeType.APPLICATION)
+@Startup
+public class SystemConfiguration {
+
+	private Integer minAge;
+
+	@Create
+	public void init() {
+		System.out.println("initializing SystemConfiguration...");
+		
+                //we might read this value from a configuration table on the database,
+                //or from a properties file
+                minAge = 21;
+	}
+
+	public Integer getMinAge() {
+		return minAge;
+	}
+
+	public void setMinAge(Integer minAge) {
+		this.minAge = minAge;
+	}
+
+}
+}}}
+This class is annotated with @Scope(ScopeType.APPLICATION) to make this bean live through all the application lifecycle, and @Startup so that when the app is starting up this bean is initialized, and the method annotated with @Create is called. Basically, we use this bean to load at the startup all the configurations that the application will need. In this example we simply assign the minAge a value, but in a real implementation we would probably get that value from somewhere else, like a table in a database, or a file, etc.
+<br/>
+Redeploy the application and see if the validation is working:
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation1.png]
+Yes it is, of course! We got the same behaviour as before, but now we're loading the configuration (the number 21 that is limit for the age of the user) at the startup: if we were reading if from a db, to change it we would just need to update a table and restart the application, instead of recompiling and redeploying it!
+
+=== It gets even better ===
+You might already have understood the real potential of this type of validation. We've talked about restarting the application, but really we can do much better: we can change that limit at runtime, with no downtime for our app! How? Just call the systemConfiguration.setMinAge and set a different value. Next time the validation is triggered, it'll get the new value as limit and use it. Let's improve our application and try this!
+<br/>
