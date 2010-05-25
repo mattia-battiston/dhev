@@ -11,7 +11,7 @@ Let's modify the User bean to apply this validation. We simply add an annotation
 private Integer age;
 }}}
 Redeploy the app and try to register a user setting an age lower than 21: hibernate validator does its work and stops us, giving an error:
-[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation1.png]
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation1.png]<br/>
 Pretty easy and straightforward, eh? Well, really there's a problem with this...
 
 === What if we change idea? ===
@@ -55,9 +55,19 @@ public class SystemConfiguration {
 This class is annotated with @Scope(ScopeType.APPLICATION) to make this bean live through all the application lifecycle, and @Startup so that when the app is starting up this bean is initialized, and the method annotated with @Create is called. Basically, we use this bean to load at the startup all the configurations that the application will need. In this example we simply assign the minAge a value, but in a real implementation we would probably get that value from somewhere else, like a table in a database, or a file, etc.
 <br/>
 Redeploy the application and see if the validation is working:
-[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation1.png]
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation2.png]<br/>
 Yes it is, of course! We got the same behaviour as before, but now we're loading the configuration (the number 21 that is limit for the age of the user) at the startup: if we were reading if from a db, to change it we would just need to update a table and restart the application, instead of recompiling and redeploying it!
 
-=== It gets even better ===
+=== It gets even better! ===
 You might already have understood the real potential of this type of validation. We've talked about restarting the application, but really we can do much better: we can change that limit at runtime, with no downtime for our app! How? Just call the systemConfiguration.setMinAge and set a different value. Next time the validation is triggered, it'll get the new value as limit and use it. Let's improve our application and try this!
 <br/>
+Modify the register.xhtml page and add this part (it's already on the page, simply uncomment it):
+{{{
+         <h:form id="configuration">
+         	Application Configuration
+         	<h:panelGrid columns="2">
+         		Min age: <h:inputText id="minAge" value="#{systemConfiguration.minAge}" required="true"/>
+         	</h:panelGrid>
+         </h:form>
+}}}
+It's a form that lets us modify values in the systemConfiguration. Redeploy the app and play a bit: you can now update the configuration and see that the limit of the validation changes.
