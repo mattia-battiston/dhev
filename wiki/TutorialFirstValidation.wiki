@@ -63,11 +63,32 @@ You might already have understood the real potential of this type of validation.
 <br/>
 Modify the register.xhtml page and add this part (it's already on the page, simply uncomment it):
 {{{
-         <h:form id="configuration">
-         	Application Configuration
-         	<h:panelGrid columns="2">
-         		Min age: <h:inputText id="minAge" value="#{systemConfiguration.minAge}" required="true"/>
-         	</h:panelGrid>
-         </h:form>
+<h:form id="configuration">
+   Application Configuration
+   <h:panelGrid columns="2">
+      Min age: <h:inputText id="minAge" value="#{systemConfiguration.minAge}" required="true"/>
+   </h:panelGrid>
+   <h:commandButton id="updateConfiguration" action="#{systemConfiguration.updateConfiguration}" value="Update Configuration" />
+</h:form>
 }}}
-It's a form that lets us modify values in the systemConfiguration. Redeploy the app and play a bit: you can now update the configuration and see that the limit of the validation changes.
+It's a form that lets us modify values in the systemConfiguration. Clicking the button the  method systemConfiguration.updateConfiguration is called:
+{{{
+public String updateConfiguration() {
+   System.out.println("Updating configuration...");
+   return "configurationUpdated";
+}
+}}}
+And we need a new rule in the pages.xml:
+{{{
+<rule if-outcome="configurationUpdated">
+   <redirect view-id="/register.xhtml">
+      <message severity="info">#{messages['configurationUpdated']}</message>
+   </redirect>
+</rule>
+}}}
+and a message in the messages.properties:
+{{{
+configurationUpdated=Application configuration has been updated
+}}}
+
+Redeploy the app and play a bit: you can now update the configuration and see that the limit of the validation changes.
