@@ -92,3 +92,6 @@ configurationUpdated=Application configuration has been updated
 }}}
 
 Redeploy the app and play a bit: you can now update the configuration and see that the limit of the validation changes.
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation3.png]
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation4.png]
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation5.png]
