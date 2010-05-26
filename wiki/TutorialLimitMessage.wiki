@@ -31,3 +31,14 @@ validator.minAge=User must be older than {value}
 [http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialLimitMessage1.png]
 
 == Validator limits ==
+We've used a message saying "user must be older than 21", but actually right now the value 21 works fine. Let's change this: we want the age to be greater than 21, not greater than or equal to. <br/>
+There is a very easy to do this in DHEV: most of the validators have an option called "includeLimit". As the name says, setting this to true or false changes the inclusion of the limit. The default for this option is true, so as default the limit of the validation is included; the 21 was indeed considered valid<br/>
+<br/>
+Let's make the 21 not valid. Our code becomes:
+{{{
+@Column
+@MinEL(value = "#{systemConfiguration.minAge}", message = "{validator.minAge}", includeLimit = false)
+private Integer age;
+}}}
+Of course, another way to do this would have been to set the limit to 20, but if you have a business rule which says "this field must be greater than ..." you can express it excluding the limit, which is closer to the requirement and consequently easier to understand.
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialLimitMessage2.png]
