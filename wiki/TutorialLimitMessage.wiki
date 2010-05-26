@@ -10,5 +10,10 @@ The MinEL validator uses the error message _validator.min_ as default. To change
 {{{
 validator.min=user is too young, must be older than {value}
 }}}
-  where the "{value}" bit gets replaced with the value set in the MinEL annotation.<br/>
-  * 
+  where the "{value}" bit gets replaced with the value set in the MinEL annotation. The problem with this is that we've now changed the error message everywhere the MinEL was used<br/>
+  * The second possibility is to write the error message directly as a property of the annotation, like this:
+{{{
+@Column
+@MinEL(value = "#{systemConfiguration.minAge}", message = "user is too young, must be older than {value}")
+private Integer age;
+}}}
