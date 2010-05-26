@@ -1,6 +1,14 @@
 #sidebar TableOfContents
 
-== Limits and messages ==
-TODO talk about include limit feature (we don't want the max age included anymore); future plan to make this changeable at runtime
-
-TODO talk about how to set up error messages (messages_en.properties), how to change them, etc.
+== Error Messages ==
+We've seen that when we enter an invalid age we've got a message saying "min is 21". We actually don't like that error message very much, we want something saying "user is too young, must be older than 21". How do we change it?<br/>
+<br/>
+The text of the error message is saved in the messages_en.properties file; in this file the property key is the key of error message, and the value is the actual text that will be displaied. If you generate the seam project using eclipse or the seam generator you get this file with a lot of pre-configured error message: that's what we've done to generate the tutorial app that you've imported. <br/>
+<br/>
+The MinEL validator uses the error message _validator.min_ as default. To change that message we have three possibilities. <br/>
+  * The first possibility is to change the text of _validator.min_ in the messages.properties, like this:
+{{{
+validator.min=user is too young, must be older than {value}
+}}}
+  where the "{value}" bit gets replaced with the value set in the MinEL annotation.<br/>
+  * 
