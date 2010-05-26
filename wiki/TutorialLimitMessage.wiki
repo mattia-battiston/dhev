@@ -1,19 +1,30 @@
 #sidebar TableOfContents
 
 == Error Messages ==
-We've seen that when we enter an invalid age we've got a message saying "min is 21". We actually don't like that error message very much, we want something saying "user is too young, must be older than 21". How do we change it?<br/>
+We've seen that when we enter an invalid age we've got a message saying "min is 21". We actually don't like that error message very much, we want something saying "User must be older than 21". How do we change it?<br/>
 <br/>
 The text of the error message is saved in the messages_en.properties file; in this file the property key is the key of error message, and the value is the actual text that will be displaied. If you generate the seam project using eclipse or the seam generator you get this file with a lot of pre-configured error message: that's what we've done to generate the tutorial app that you've imported. <br/>
 <br/>
-The MinEL validator uses the error message _validator.min_ as default. To change that message we have three possibilities. <br/>
+The MinEL validator uses the error message _validator.min_ as default (see the [UserGuide User Guide] for all the default messages and options). To change that message we have three possibilities. <br/>
   * The first possibility is to change the text of _validator.min_ in the messages.properties, like this:
 {{{
-validator.min=user is too young, must be older than {value}
+validator.min=User must be older than {value}
 }}}
   where the "{value}" bit gets replaced with the value set in the MinEL annotation. The problem with this is that we've now changed the error message everywhere the MinEL was used<br/>
   * The second possibility is to write the error message directly as a property of the annotation, like this:
 {{{
 @Column
-@MinEL(value = "#{systemConfiguration.minAge}", message = "user is too young, must be older than {value}")
+@MinEL(value = "#{systemConfiguration.minAge}", message = "User must be older than {value}")
 private Integer age;
+}}}
+  * The third possibility is to specify the key of the error message in the annotation, and write the text in the properties file:
+{{{
+//User.java
+@Column
+@MinEL(value = "#{systemConfiguration.minAge}", message = "{validator.minAge}")
+private Integer age;
+}}}
+{{{
+#add a message in the messages.properties
+validator.minAge=User must be older than {value}
 }}}
