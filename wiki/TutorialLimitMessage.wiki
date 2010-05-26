@@ -28,3 +28,6 @@ private Integer age;
 #add a message in the messages.properties
 validator.minAge=User must be older than {value}
 }}}
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialLimitMessage1.png]
+
+== Validator limits ==
