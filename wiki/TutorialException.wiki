@@ -1,4 +1,23 @@
 #sidebar TableOfContents
 
 == Exceptions ==
-TODO talk about what are the most common error cases and how users could manage them
+There are a few error cases you might step into. Let's analyze them.<br/>
+<br/>
+Basically error cases in DHEV are managed throwing a _com.dhev.exception.EvaluationException_. It extends java.lang.RuntimeException so it's an unchecked exception, and it brings a message which should tell you what went wrong. You will get this exception in the following cases:
+  * *wrong EL*: the bit of expression language you wrote is wrong, for example the name of the bean you're referencing is wrong. This might happen because of typos, or because you change bean names and forget to update this, or whatever reason. (you could reduce this kind of errors by using a plugin to work with seam. [http://www.jboss.org/tools JBoss Tools] are great for this)
+{{{
+@MinEL(value = "#{wrongName.minAge}")
+private Integer age;
+}}}
+  * *wrong return type*: when the EL evaluates to a type that is not what the validator expects. 
+{{{
+//User
+@MinEL(value = "#{systemConfiguration.minAge}")
+private Integer age;
+}}}
+{{{
+//SystemConfiguration
+public String getMinAge() {
+  return minAge.toString();
+}
+}}}
