@@ -12,5 +12,6 @@ TODO move this on its own page
 For example, enter 12 as age and click on register: you'll receive an error saying "User must be older than 18". Now scroll down and change the min age field from 18 to 12, then click on the button to update the configuration. Try again to use 12 as age: no error is returned this time!
 
 The application has been tested on jboss 4 and 5, either with jdk 5 and 6, with no problems.
+
   * integration with seam and hibernate validator
   * summary table
