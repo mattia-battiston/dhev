@@ -41,3 +41,5 @@ What we've done in the tutorial application, and that also suggest you to do, is
 </body>
 <!-- ... -->
 }}}
+<br/>
+[http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialException1.png]
