@@ -21,3 +21,23 @@ public String getMinAge() {
   return minAge.toString();
 }
 }}}
+<br/>
+What we've done in the tutorial application, and that also suggest you to do, is to add a rule in the pages.xml to intercept EvaluationException and send it to an error page which displays the error message:
+{{{
+<!-- pages.xml -->
+<exception class="com.dhev.exception.EvaluationException">
+   <redirect view-id="/error.seam">
+      <message severity="ERROR">#{org.jboss.seam.handledException}</message>
+   </redirect>
+</exception>
+}}}
+{{{
+<!-- error.xhtml -->
+<!-- ... -->
+<body>
+
+<h:messages />
+
+</body>
+<!-- ... -->
+}}}
