@@ -95,3 +95,6 @@ Redeploy the app and play a bit: you can now update the configuration and see th
 [http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation3.png]
 [http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation4.png]
 [http://dhev.googlecode.com/svn/trunk/site/resource/images/TutorialFirstValidation5.png]
+
+=== Keep it simple... ===
+TODO
