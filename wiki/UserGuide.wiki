@@ -10,14 +10,14 @@
 || BeforeEL || value<br/>includeLimit<br/>message || validator.before || date must be before a certain value: date <= _value_ || ||
 || DecimalMaxEL || value<br/>includeLimit<br/>message || validator.max || max value for a decimal number: number <= _value_ || ||
 || DecimalMinEL || value<br/>includeLimit<br/>message || validator.min || min value for a decimal number: number >= _value_ || ||
-|| DecimalRangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || value must be in this range, aka between min and max: _min_ <= number <= _max_ || ||
+|| DecimalRangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || decimal number must be in this range, aka between min and max: _min_ <= number <= _max_ || ||
 || DigitsEL || maxIntegerDigits<br/>minIntegerDigits<br/>maxFractionalDigits<br/>minFractionalDigits<br/>message|| validator.digits || || ||
 || LengthEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.length || length of a string must be between min and max: _min_ <= string.length <= _max_ || ||
-|| MaxEL || value<br/>includeLimit<br/>message || validator.max || || ||
-|| MinEL || value<br/>includeLimit<br/>message || validator.min || || ||
-|| PatternEL || regex<br/>flags<br/>message<br/> || validator.pattern || || ||
-|| RangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || || ||
-|| SizeEL || min<br/>max<br/>message || validator.size || || ||
+|| MaxEL || value<br/>includeLimit<br/>message || validator.max || max value for an integer number: number <= _value_ || ||
+|| MinEL || value<br/>includeLimit<br/>message || validator.min || min value for an integer number: number >= _value_ || ||
+|| PatternEL || regex<br/>flags<br/>message<br/> || validator.pattern || verify that a string matches a pattern || ||
+|| RangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || integer number must be in this range, aka between min and max: _min_ <= number <= _max_ || ||
+|| SizeEL || min<br/>max<br/>message || validator.size || size of a collection must be between min and max: _min_ <= collection.size <= _max_ || ||
 
 ==The DHEV sample application==
 TODO move this on its own page
