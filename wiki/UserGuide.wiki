@@ -4,8 +4,8 @@
 = User Guide =
 
 ==DHEV Validators==
-||*Validator*||*Params*||*Message*||*Description*||*Example*||
-||MinEL||value||validator.min||minimum value for an interger number||example||
+|| *Validator* || *Params* || *Message* || *Description* || *Example* ||
+||MinEL||value||validator.min||minimum value for an integer number||example||
 
 
 ==The DHEV sample application==
