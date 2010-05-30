@@ -18,11 +18,3 @@
 || PatternEL || regex<br/>flags<br/>message<br/> || validator.pattern || verify that a string matches a pattern ||
 || RangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || integer number must be in this range, aka between min and max: _min_ <= number <= _max_ ||
 || SizeEL || min<br/>max<br/>message || validator.size || size of a collection must be between min and max: _min_ <= collection.size <= _max_ ||
-
-==The DHEV sample application==
-TODO move this on its own page
-For example, enter 12 as age and click on register: you'll receive an error saying "User must be older than 18". Now scroll down and change the min age field from 18 to 12, then click on the button to update the configuration. Try again to use 12 as age: no error is returned this time!
-
-
-
-==DHEV, Seam and Hibernate validator==
