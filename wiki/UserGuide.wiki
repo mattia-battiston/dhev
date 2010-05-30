@@ -3,7 +3,7 @@
 
 = User Guide =
 
-==Summary table==
+==DHEV Validators==
 TODO table with: Validator, Descriptions, Params, Default Message, Example
 
 
@@ -13,5 +13,4 @@ For example, enter 12 as age and click on register: you'll receive an error sayi
 
 The application has been tested on jboss 4 and 5, either with jdk 5 and 6, with no problems.
 
-  * integration with seam and hibernate validator
-  * summary table
+==DHEV, Seam and Hibernate validator==
