@@ -5,8 +5,19 @@
 
 ==DHEV Validators==
 || *Validator* || *Params* || *Message* || *Description* || *Example* ||
-||MinEL||value||validator.min||minimum value for an integer number||example||
-
+|| AfterEL || value<br/>includeLimit<br/>message || validator.after || || ||
+|| AssertEL || value<br/>message || || || ||
+|| BeforeEL || value<br/>includeLimit<br/>message || || || ||
+|| DecimalMaxEL || value<br/>includeLimit<br/>message || || || ||
+|| DecimalMinEL || value<br/>includeLimit<br/>message || || || ||
+|| DecimalRangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || || || ||
+|| DigitsEL || maxIntegerDigits<br/>minIntegerDigits<br/>maxFractionalDigits<br/>minFractionalDigits<br/>message|| || || ||
+|| LengthEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || || || ||
+|| MaxEL || value<br/>includeLimit<br/>message || || || ||
+|| MinEL || value<br/>includeLimit<br/>message || || || ||
+|| PatternEL || regex<br/>flags<br/>message<br/> || || || ||
+|| RangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || || || ||
+|| SizeEL || min<br/>max<br/>message || || || ||
 
 ==The DHEV sample application==
 TODO move this on its own page
