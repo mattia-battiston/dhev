@@ -11,7 +11,7 @@
 || DecimalMaxEL || value<br/>includeLimit<br/>message || validator.max || max value for a decimal number: number <= _value_ || ||
 || DecimalMinEL || value<br/>includeLimit<br/>message || validator.min || min value for a decimal number: number >= _value_ || ||
 || DecimalRangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || decimal number must be in this range, aka between min and max: _min_ <= number <= _max_ || ||
-|| DigitsEL || maxIntegerDigits<br/>minIntegerDigits<br/>maxFractionalDigits<br/>minFractionalDigits<br/>message|| validator.digits || || ||
+|| DigitsEL || maxIntegerDigits<br/>minIntegerDigits<br/>maxFractionalDigits<br/>minFractionalDigits<br/>message|| validator.digits || numeric field must have a number of integer and fractional digits in certain ranges || ||
 || LengthEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.length || length of a string must be between min and max: _min_ <= string.length <= _max_ || ||
 || MaxEL || value<br/>includeLimit<br/>message || validator.max || max value for an integer number: number <= _value_ || ||
 || MinEL || value<br/>includeLimit<br/>message || validator.min || min value for an integer number: number >= _value_ || ||
