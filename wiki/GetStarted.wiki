@@ -56,7 +56,8 @@ In the dhev-all-x.x.x.zip is included a sample application which gives a good de
   * *Ant*: edit /sample/build.properties and change the _jboss.dir_ and _jboss.server_ properties to that they point to your jboss installation. Then open a console in the /sample folder and type "ant deploy"
 Browse to http://localhost:8080/dhev-example/ and you should see the application up and running!
 
-The application is a simulation of a registration form for a user, where he has to enter all his data. The top part is the form that the user should fill, and that gets validated. The bottom part is the configuration of the validation: change those values and see that the validation changes! For more info and details see the user guide or read the tutorial.
+The application is a simulation of a registration form for a user, where he has to enter all his data. The top part is the form that the user should fill, and that gets validated. The bottom part is the configuration of the validation: change those values and see that the validation changes! For more info and details read the tutorial.
+The application has been tested on jboss 4 and 5, either with jdk 5 and 6, with no problems.
 
 ----
 ==Only for Seam?==
