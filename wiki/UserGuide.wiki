@@ -4,25 +4,25 @@
 = User Guide =
 
 ==DHEV Validators==
-|| *Validator* || *Params* || *Message* || *Description* || *Example* ||
-|| AfterEL || value<br/>includeLimit<br/>message || validator.after || date must be after a certain value: date >= _value_ || ||
-|| AssertEL || value<br/>message || validator.assert || verifies a boolean value is true|false: booleanField == _value_ || ||
-|| BeforeEL || value<br/>includeLimit<br/>message || validator.before || date must be before a certain value: date <= _value_ || ||
-|| DecimalMaxEL || value<br/>includeLimit<br/>message || validator.max || max value for a decimal number: number <= _value_ || ||
-|| DecimalMinEL || value<br/>includeLimit<br/>message || validator.min || min value for a decimal number: number >= _value_ || ||
-|| DecimalRangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || decimal number must be in this range, aka between min and max: _min_ <= number <= _max_ || ||
-|| DigitsEL || maxIntegerDigits<br/>minIntegerDigits<br/>maxFractionalDigits<br/>minFractionalDigits<br/>message|| validator.digits || numeric field must have a number of integer and fractional digits in certain ranges || ||
-|| LengthEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.length || length of a string must be between min and max: _min_ <= string.length <= _max_ || ||
-|| MaxEL || value<br/>includeLimit<br/>message || validator.max || max value for an integer number: number <= _value_ || ||
-|| MinEL || value<br/>includeLimit<br/>message || validator.min || min value for an integer number: number >= _value_ || ||
-|| PatternEL || regex<br/>flags<br/>message<br/> || validator.pattern || verify that a string matches a pattern || ||
-|| RangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || integer number must be in this range, aka between min and max: _min_ <= number <= _max_ || ||
-|| SizeEL || min<br/>max<br/>message || validator.size || size of a collection must be between min and max: _min_ <= collection.size <= _max_ || ||
+|| *Validator* || *Params* || *Message* || *Description* ||
+|| AfterEL || value<br/>includeLimit<br/>message || validator.after || date must be after a certain value: date >= _value_ ||
+|| AssertEL || value<br/>message || validator.assert || verifies a boolean value is true|false: booleanField == _value_ ||
+|| BeforeEL || value<br/>includeLimit<br/>message || validator.before || date must be before a certain value: date <= _value_ || 
+|| DecimalMaxEL || value<br/>includeLimit<br/>message || validator.max || max value for a decimal number: number <= _value_ ||
+|| DecimalMinEL || value<br/>includeLimit<br/>message || validator.min || min value for a decimal number: number >= _value_ ||
+|| DecimalRangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || decimal number must be in this range, aka between min and max: _min_ <= number <= _max_ ||
+|| DigitsEL || maxIntegerDigits<br/>minIntegerDigits<br/>maxFractionalDigits<br/>minFractionalDigits<br/>message|| validator.digits || numeric field must have a number of integer and fractional digits in certain ranges ||
+|| LengthEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.length || length of a string must be between min and max: _min_ <= string.length <= _max_ ||
+|| MaxEL || value<br/>includeLimit<br/>message || validator.max || max value for an integer number: number <= _value_ ||
+|| MinEL || value<br/>includeLimit<br/>message || validator.min || min value for an integer number: number >= _value_ ||
+|| PatternEL || regex<br/>flags<br/>message<br/> || validator.pattern || verify that a string matches a pattern ||
+|| RangeEL || min<br/>max<br/>includeMin<br/>includeMax<br/>message || validator.range || integer number must be in this range, aka between min and max: _min_ <= number <= _max_ ||
+|| SizeEL || min<br/>max<br/>message || validator.size || size of a collection must be between min and max: _min_ <= collection.size <= _max_ ||
 
 ==The DHEV sample application==
 TODO move this on its own page
 For example, enter 12 as age and click on register: you'll receive an error saying "User must be older than 18". Now scroll down and change the min age field from 18 to 12, then click on the button to update the configuration. Try again to use 12 as age: no error is returned this time!
 
-The application has been tested on jboss 4 and 5, either with jdk 5 and 6, with no problems.
+
 
 ==DHEV, Seam and Hibernate validator==
